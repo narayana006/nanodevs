@@ -1,0 +1,36 @@
+lite     success                      passed                       contract=True
+lite     wrong_then_correct           passed                       contract=True
+lite     malformed_then_correct       passed                       contract=True
+lite     truncated_then_correct       passed                       contract=True
+lite     syntax_then_correct          passed                       contract=True
+lite     boundary_then_correct        passed                       contract=True
+lite     timeout_then_correct         passed                       contract=True
+lite     all_wrong                    candidate_budget_exhausted   contract=True
+lite     hidden_overfit               failed_hidden                contract=True
+lite     model_error_then_correct     passed                       contract=True
+standard success                      passed                       contract=True
+standard wrong_then_correct           passed                       contract=True
+standard malformed_then_correct       passed                       contract=True
+standard truncated_then_correct       passed                       contract=True
+standard syntax_then_correct          passed                       contract=True
+standard boundary_then_correct        passed                       contract=True
+standard timeout_then_correct         passed                       contract=True
+standard all_wrong                    candidate_budget_exhausted   contract=True
+standard hidden_overfit               failed_hidden                contract=True
+standard model_error_then_correct     passed                       contract=True
+{
+  "lite": {
+    "fixtures_run": 10,
+    "contracts_satisfied": 10,
+    "max_observed_container_peak_bytes": 26513408,
+    "total_task_seconds": 4.148483209952246,
+    "model_pass_rate": null
+  },
+  "standard": {
+    "fixtures_run": 10,
+    "contracts_satisfied": 10,
+    "max_observed_container_peak_bytes": 26370048,
+    "total_task_seconds": 4.087691961089149,
+    "model_pass_rate": null
+  }
+}

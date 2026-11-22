@@ -1,0 +1,9 @@
+[project]
+name = "tinycoder"
+version = "0.1.0"
+description = "A fixed-recipe, resource-capped Python coding experiment"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.uv]
+package = false

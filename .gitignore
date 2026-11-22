@@ -1,0 +1,16 @@
+.venv/
+.uv-cache/
+__pycache__/
+*.pyc
+models/
+assets/
+.tmp/
+phase0/tmp/
+phase0/*.log
+phase0/results_invalid/
+.venv-convert/
+tools/
+train/adapters/
+specialists/*/tmp/
+specialists/*/.tmp/
+*.log

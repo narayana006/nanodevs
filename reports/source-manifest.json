@@ -1,0 +1,16 @@
+{
+  "tinycoder/__init__.py": "1c084872a39a9962d81316426681c7f71ce3946654854af7ec7421f3c86d756b",
+  "tinycoder/__main__.py": "e1cf3a69db5311c119d90907875b2e6b4333091c026934a64b648a058530bcc8",
+  "tinycoder/checks.py": "ba6176b9f26b4e3b9601e879e7f0c46a4573c0b5767958b147e943054bbdded9",
+  "tinycoder/context.py": "fe80a831b5e9576777b7124d79d56523627f666f51bed2819d04735943f3f151",
+  "tinycoder/fixtures.py": "86be533e2832cd490e681b21987804778ce6a667f0d8536620f408ceda9e00ea",
+  "tinycoder/harness.py": "0fb2fbe9d8067013ad03de7fcf903c94f760568db6f5d40efd73dfa0becaf37d",
+  "tinycoder/models.py": "e779555416cbd79564b584f2fef2d7290b7bd99ff831d1a539caf547b57bec05",
+  "tinycoder/resources.py": "8e03d4da13e0f46c299da209b27c8e333902a7f7f76e067a5aaf059531b39cba",
+  "tinycoder/worker.py": "f816bcd0db5782c26fb7e935f16bdf36351353fd4ab55c6c9baf2207691b4b0b",
+  "scripts/run_docker.py": "1a73b27a73f454dd504192e9e6f4ad1585871b179d27a60d5e1769ea146a24fd",
+  "tests/test_docker_reporting.py": "f6e91a98016034feeeade5018c1f7415f40b2215a3bc509f03dcadf2a4155ab7",
+  "tests/test_harness.py": "40a85a22fa3a37b2e6ed72eb3ecb23843f514dd175b6d8f930161a4749e01d70",
+  "contracts/evaluation-plan.json": "017b7b18e91881b244d361088f7065cb378d7e7df674245a9d2ccd452a2bd6db",
+  "contracts/output.schema.json": "fb34d85c3ed5d61a58fcc3a07da4623fbbf09435dd79c4d54b4432717b6c354c"
+}

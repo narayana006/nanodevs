@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "phase": "fake_pipeline_only",
+  "model_accuracy_measured": false,
+  "skills_enabled": [
+    "bugfix"
+  ],
+  "tiers": {
+    "lite": {
+      "memory_bytes": 2147483648,
+      "cpus": 2,
+      "swap_bytes": 0
+    },
+    "standard": {
+      "memory_bytes": 4294967296,
+      "cpus": 2,
+      "swap_bytes": 0
+    }
+  },
+  "proposed_real_evaluation": {
+    "benchmark": "jkoppel/QuixBugs",
+    "benchmark_assets_present": false,
+    "benchmark_revision": null,
+    "selection_frozen": false,
+    "target_tasks": 10,
+    "selection_rule": "After approved asset acquisition: sort eligible IDs, sample 10 without replacement using seed 1729, save IDs and hashes before loading a model. Never substitute tasks based on outcomes.",
+    "eligibility": [
+      "Python algorithm with a known target function and offline tests",
+      "AST-selected dependency context fits at most 50 source lines",
+      "Self-contained or standard-library dependencies only",
+      "The unchanged buggy version fails development tests",
+      "Reference passes both development and independently checked hidden tests"
+    ],
+    "development_hidden_split": "Freeze before model evaluation; hidden checks run once on the first candidate accepted by development checks, and never drive sampling or repairs.",
+    "candidate_budget": 10,
+    "repair_rounds": 0,
+    "repair_policy": "Fresh samples only in step 1. A later repair ablation may use at most 2 rounds within the same total generation budget.",
+    "cards": "No cards in the first baseline; matched-budget cards/no-cards comparison later.",
+    "decision_gate": "At least 30 percent task success per tier is a pilot continuation signal, with raw counts and uncertainty; do not average a failing tier away.",
+    "memory_accounting": "Model must execute inside the same task cgroup. Disable mmap for private weight allocation, or independently validate accounting of shared file-backed pages. Count OOMs/timeouts. Record cold-start/load time separately and include it in total task time."
+  }
+}

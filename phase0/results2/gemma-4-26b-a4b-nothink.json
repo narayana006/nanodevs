@@ -1,0 +1,468 @@
+{
+ "model": "gemma-4-26b-a4b-nothink",
+ "k": 3,
+ "results": [
+  {
+   "id": "fix_pricing_cart",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 1.8,
+     "tokens": 63,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_lru_recency",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 4.7,
+     "tokens": 170,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_calc_assoc",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 10.7,
+     "tokens": 355,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_csv_quotes",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 7.5,
+     "tokens": 248,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_token_bucket",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 4.8,
+     "tokens": 148,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_graph_undirected",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 4.4,
+     "tokens": 107,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_paginate",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 9.5,
+     "tokens": 282,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_wrap_width",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 5.1,
+     "tokens": 144,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_leap_calendar",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 5.9,
+     "tokens": 169,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_transfer_rollback",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 8.0,
+     "tokens": 230,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "write_evaluate",
+   "kind": "write",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "gen_seconds": 27.4,
+     "tokens": 986,
+     "detail": "Traceback (most recent call last):\n  File \"/w/test_hidden.py\", line 12, in <module>\n    assert evaluate(\"--3\") == 3\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+     "i": 2,
+     "passed": false,
+     "gen_seconds": 39.6,
+     "tokens": 1511,
+     "detail": "l last):\n  File \"/w/test_hidden.py\", line 1, in <module>\n    from solution import evaluate\n  File \"/w/solution.py\", line 11\n    tokens = re layers_regex = re.compile(r'\\d+\\.\\d+|\\d+|[+\\-*/()]')\n                ^^^^^^^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+     "i": 3,
+     "passed": false,
+     "gen_seconds": 42.1,
+     "tokens": 1511,
+     "detail": "l last):\n  File \"/w/test_hidden.py\", line 1, in <module>\n    from solution import evaluate\n  File \"/w/solution.py\", line 11\n    tokens = re layers_regex = re.compile(r'\\d+\\.\\d+|\\d+|[+\\-*/()]')\n                ^^^^^^^^^^^^\nSyntaxError: invalid syntax\n"
+    }
+   ]
+  },
+  {
+   "id": "write_topo_sort",
+   "kind": "write",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 10.2,
+     "tokens": 376,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "write_lru_cache",
+   "kind": "write",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 7.9,
+     "tokens": 284,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "write_dijkstra",
+   "kind": "write",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 5.9,
+     "tokens": 207,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "write_parse_duration",
+   "kind": "write",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 15.8,
+     "tokens": 602,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "write_sliding_window",
+   "kind": "write",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 5.5,
+     "tokens": 198,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "write_trie",
+   "kind": "write",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 13.3,
+     "tokens": 514,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "write_get_path",
+   "kind": "write",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 9.6,
+     "tokens": 358,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "feat_cart_coupons",
+   "kind": "feature",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 12.1,
+     "tokens": 412,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "feat_retry_backoff",
+   "kind": "feature",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 7.3,
+     "tokens": 223,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "feat_todo_priority",
+   "kind": "feature",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 9.9,
+     "tokens": 361,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "feat_logger_levels",
+   "kind": "feature",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 10.7,
+     "tokens": 404,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "feat_matrix_ops",
+   "kind": "feature",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 15.6,
+     "tokens": 592,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "feat_config_env",
+   "kind": "feature",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 10.0,
+     "tokens": 367,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "tests_calendar",
+   "kind": "tests",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 15.4,
+     "tokens": 593,
+     "detail": "mutants survived: 0/3"
+    }
+   ]
+  },
+  {
+   "id": "tests_numutil",
+   "kind": "tests",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 13.9,
+     "tokens": 548,
+     "detail": "mutants survived: 0/4"
+    }
+   ]
+  },
+  {
+   "id": "tests_bounded_stack",
+   "kind": "tests",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 13.0,
+     "tokens": 492,
+     "detail": "mutants survived: 0/4"
+    }
+   ]
+  },
+  {
+   "id": "tests_top_words",
+   "kind": "tests",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "gen_seconds": 14.0,
+     "tokens": 530,
+     "detail": "fails on the correct module:  in <module>\n    test_top_words()\n  File \"/w/test_solution.py\", line 19, in test_top_words\n    assert top_words(\"It's a test! 123 test.\", n=2) == [\"test\", \"it's\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+     "i": 2,
+     "passed": false,
+     "gen_seconds": 14.3,
+     "tokens": 542,
+     "detail": "fails on the correct module:  (most recent call last):\n  File \"/w/test_solution.py\", line 42, in <module>\n    test_top_words()\n  File \"/w/test_solution.py\", line 33, in test_top_words\n    assert top_words(\"a b c\", -1) == []\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+     "i": 3,
+     "passed": false,
+     "gen_seconds": 13.7,
+     "tokens": 542,
+     "detail": "fails on the correct module:  (most recent call last):\n  File \"/w/test_solution.py\", line 42, in <module>\n    test_top_words()\n  File \"/w/test_solution.py\", line 33, in test_top_words\n    assert top_words(\"a b c\", -1) == []\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    }
+   ]
+  },
+  {
+   "id": "tests_bank",
+   "kind": "tests",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 27.8,
+     "tokens": 1027,
+     "detail": "mutants survived: 0/4"
+    }
+   ]
+  },
+  {
+   "id": "tests_textutil",
+   "kind": "tests",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "gen_seconds": 14.7,
+     "tokens": 556,
+     "detail": "fails on the correct module: tion.py\", line 56, in <module>\n    test_truncate()\n  File \"/w/test_solution.py\", line 42, in test_truncate\n    assert truncate(\"Hello World\", 8, suffix=\"!!\") == \"Hello!!\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+     "i": 2,
+     "passed": false,
+     "gen_seconds": 14.4,
+     "tokens": 547,
+     "detail": "fails on the correct module: tion.py\", line 55, in <module>\n    test_truncate()\n  File \"/w/test_solution.py\", line 36, in test_truncate\n    assert truncate(\"Hello World\", 8, suffix=\"!!\") == \"Hello!!\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+     "i": 3,
+     "passed": false,
+     "gen_seconds": 13.7,
+     "tokens": 547,
+     "detail": "fails on the correct module: tion.py\", line 55, in <module>\n    test_truncate()\n  File \"/w/test_solution.py\", line 36, in test_truncate\n    assert truncate(\"Hello World\", 8, suffix=\"!!\") == \"Hello!!\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    }
+   ]
+  }
+ ]
+}

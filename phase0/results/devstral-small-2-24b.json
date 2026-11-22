@@ -1,0 +1,273 @@
+{
+ "model": "devstral-small-2-24b",
+ "k": 5,
+ "results": [
+  {
+   "id": "fizzbuzz",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 15.6,
+     "tokens": 96,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "is_palindrome",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 7.8,
+     "tokens": 39,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "binary_search",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 15.1,
+     "tokens": 89,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "flatten",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 8.8,
+     "tokens": 45,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "merge_sorted",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 16.5,
+     "tokens": 92,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "moving_average",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 8.9,
+     "tokens": 41,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "word_count",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 11.3,
+     "tokens": 58,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "max_subarray",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 10.7,
+     "tokens": 52,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "chunk",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 8.2,
+     "tokens": 34,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "roman_to_int",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 20.9,
+     "tokens": 127,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "dedupe_keep_order",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 10.9,
+     "tokens": 49,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "gcd",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 8.5,
+     "tokens": 42,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "rotate_left",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 8.5,
+     "tokens": 40,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "parse_kv",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 12.2,
+     "tokens": 64,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "balanced",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 14.9,
+     "tokens": 87,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "top_k",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 5.7,
+     "tokens": 23,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "transpose",
+   "solved_at": 2,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "gen_seconds": 8.7,
+     "tokens": 39,
+     "tail": "Traceback (most recent call last):\n  File \"/w/main.py\", line 5, in <module>\n    assert transpose([[1, 2], [3, 4]]) == [[1, 3], [2, 4]]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+     "i": 2,
+     "passed": true,
+     "gen_seconds": 5.1,
+     "tokens": 39,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "compound_interest",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 8.4,
+     "tokens": 33,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "min_stack",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 22.0,
+     "tokens": 138,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "merge_intervals",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 13.4,
+     "tokens": 70,
+     "tail": ""
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,141 @@
+# full run (first pass), then re-run of the 2 families whose negative references were fixed
+ok      dbg_page_bounds_1                 easy    off-by-one
+ok      dbg_page_bounds_2                 easy    off-by-one
+ok      dbg_page_bounds_3                 easy    off-by-one
+ok      dbg_page_bounds_4                 easy    off-by-one
+ok      dbg_retry_default_1               easy    wrong default
+ok      dbg_retry_default_2               easy    wrong default
+ok      dbg_retry_default_3               easy    wrong default
+ok      dbg_retry_default_4               easy    wrong default
+ok      dbg_tally_default_1               easy    mutated shared state
+ok      dbg_tally_default_2               easy    mutated shared state
+ok      dbg_tally_default_3               easy    mutated shared state
+ok      dbg_tally_default_4               easy    mutated shared state
+ok      dbg_grid_alias_1                  easy    aliasing
+ok      dbg_grid_alias_2                  easy    aliasing
+ok      dbg_grid_alias_3                  easy    aliasing
+ok      dbg_grid_alias_4                  easy    aliasing
+ok      dbg_to_ms_1                       easy    wrong unit
+ok      dbg_to_ms_2                       easy    wrong unit
+ok      dbg_to_ms_3                       easy    wrong unit
+ok      dbg_to_ms_4                       easy    wrong unit
+ok      dbg_reserve_swallow_1             easy    incorrect exception handling
+ok      dbg_reserve_swallow_2             easy    incorrect exception handling
+ok      dbg_reserve_swallow_3             easy    incorrect exception handling
+ok      dbg_reserve_swallow_4             easy    incorrect exception handling
+ok      dbg_nickname_none_1               easy    wrong type/None handling
+ok      dbg_nickname_none_2               easy    wrong type/None handling
+ok      dbg_nickname_none_3               easy    wrong type/None handling
+ok      dbg_nickname_none_4               easy    wrong type/None handling
+ok      dbg_leaderboard_order_1           easy    incorrect ordering
+ok      dbg_leaderboard_order_2           easy    incorrect ordering
+ok      dbg_leaderboard_order_3           easy    incorrect ordering
+ok      dbg_leaderboard_order_4           easy    incorrect ordering
+ok      dbg_moving_avg_1                  medium  off-by-one
+ok      dbg_moving_avg_2                  medium  off-by-one
+ok      dbg_moving_avg_3                  medium  off-by-one
+ok      dbg_moving_avg_4                  medium  off-by-one
+ok      dbg_csv_qty_str_1                 medium  wrong type/None handling
+ok      dbg_csv_qty_str_2                 medium  wrong type/None handling
+ok      dbg_csv_qty_str_3                 medium  wrong type/None handling
+ok      dbg_csv_qty_str_4                 medium  wrong type/None handling
+ok      dbg_median_inplace_1              medium  mutated shared state
+PROBLEM dbg_median_inplace_2: negative reference should pass the visible test
+ok      dbg_median_inplace_3              medium  mutated shared state
+ok      dbg_median_inplace_4              medium  mutated shared state
+ok      dbg_cache_put_1                   medium  stale cache
+ok      dbg_cache_put_2                   medium  stale cache
+ok      dbg_cache_put_3                   medium  stale cache
+ok      dbg_cache_put_4                   medium  stale cache
+ok      dbg_tax_half_even_1               medium  timezone/rounding
+ok      dbg_tax_half_even_2               medium  timezone/rounding
+ok      dbg_tax_half_even_3               medium  timezone/rounding
+ok      dbg_tax_half_even_4               medium  timezone/rounding
+ok      dbg_tz_sign_1                     medium  timezone/rounding
+ok      dbg_tz_sign_2                     medium  timezone/rounding
+ok      dbg_tz_sign_3                     medium  timezone/rounding
+ok      dbg_tz_sign_4                     medium  timezone/rounding
+ok      dbg_codec_latin1_1                medium  encoding
+ok      dbg_codec_latin1_2                medium  encoding
+ok      dbg_codec_latin1_3                medium  encoding
+ok      dbg_codec_latin1_4                medium  encoding
+ok      dbg_wired_pool_1                  medium  mis-wired config
+ok      dbg_wired_pool_2                  medium  mis-wired config
+ok      dbg_wired_pool_3                  medium  mis-wired config
+ok      dbg_wired_pool_4                  medium  mis-wired config
+ok      dbg_tax_percent_1                 medium  wrong unit
+ok      dbg_tax_percent_2                 medium  wrong unit
+ok      dbg_tax_percent_3                 medium  wrong unit
+ok      dbg_tax_percent_4                 medium  wrong unit
+ok      dbg_retry_fatal_1                 medium  incorrect exception handling
+ok      dbg_retry_fatal_2                 medium  incorrect exception handling
+ok      dbg_retry_fatal_3                 medium  incorrect exception handling
+ok      dbg_retry_fatal_4                 medium  incorrect exception handling
+PROBLEM dbg_shallow_cfg_1: negative reference should pass the visible test
+PROBLEM dbg_shallow_cfg_2: negative reference should pass the visible test
+PROBLEM dbg_shallow_cfg_3: negative reference should pass the visible test
+PROBLEM dbg_shallow_cfg_4: negative reference should pass the visible test
+ok      dbg_step_order_1                  medium  incorrect ordering
+ok      dbg_step_order_2                  medium  incorrect ordering
+ok      dbg_step_order_3                  medium  incorrect ordering
+ok      dbg_step_order_4                  medium  incorrect ordering
+ok      dbg_min_score_default_1           medium  wrong default
+ok      dbg_min_score_default_2           medium  wrong default
+ok      dbg_min_score_default_3           medium  wrong default
+ok      dbg_min_score_default_4           medium  wrong default
+ok      dbg_versioned_cache_1             hard    stale cache
+ok      dbg_versioned_cache_2             hard    stale cache
+ok      dbg_versioned_cache_3             hard    stale cache
+ok      dbg_versioned_cache_4             hard    stale cache
+ok      dbg_class_added_1                 hard    mutated shared state
+ok      dbg_class_added_2                 hard    mutated shared state
+ok      dbg_class_added_3                 hard    mutated shared state
+ok      dbg_class_added_4                 hard    mutated shared state
+ok      dbg_alloc_remainder_1             hard    timezone/rounding
+ok      dbg_alloc_remainder_2             hard    timezone/rounding
+ok      dbg_alloc_remainder_3             hard    timezone/rounding
+ok      dbg_alloc_remainder_4             hard    timezone/rounding
+ok      dbg_limiter_wiring_1              hard    mis-wired config
+ok      dbg_limiter_wiring_2              hard    mis-wired config
+ok      dbg_limiter_wiring_3              hard    mis-wired config
+ok      dbg_limiter_wiring_4              hard    mis-wired config
+ok      dbg_chunk_tail_1                  hard    off-by-one
+ok      dbg_chunk_tail_2                  hard    off-by-one
+ok      dbg_chunk_tail_3                  hard    off-by-one
+ok      dbg_chunk_tail_4                  hard    off-by-one
+ok      dbg_falsy_zero_1                  hard    wrong type/None handling
+ok      dbg_falsy_zero_2                  hard    wrong type/None handling
+ok      dbg_falsy_zero_3                  hard    wrong type/None handling
+ok      dbg_falsy_zero_4                  hard    wrong type/None handling
+ok      dbg_txn_swallow_1                 hard    incorrect exception handling
+ok      dbg_txn_swallow_2                 hard    incorrect exception handling
+ok      dbg_txn_swallow_3                 hard    incorrect exception handling
+ok      dbg_txn_swallow_4                 hard    incorrect exception handling
+ok      dbg_undo_alias_1                  hard    aliasing
+ok      dbg_undo_alias_2                  hard    aliasing
+ok      dbg_undo_alias_3                  hard    aliasing
+ok      dbg_undo_alias_4                  hard    aliasing
+ok      dbg_nfc_keys_1                    hard    encoding
+ok      dbg_nfc_keys_2                    hard    encoding
+ok      dbg_nfc_keys_3                    hard    encoding
+ok      dbg_nfc_keys_4                    hard    encoding
+ok      dbg_version_sort_1                hard    incorrect ordering
+ok      dbg_version_sort_2                hard    incorrect ordering
+ok      dbg_version_sort_3                hard    incorrect ordering
+ok      dbg_version_sort_4                hard    incorrect ordering
+
+119/124 tasks valid
+
+# re-run after fix
+ok      dbg_median_inplace_1              medium  mutated shared state
+ok      dbg_median_inplace_2              medium  mutated shared state
+ok      dbg_median_inplace_3              medium  mutated shared state
+ok      dbg_median_inplace_4              medium  mutated shared state
+
+4/4 tasks valid
+ok      dbg_shallow_cfg_1                 medium  aliasing
+ok      dbg_shallow_cfg_2                 medium  aliasing
+ok      dbg_shallow_cfg_3                 medium  aliasing
+ok      dbg_shallow_cfg_4                 medium  aliasing
+
+4/4 tasks valid

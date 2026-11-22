@@ -1,0 +1,3041 @@
+{
+  "schema_version": 1,
+  "mode": "fake_pipeline_only",
+  "model_pass_rate": null,
+  "decision_gate": "not_evaluated_no_real_model",
+  "created_at_utc": "2026-11-21T03:14:14.172775+00:00",
+  "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+  "image_reference": "ghcr.io/narayana006/incident-rehearsal-lab:0.1.0",
+  "docker": {
+    "Client": {
+      "CloudIntegration": "v1.0.35+desktop.10",
+      "Version": "25.0.3",
+      "ApiVersion": "1.44",
+      "DefaultAPIVersion": "1.44",
+      "GitCommit": "4debf41",
+      "GoVersion": "go1.21.6",
+      "Os": "darwin",
+      "Arch": "arm64",
+      "BuildTime": "Tue Feb  6 21:13:26 2024",
+      "Context": "desktop-linux"
+    },
+    "Server": {
+      "Platform": {
+        "Name": "Docker Desktop 4.27.2 (137060)"
+      },
+      "Components": [
+        {
+          "Name": "Engine",
+          "Version": "25.0.3",
+          "Details": {
+            "ApiVersion": "1.44",
+            "Arch": "arm64",
+            "BuildTime": "Tue Feb  6 21:14:22 2024",
+            "Experimental": "false",
+            "GitCommit": "f417435",
+            "GoVersion": "go1.21.6",
+            "KernelVersion": "6.6.12-linuxkit",
+            "MinAPIVersion": "1.24",
+            "Os": "linux"
+          }
+        },
+        {
+          "Name": "containerd",
+          "Version": "1.6.28",
+          "Details": {
+            "GitCommit": "ae07eda36dd25f8a1b98dfbf587313b99c0190bb"
+          }
+        },
+        {
+          "Name": "runc",
+          "Version": "1.1.12",
+          "Details": {
+            "GitCommit": "v1.1.12-0-g51d5e94"
+          }
+        },
+        {
+          "Name": "docker-init",
+          "Version": "0.19.0",
+          "Details": {
+            "GitCommit": "de40ad0"
+          }
+        }
+      ],
+      "Version": "25.0.3",
+      "ApiVersion": "1.44",
+      "MinAPIVersion": "1.24",
+      "GitCommit": "f417435",
+      "GoVersion": "go1.21.6",
+      "Os": "linux",
+      "Arch": "arm64",
+      "KernelVersion": "6.6.12-linuxkit",
+      "BuildTime": "2024-02-06T21:14:22.000000000+00:00"
+    }
+  },
+  "records": [
+    {
+      "tier": "lite",
+      "scenario": "success",
+      "result": {
+        "task_id": "fake-success",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.12801150098675862
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.12195412500295788
+        },
+        "selected_attempt": 1,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.12065187498228624
+        },
+        "seconds": 0.37130020902259275,
+        "first_attempt_success": true,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "lite",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 1,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "16293888",
+          "memory.current": "15925248",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 219714\nuser_usec 190215\nsystem_usec 29498\nnr_periods 3\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "25681920",
+          "memory.current": "15990784",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 476695\nuser_usec 408885\nsystem_usec 67810\nnr_periods 7\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "009bb89bc2ffa6e068b33f73ff035f46a2e6e89d178b056362ca842014d47bc7",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:14.51311871Z",
+          "FinishedAt": "2026-11-21T03:14:15.100818502Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 1.0185959579539485,
+        "limits": {
+          "memory": 2147483648,
+          "memory_swap_total": 2147483648,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "lite",
+      "scenario": "wrong_then_correct",
+      "result": {
+        "task_id": "fake-wrong_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "4c96da748dc78d639c1a85c741b89bd82080cc5e75365690e2fc97beacf2d993",
+            "status": "development_failed",
+            "development": {
+              "status": "failed",
+              "cases": 2,
+              "failures": [
+                {
+                  "case": 0,
+                  "reason": "value_mismatch",
+                  "actual": "1",
+                  "expected": "2"
+                },
+                {
+                  "case": 1,
+                  "reason": "value_mismatch",
+                  "actual": "4",
+                  "expected": "5"
+                }
+              ],
+              "seconds": 0.0732662079972215
+            }
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.12306770903524011
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.12141808395972475
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.12274591700406745
+        },
+        "seconds": 0.4412910410319455,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "lite",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "16203776",
+          "memory.current": "16076800",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 218972\nuser_usec 187546\nsystem_usec 31426\nnr_periods 3\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "25948160",
+          "memory.current": "16388096",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 532833\nuser_usec 463725\nsystem_usec 69108\nnr_periods 7\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "2a0d2b3f572765335ed390d5a7c492013a18fd853527bdb99ef6ef3ca3cd3240",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:15.49464021Z",
+          "FinishedAt": "2026-11-21T03:14:16.157215961Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.9791147920186631,
+        "limits": {
+          "memory": 2147483648,
+          "memory_swap_total": 2147483648,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "lite",
+      "scenario": "malformed_then_correct",
+      "result": {
+        "task_id": "fake-malformed_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "not JSON",
+            "truncated": false,
+            "status": "output_rejected",
+            "reason": "Invalid JSON: Expecting value: line 1 column 1 (char 0)"
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.11877354100579396
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.07921712496317923
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.12576258403714746
+        },
+        "seconds": 0.3244388339808211,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "lite",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "16482304",
+          "memory.current": "16113664",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 209682\nuser_usec 182464\nsystem_usec 27218\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "26267648",
+          "memory.current": "16887808",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 435158\nuser_usec 384908\nsystem_usec 50249\nnr_periods 6\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "d0afed136ff3bd33ca1a0a04a0a265cd73964f942b50b086f03376e8d922f8d0",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:16.550438044Z",
+          "FinishedAt": "2026-11-21T03:14:17.085111211Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.8704067090293393,
+        "limits": {
+          "memory": 2147483648,
+          "memory_swap_total": 2147483648,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "lite",
+      "scenario": "truncated_then_correct",
+      "result": {
+        "task_id": "fake-truncated_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def",
+            "truncated": true,
+            "status": "output_rejected",
+            "reason": "Generation was truncated"
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.1345504999626428
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.12536091700894758
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.12124799995217472
+        },
+        "seconds": 0.3818057080497965,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "lite",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "16752640",
+          "memory.current": "16379904",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 205996\nuser_usec 177722\nsystem_usec 28274\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "26513408",
+          "memory.current": "16855040",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 457520\nuser_usec 412485\nsystem_usec 45035\nnr_periods 6\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "75ade219631d146f394b6fe278cb85c19186833212b5831949b54dab5368298a",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:17.437532253Z",
+          "FinishedAt": "2026-11-21T03:14:18.029128378Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.8860943749896251,
+        "limits": {
+          "memory": 2147483648,
+          "memory_swap_total": 2147483648,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "lite",
+      "scenario": "syntax_then_correct",
+      "result": {
+        "task_id": "fake-syntax_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return (\\n\"}",
+            "truncated": false,
+            "status": "output_rejected",
+            "reason": "Invalid Python: '(' was never closed"
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.0765873750206083
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.07568491698475555
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.07383104198379442
+        },
+        "seconds": 0.2268560840166174,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "lite",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "16322560",
+          "memory.current": "15949824",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 206629\nuser_usec 185358\nsystem_usec 21270\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "26144768",
+          "memory.current": "16556032",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 417879\nuser_usec 384650\nsystem_usec 33228\nnr_periods 5\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "a5f9c8d7033d20fed6465c2128c4bed7a105985e3be5e9d42bede5f0b337152f",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:18.393804504Z",
+          "FinishedAt": "2026-11-21T03:14:18.83063242Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.7405982910422608,
+        "limits": {
+          "memory": 2147483648,
+          "memory_swap_total": 2147483648,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "lite",
+      "scenario": "boundary_then_correct",
+      "result": {
+        "task_id": "fake-boundary_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\\nimport os\\n\"}",
+            "truncated": false,
+            "status": "output_rejected",
+            "reason": "Output must contain only the target function"
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.12119358294876292
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.12014025001553819
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.12043587502557784
+        },
+        "seconds": 0.36257341696182266,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "lite",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "16199680",
+          "memory.current": "16080896",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 212842\nuser_usec 190755\nsystem_usec 22087\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "25915392",
+          "memory.current": "16478208",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 438133\nuser_usec 399032\nsystem_usec 39101\nnr_periods 6\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "95bde95cff0f785997e0ba6f6510f14514596a120f68a63a6f006fd790791864",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:19.185577421Z",
+          "FinishedAt": "2026-11-21T03:14:19.766333629Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.8859069590107538,
+        "limits": {
+          "memory": 2147483648,
+          "memory_swap_total": 2147483648,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "lite",
+      "scenario": "timeout_then_correct",
+      "result": {
+        "task_id": "fake-timeout_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    while True:\\n        pass\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "8d2475c22f59f66c79760d8e0fff360633858879835c874bc456d4d9e007126d",
+            "status": "development_timeout",
+            "development": {
+              "status": "timeout",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.5012874170206487
+            }
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.12108258297666907
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.12088320899056271
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.0741550840320997
+        },
+        "seconds": 0.8182664169580676,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "lite",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "16461824",
+          "memory.current": "16359424",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 208842\nuser_usec 185638\nsystem_usec 23204\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "25919488",
+          "memory.current": "16580608",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 930291\nuser_usec 893080\nsystem_usec 37211\nnr_periods 11\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "d9c319e1a193ce0c0a1258fad8c4e89bb995e4dd250cafb79cc2c1987d98fee1",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:20.131500338Z",
+          "FinishedAt": "2026-11-21T03:14:21.162490463Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 1.3154565000440925,
+        "limits": {
+          "memory": 2147483648,
+          "memory_swap_total": 2147483648,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "lite",
+      "scenario": "all_wrong",
+      "result": {
+        "task_id": "fake-all_wrong",
+        "skill": "bugfix",
+        "status": "candidate_budget_exhausted",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "4c96da748dc78d639c1a85c741b89bd82080cc5e75365690e2fc97beacf2d993",
+            "status": "development_failed",
+            "development": {
+              "status": "failed",
+              "cases": 2,
+              "failures": [
+                {
+                  "case": 0,
+                  "reason": "value_mismatch",
+                  "actual": "1",
+                  "expected": "2"
+                },
+                {
+                  "case": 1,
+                  "reason": "value_mismatch",
+                  "actual": "4",
+                  "expected": "5"
+                }
+              ],
+              "seconds": 0.12024508300237358
+            }
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "4c96da748dc78d639c1a85c741b89bd82080cc5e75365690e2fc97beacf2d993",
+            "status": "development_failed",
+            "development": {
+              "status": "failed",
+              "cases": 2,
+              "failures": [
+                {
+                  "case": 0,
+                  "reason": "value_mismatch",
+                  "actual": "1",
+                  "expected": "2"
+                },
+                {
+                  "case": 1,
+                  "reason": "value_mismatch",
+                  "actual": "4",
+                  "expected": "5"
+                }
+              ],
+              "seconds": 0.1216964169871062
+            }
+          },
+          {
+            "attempt": 3,
+            "seed": 1731,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "4c96da748dc78d639c1a85c741b89bd82080cc5e75365690e2fc97beacf2d993",
+            "status": "development_failed",
+            "development": {
+              "status": "failed",
+              "cases": 2,
+              "failures": [
+                {
+                  "case": 0,
+                  "reason": "value_mismatch",
+                  "actual": "1",
+                  "expected": "2"
+                },
+                {
+                  "case": 1,
+                  "reason": "value_mismatch",
+                  "actual": "4",
+                  "expected": "5"
+                }
+              ],
+              "seconds": 0.06989254202926531
+            }
+          },
+          {
+            "attempt": 4,
+            "seed": 1732,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "4c96da748dc78d639c1a85c741b89bd82080cc5e75365690e2fc97beacf2d993",
+            "status": "development_failed",
+            "development": {
+              "status": "failed",
+              "cases": 2,
+              "failures": [
+                {
+                  "case": 0,
+                  "reason": "value_mismatch",
+                  "actual": "1",
+                  "expected": "2"
+                },
+                {
+                  "case": 1,
+                  "reason": "value_mismatch",
+                  "actual": "4",
+                  "expected": "5"
+                }
+              ],
+              "seconds": 0.12154704198474064
+            }
+          },
+          {
+            "attempt": 5,
+            "seed": 1733,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "4c96da748dc78d639c1a85c741b89bd82080cc5e75365690e2fc97beacf2d993",
+            "status": "development_failed",
+            "development": {
+              "status": "failed",
+              "cases": 2,
+              "failures": [
+                {
+                  "case": 0,
+                  "reason": "value_mismatch",
+                  "actual": "1",
+                  "expected": "2"
+                },
+                {
+                  "case": 1,
+                  "reason": "value_mismatch",
+                  "actual": "4",
+                  "expected": "5"
+                }
+              ],
+              "seconds": 0.07337658299366012
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.12090412597171962
+        },
+        "seconds": 0.6287855829577893,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "lite",
+        "expected_status": "candidate_budget_exhausted",
+        "pipeline_contract_passed": true,
+        "model_calls": 5,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "15695872",
+          "memory.current": "15556608",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 210051\nuser_usec 190046\nsystem_usec 20004\nnr_periods 3\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "25862144",
+          "memory.current": "16285696",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 649437\nuser_usec 600554\nsystem_usec 48882\nnr_periods 9\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "5b037bd8f306f7f28c33b800f7f1f7142e170ccd54719e66cd1df679a50201aa",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:21.532387713Z",
+          "FinishedAt": "2026-11-21T03:14:22.37384613Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 1.166533583018463,
+        "limits": {
+          "memory": 2147483648,
+          "memory_swap_total": 2147483648,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "lite",
+      "scenario": "hidden_overfit",
+      "result": {
+        "task_id": "fake-hidden_overfit",
+        "skill": "bugfix",
+        "status": "failed_hidden",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return 2 if value == 1 else 5\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "10ea520f5494a5ba40c42d9bac5d35d2a8f449d05689fb2c96b2c0727a5fa21a",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.12299466703552753
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.07375812495592982
+        },
+        "selected_attempt": 1,
+        "selected_code": "def adjust(value):\n    return 2 if value == 1 else 5\n",
+        "hidden": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "5",
+              "expected": "0"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "5",
+              "expected": "1"
+            }
+          ],
+          "seconds": 0.1222674580058083
+        },
+        "seconds": 0.3196714579826221,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "lite",
+        "expected_status": "failed_hidden",
+        "pipeline_contract_passed": true,
+        "model_calls": 1,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "16302080",
+          "memory.current": "16179200",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 201621\nuser_usec 183292\nsystem_usec 18329\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "26247168",
+          "memory.current": "16588800",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 417182\nuser_usec 394905\nsystem_usec 22276\nnr_periods 5\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "efc503ca33689fa86a48dae1cec67b228f45f5cff2e1fd0017fd690c57979809",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:22.726944339Z",
+          "FinishedAt": "2026-11-21T03:14:23.253405464Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.8124642080510966,
+        "limits": {
+          "memory": 2147483648,
+          "memory_swap_total": 2147483648,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "lite",
+      "scenario": "model_error_then_correct",
+      "result": {
+        "task_id": "fake-model_error_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "status": "model_error",
+            "reason": "simulated model transport failure"
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.07666358398273587
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.07429258397314698
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.12192362500354648
+        },
+        "seconds": 0.27349445899017155,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "lite",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "16527360",
+          "memory.current": "16154624",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 200263\nuser_usec 184242\nsystem_usec 16021\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.peak": "26062848",
+          "memory.current": "16408576",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 415281\nuser_usec 383181\nsystem_usec 32099\nnr_periods 5\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "52c61057b53d510beeb2518582e4a18066df77ef3a649545cab5ab436eb3f8b7",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:23.650776214Z",
+          "FinishedAt": "2026-11-21T03:14:24.130419381Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.80054220801685,
+        "limits": {
+          "memory": 2147483648,
+          "memory_swap_total": 2147483648,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "standard",
+      "scenario": "success",
+      "result": {
+        "task_id": "fake-success",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.07993595901643857
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.0782049159752205
+        },
+        "selected_attempt": 1,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.07509175001177937
+        },
+        "seconds": 0.23377524997340515,
+        "first_attempt_success": true,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "standard",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 1,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "16302080",
+          "memory.current": "16183296",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 199903\nuser_usec 181637\nsystem_usec 18265\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "26083328",
+          "memory.current": "16498688",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 404968\nuser_usec 378579\nsystem_usec 26388\nnr_periods 4\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "5c2190b87ee90739010bbf0c32121239385b88f623c2cc2d227757c297d698dc",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:24.458616131Z",
+          "FinishedAt": "2026-11-21T03:14:24.89851334Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.7155936669441871,
+        "limits": {
+          "memory": 4294967296,
+          "memory_swap_total": 4294967296,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "standard",
+      "scenario": "wrong_then_correct",
+      "result": {
+        "task_id": "fake-wrong_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "4c96da748dc78d639c1a85c741b89bd82080cc5e75365690e2fc97beacf2d993",
+            "status": "development_failed",
+            "development": {
+              "status": "failed",
+              "cases": 2,
+              "failures": [
+                {
+                  "case": 0,
+                  "reason": "value_mismatch",
+                  "actual": "1",
+                  "expected": "2"
+                },
+                {
+                  "case": 1,
+                  "reason": "value_mismatch",
+                  "actual": "4",
+                  "expected": "5"
+                }
+              ],
+              "seconds": 0.1306675830273889
+            }
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.0737162500154227
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.12677841703407466
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.13306862500030547
+        },
+        "seconds": 0.46495783398859203,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "standard",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "16519168",
+          "memory.current": "16150528",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 219285\nuser_usec 208221\nsystem_usec 11064\nnr_periods 3\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "26071040",
+          "memory.current": "16265216",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 528854\nuser_usec 499752\nsystem_usec 29102\nnr_periods 8\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "93ba22bb02b1faa37b9882734c2df183402abf0bd55b9054f48ca1b2ab026ebc",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:25.239425423Z",
+          "FinishedAt": "2026-11-21T03:14:25.95501684Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 1.0022039579926059,
+        "limits": {
+          "memory": 4294967296,
+          "memory_swap_total": 4294967296,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "standard",
+      "scenario": "malformed_then_correct",
+      "result": {
+        "task_id": "fake-malformed_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "not JSON",
+            "truncated": false,
+            "status": "output_rejected",
+            "reason": "Invalid JSON: Expecting value: line 1 column 1 (char 0)"
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.07560091704363003
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.07061329198768362
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.12867383396951482
+        },
+        "seconds": 0.2755297500407323,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "standard",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "16375808",
+          "memory.current": "16003072",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 200058\nuser_usec 180664\nsystem_usec 19393\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "26173440",
+          "memory.current": "16515072",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 416632\nuser_usec 376474\nsystem_usec 40157\nnr_periods 5\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "25e0e07c814925b21a4e42d0ee4f4996f817e73fa5363c0de5823b4a2ebe8bed",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:26.283184132Z",
+          "FinishedAt": "2026-11-21T03:14:26.765407799Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.7513937089825049,
+        "limits": {
+          "memory": 4294967296,
+          "memory_swap_total": 4294967296,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "standard",
+      "scenario": "truncated_then_correct",
+      "result": {
+        "task_id": "fake-truncated_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def",
+            "truncated": true,
+            "status": "output_rejected",
+            "reason": "Generation was truncated"
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.1249802089878358
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.1253009580541402
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.07975199999054894
+        },
+        "seconds": 0.330587291973643,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "standard",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "16355328",
+          "memory.current": "15986688",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 219064\nuser_usec 198495\nsystem_usec 20569\nnr_periods 3\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "25702400",
+          "memory.current": "16384000",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 437150\nuser_usec 404542\nsystem_usec 32607\nnr_periods 6\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "86b344362f22436c002a1a744ad28eada80ae4c017a7f5d4bbc78e1778c38776",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:27.089693049Z",
+          "FinishedAt": "2026-11-21T03:14:27.64488505Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.8556226670043543,
+        "limits": {
+          "memory": 4294967296,
+          "memory_swap_total": 4294967296,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "standard",
+      "scenario": "syntax_then_correct",
+      "result": {
+        "task_id": "fake-syntax_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return (\\n\"}",
+            "truncated": false,
+            "status": "output_rejected",
+            "reason": "Invalid Python: '(' was never closed"
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.12227308301953599
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.1201206250116229
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.12118462502257898
+        },
+        "seconds": 0.3643877090071328,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "standard",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "16478208",
+          "memory.current": "16105472",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 206714\nuser_usec 183522\nsystem_usec 23192\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "25894912",
+          "memory.current": "16015360",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 433140\nuser_usec 392848\nsystem_usec 40292\nnr_periods 6\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "83c368623adb85658fe5eaa768a5ff77a2a2fce99ad6d372743d634dd49d879f",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:27.996151633Z",
+          "FinishedAt": "2026-11-21T03:14:28.572600758Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.8553677079617046,
+        "limits": {
+          "memory": 4294967296,
+          "memory_swap_total": 4294967296,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "standard",
+      "scenario": "boundary_then_correct",
+      "result": {
+        "task_id": "fake-boundary_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\\nimport os\\n\"}",
+            "truncated": false,
+            "status": "output_rejected",
+            "reason": "Output must contain only the target function"
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.1299407919868827
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.1334051659796387
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.07547912502195686
+        },
+        "seconds": 0.3395615420304239,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "standard",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "16531456",
+          "memory.current": "16158720",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 202336\nuser_usec 187311\nsystem_usec 15025\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "26214400",
+          "memory.current": "16629760",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 435346\nuser_usec 391005\nsystem_usec 44340\nnr_periods 5\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "72a7d1a50cfc2a28ea42eed4d17907187609b7f5561eb4054483cb5aeb79bc07",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:28.930763592Z",
+          "FinishedAt": "2026-11-21T03:14:29.479999842Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.8496391660301015,
+        "limits": {
+          "memory": 4294967296,
+          "memory_swap_total": 4294967296,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "standard",
+      "scenario": "timeout_then_correct",
+      "result": {
+        "task_id": "fake-timeout_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    while True:\\n        pass\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "8d2475c22f59f66c79760d8e0fff360633858879835c874bc456d4d9e007126d",
+            "status": "development_timeout",
+            "development": {
+              "status": "timeout",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.5015417499816976
+            }
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.07537979196058586
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.12058370898012072
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.12293383298674598
+        },
+        "seconds": 0.8212039169739,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "standard",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "16302080",
+          "memory.current": "16183296",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 203776\nuser_usec 178925\nsystem_usec 24850\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "25915392",
+          "memory.current": "16130048",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 916607\nuser_usec 876580\nsystem_usec 40026\nnr_periods 10\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "e3af1258e2683aff4d5ec0a77fd0b4d81e1e14bb2d311dce7fe8a12f5a5921a2",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:29.849909176Z",
+          "FinishedAt": "2026-11-21T03:14:30.879819676Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 1.3354904580046423,
+        "limits": {
+          "memory": 4294967296,
+          "memory_swap_total": 4294967296,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "standard",
+      "scenario": "all_wrong",
+      "result": {
+        "task_id": "fake-all_wrong",
+        "skill": "bugfix",
+        "status": "candidate_budget_exhausted",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "4c96da748dc78d639c1a85c741b89bd82080cc5e75365690e2fc97beacf2d993",
+            "status": "development_failed",
+            "development": {
+              "status": "failed",
+              "cases": 2,
+              "failures": [
+                {
+                  "case": 0,
+                  "reason": "value_mismatch",
+                  "actual": "1",
+                  "expected": "2"
+                },
+                {
+                  "case": 1,
+                  "reason": "value_mismatch",
+                  "actual": "4",
+                  "expected": "5"
+                }
+              ],
+              "seconds": 0.1240760000073351
+            }
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "4c96da748dc78d639c1a85c741b89bd82080cc5e75365690e2fc97beacf2d993",
+            "status": "development_failed",
+            "development": {
+              "status": "failed",
+              "cases": 2,
+              "failures": [
+                {
+                  "case": 0,
+                  "reason": "value_mismatch",
+                  "actual": "1",
+                  "expected": "2"
+                },
+                {
+                  "case": 1,
+                  "reason": "value_mismatch",
+                  "actual": "4",
+                  "expected": "5"
+                }
+              ],
+              "seconds": 0.12389866699231789
+            }
+          },
+          {
+            "attempt": 3,
+            "seed": 1731,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "4c96da748dc78d639c1a85c741b89bd82080cc5e75365690e2fc97beacf2d993",
+            "status": "development_failed",
+            "development": {
+              "status": "failed",
+              "cases": 2,
+              "failures": [
+                {
+                  "case": 0,
+                  "reason": "value_mismatch",
+                  "actual": "1",
+                  "expected": "2"
+                },
+                {
+                  "case": 1,
+                  "reason": "value_mismatch",
+                  "actual": "4",
+                  "expected": "5"
+                }
+              ],
+              "seconds": 0.1261627500061877
+            }
+          },
+          {
+            "attempt": 4,
+            "seed": 1732,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "4c96da748dc78d639c1a85c741b89bd82080cc5e75365690e2fc97beacf2d993",
+            "status": "development_failed",
+            "development": {
+              "status": "failed",
+              "cases": 2,
+              "failures": [
+                {
+                  "case": 0,
+                  "reason": "value_mismatch",
+                  "actual": "1",
+                  "expected": "2"
+                },
+                {
+                  "case": 1,
+                  "reason": "value_mismatch",
+                  "actual": "4",
+                  "expected": "5"
+                }
+              ],
+              "seconds": 0.12518083298346028
+            }
+          },
+          {
+            "attempt": 5,
+            "seed": 1733,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "4c96da748dc78d639c1a85c741b89bd82080cc5e75365690e2fc97beacf2d993",
+            "status": "development_failed",
+            "development": {
+              "status": "failed",
+              "cases": 2,
+              "failures": [
+                {
+                  "case": 0,
+                  "reason": "value_mismatch",
+                  "actual": "1",
+                  "expected": "2"
+                },
+                {
+                  "case": 1,
+                  "reason": "value_mismatch",
+                  "actual": "4",
+                  "expected": "5"
+                }
+              ],
+              "seconds": 0.07559037499595433
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.07660937501350418
+        },
+        "seconds": 0.6528617500443943,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "standard",
+        "expected_status": "candidate_budget_exhausted",
+        "pipeline_contract_passed": true,
+        "model_calls": 5,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "16449536",
+          "memory.current": "16076800",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 200624\nuser_usec 188647\nsystem_usec 11977\nnr_periods 3\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "26370048",
+          "memory.current": "16785408",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 638686\nuser_usec 597577\nsystem_usec 41108\nnr_periods 9\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "5c03f3b5585e934baa2eee70183c6593baae2e5b39884dd195f4650ae05c99fd",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:31.221492593Z",
+          "FinishedAt": "2026-11-21T03:14:32.078421343Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 1.1424251249991357,
+        "limits": {
+          "memory": 4294967296,
+          "memory_swap_total": 4294967296,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "standard",
+      "scenario": "hidden_overfit",
+      "result": {
+        "task_id": "fake-hidden_overfit",
+        "skill": "bugfix",
+        "status": "failed_hidden",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return 2 if value == 1 else 5\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "10ea520f5494a5ba40c42d9bac5d35d2a8f449d05689fb2c96b2c0727a5fa21a",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.12394908396527171
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.07623495801817626
+        },
+        "selected_attempt": 1,
+        "selected_code": "def adjust(value):\n    return 2 if value == 1 else 5\n",
+        "hidden": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "5",
+              "expected": "0"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "5",
+              "expected": "1"
+            }
+          ],
+          "seconds": 0.12383645900990814
+        },
+        "seconds": 0.32461654202779755,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "standard",
+        "expected_status": "failed_hidden",
+        "pipeline_contract_passed": true,
+        "model_calls": 1,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "16543744",
+          "memory.current": "16171008",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 200523\nuser_usec 181378\nsystem_usec 19145\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "26083328",
+          "memory.current": "16416768",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 422022\nuser_usec 385848\nsystem_usec 36173\nnr_periods 6\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "acae2d7548b4c742186851334f1364b3b993251a7e63df37b022243d62e01aef",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:32.436514594Z",
+          "FinishedAt": "2026-11-21T03:14:32.966037885Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.8347874580067582,
+        "limits": {
+          "memory": 4294967296,
+          "memory_swap_total": 4294967296,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    },
+    {
+      "tier": "standard",
+      "scenario": "model_error_then_correct",
+      "result": {
+        "task_id": "fake-model_error_then_correct",
+        "skill": "bugfix",
+        "status": "passed",
+        "source_sha256": "b30dabdb9945fb4920b51dcb5be29bf33368d58048985a04ad8b731147af4e36",
+        "budget": {
+          "max_candidates": 5,
+          "repair_rounds": 0,
+          "context_lines_max": 50,
+          "check_timeout_seconds": 0.5,
+          "task_timeout_seconds": 30.0
+        },
+        "cards_enabled": false,
+        "attempts": [
+          {
+            "attempt": 1,
+            "seed": 1729,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "status": "model_error",
+            "reason": "simulated model transport failure"
+          },
+          {
+            "attempt": 2,
+            "seed": 1730,
+            "kind": "fresh_sample",
+            "context_sha256": "b7542f4764ed8ecaac6d14d9f6eaedaa1fd63cabd7b914b0f4dfc7717317fa06",
+            "raw_response": "{\"code\": \"def adjust(value):\\n    return value + 1\\n\"}",
+            "truncated": false,
+            "candidate_sha256": "e24925304613b000a349253ddfec33af98ecb0c4d90b514585ba043835619a64",
+            "status": "development_passed",
+            "development": {
+              "status": "passed",
+              "cases": 2,
+              "failures": [],
+              "seconds": 0.07579866697778925
+            }
+          }
+        ],
+        "context_source_lines": 2,
+        "baseline": {
+          "status": "failed",
+          "cases": 2,
+          "failures": [
+            {
+              "case": 0,
+              "reason": "value_mismatch",
+              "actual": "0",
+              "expected": "2"
+            },
+            {
+              "case": 1,
+              "reason": "value_mismatch",
+              "actual": "3",
+              "expected": "5"
+            }
+          ],
+          "seconds": 0.12636208400363103
+        },
+        "selected_attempt": 2,
+        "selected_code": "def adjust(value):\n    return value + 1\n",
+        "hidden": {
+          "status": "passed",
+          "cases": 2,
+          "failures": [],
+          "seconds": 0.07748554198769853
+        },
+        "seconds": 0.28021037502912804,
+        "first_attempt_success": false,
+        "mode": "fake_pipeline",
+        "real_model_evaluated": false,
+        "tier": "standard",
+        "expected_status": "passed",
+        "pipeline_contract_passed": true,
+        "model_calls": 2,
+        "limits": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "16388096",
+          "memory.current": "16015360",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 206362\nuser_usec 188242\nsystem_usec 18119\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        },
+        "resources": {
+          "platform": "Linux-6.6.12-linuxkit-aarch64-with-glibc2.41",
+          "machine": "aarch64",
+          "verified": true,
+          "memory.max": "4294967296",
+          "memory.swap.max": "0",
+          "memory.peak": "26050560",
+          "memory.current": "16474112",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "200000 100000",
+          "cpu.stat": "usage_usec 430787\nuser_usec 401392\nsystem_usec 29394\nnr_periods 5\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0"
+        }
+      },
+      "execution": {
+        "container_id": "a2b1cbe4b6e62692962aafcbab1e0d62ced94f135948016cd17a2aea0dc7dff7",
+        "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-21T03:14:33.296714344Z",
+          "FinishedAt": "2026-11-21T03:14:33.788482303Z"
+        },
+        "timed_out": false,
+        "stderr": "",
+        "container_wall_seconds": 0.7923093749559484,
+        "limits": {
+          "memory": 4294967296,
+          "memory_swap_total": 4294967296,
+          "nano_cpus": 2000000000,
+          "network": "none",
+          "root_readonly": true
+        }
+      }
+    }
+  ],
+  "notice": "These scripted fault-injection fixtures prove pipeline behavior; they are NOT QuixBugs results or model accuracy measurements. Each fixture runs in a fresh container. Cached personal-project image is a temporary interpreter donor for fake validation only; no application code is invoked.",
+  "summary": {
+    "lite": {
+      "fixtures_run": 10,
+      "contracts_satisfied": 10,
+      "max_observed_container_peak_bytes": 26513408,
+      "total_task_seconds": 4.148483209952246,
+      "model_pass_rate": null
+    },
+    "standard": {
+      "fixtures_run": 10,
+      "contracts_satisfied": 10,
+      "max_observed_container_peak_bytes": 26370048,
+      "total_task_seconds": 4.087691961089149,
+      "model_pass_rate": null
+    }
+  },
+  "oom_fault_probe": {
+    "memory_bytes": 67108864,
+    "scored_task": false,
+    "oom_detected": true,
+    "execution": {
+      "container_id": "d292983182b9e75d60ce590324c974558377744bdb452d4a23e895273f26c12c",
+      "image_id": "sha256:a9973520a9ba3d6ed77937b32ab205b8acbbb7a80cc7ee9bc533ca1777d13145",
+      "state": {
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": true,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-11-21T03:14:34.141820761Z",
+        "FinishedAt": "2026-11-21T03:14:34.224717803Z"
+      },
+      "timed_out": false,
+      "stdout": "",
+      "stderr": "",
+      "container_wall_seconds": 0.3695995830348693,
+      "limits": {
+        "memory": 67108864,
+        "memory_swap_total": 67108864,
+        "nano_cpus": 2000000000,
+        "network": "none",
+        "root_readonly": true
+      }
+    }
+  }
+}

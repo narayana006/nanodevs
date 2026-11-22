@@ -1,0 +1,32 @@
+test_container_timeout_is_not_dropped (test_docker_reporting.TestDockerFailureReporting.test_container_timeout_is_not_dropped) ... ok
+test_fake_summary_cannot_claim_model_accuracy (test_docker_reporting.TestDockerFailureReporting.test_fake_summary_cannot_claim_model_accuracy) ... ok
+test_nonzero_exit_is_not_accepted_even_with_success_json (test_docker_reporting.TestDockerFailureReporting.test_nonzero_exit_is_not_accepted_even_with_success_json) ... ok
+test_oom_is_reported_without_valid_json (test_docker_reporting.TestDockerFailureReporting.test_oom_is_reported_without_valid_json) ... ok
+test_unparseable_results_are_recorded (test_docker_reporting.TestDockerFailureReporting.test_unparseable_results_are_recorded) ... ok
+test_exact_limits_verified (test_harness.TestCgroupLimits.test_exact_limits_verified) ... ok
+test_rejects_swap_unlimited_memory_and_wrong_cpu_quota (test_harness.TestCgroupLimits.test_rejects_swap_unlimited_memory_and_wrong_cpu_quota) ... ok
+test_standard_has_distinct_memory_budget (test_harness.TestCgroupLimits.test_standard_has_distinct_memory_budget) ... ok
+test_excess_context_is_rejected_not_truncated (test_harness.TestContextAndEdits.test_excess_context_is_rejected_not_truncated) ... ok
+test_missing_and_decorated_targets_are_rejected (test_harness.TestContextAndEdits.test_missing_and_decorated_targets_are_rejected) ... ok
+test_only_relevant_imports_enter_context (test_harness.TestContextAndEdits.test_only_relevant_imports_enter_context) ... ok
+test_only_target_function_changes (test_harness.TestContextAndEdits.test_only_target_function_changes) ... ok
+test_rejects_changed_signature_extra_code_and_invalid_python (test_harness.TestContextAndEdits.test_rejects_changed_signature_extra_code_and_invalid_python) ... ok
+test_retrieves_helper_and_constant_without_unrelated_function (test_harness.TestContextAndEdits.test_retrieves_helper_and_constant_without_unrelated_function) ... ok
+test_return_annotation_cannot_be_changed (test_harness.TestContextAndEdits.test_return_annotation_cannot_be_changed) ... ok
+test_all_fault_injection_contracts (test_harness.TestFixedRecipe.test_all_fault_injection_contracts) ... ok
+test_context_rejection_never_calls_model (test_harness.TestFixedRecipe.test_context_rejection_never_calls_model) ... ok
+test_correct_baseline_never_calls_model (test_harness.TestFixedRecipe.test_correct_baseline_never_calls_model) ... ok
+test_cumulative_task_deadline_stops_sampling (test_harness.TestFixedRecipe.test_cumulative_task_deadline_stops_sampling) ... ok
+test_invalid_budgets_are_rejected (test_harness.TestFixedRecipe.test_invalid_budgets_are_rejected) ... ok
+test_model_errors_consume_candidate_budget (test_harness.TestFixedRecipe.test_model_errors_consume_candidate_budget) ... ok
+test_stops_at_first_development_acceptance_even_if_hidden_fails (test_harness.TestFixedRecipe.test_stops_at_first_development_acceptance_even_if_hidden_fails) ... ok
+test_worker_crash_is_not_a_passing_test (test_harness.TestFixedRecipe.test_worker_crash_is_not_a_passing_test) ... ok
+test_worker_timeout_is_not_a_passing_test (test_harness.TestFixedRecipe.test_worker_timeout_is_not_a_passing_test) ... ok
+test_accepts_exact_object (test_harness.TestOutputContract.test_accepts_exact_object) ... ok
+test_rejects_malformed_unknown_duplicate_empty_and_truncated (test_harness.TestOutputContract.test_rejects_malformed_unknown_duplicate_empty_and_truncated) ... ok
+test_schema_on_disk_matches_transport_contract (test_harness.TestOutputContract.test_schema_on_disk_matches_transport_contract) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 3.607s
+
+OK

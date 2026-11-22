@@ -1,0 +1,405 @@
+{
+ "model": "devstral-small-2-24b",
+ "k": 3,
+ "results": [
+  {
+   "id": "fix_pricing_cart",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 11.9,
+     "tokens": 57,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_lru_recency",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 24.5,
+     "tokens": 142,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_calc_assoc",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 45.6,
+     "tokens": 293,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_csv_quotes",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 31.1,
+     "tokens": 192,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_token_bucket",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 22.5,
+     "tokens": 135,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_graph_undirected",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 18.1,
+     "tokens": 87,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_paginate",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 21.4,
+     "tokens": 110,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_wrap_width",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 20.6,
+     "tokens": 113,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_leap_calendar",
+   "kind": "fix",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 24.2,
+     "tokens": 139,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "fix_transfer_rollback",
+   "kind": "fix",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "gen_seconds": 33.1,
+     "tokens": 185,
+     "detail": "Traceback (most recent call last):\n  File \"/w/test_hidden.py\", line 14, in <module>\n    assert (a.balance, c.balance) == (70, 10)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+     "i": 2,
+     "passed": false,
+     "gen_seconds": 24.3,
+     "tokens": 185,
+     "detail": "Traceback (most recent call last):\n  File \"/w/test_hidden.py\", line 14, in <module>\n    assert (a.balance, c.balance) == (70, 10)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+     "i": 3,
+     "passed": false,
+     "gen_seconds": 24.5,
+     "tokens": 185,
+     "detail": "Traceback (most recent call last):\n  File \"/w/test_hidden.py\", line 14, in <module>\n    assert (a.balance, c.balance) == (70, 10)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    }
+   ]
+  },
+  {
+   "id": "write_evaluate",
+   "kind": "write",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "gen_seconds": 78.2,
+     "tokens": 568,
+     "detail": "Traceback (most recent call last):\n  File \"/w/test_hidden.py\", line 4, in <module>\n    assert evaluate(\"10-3-2\") == 5\n           ^^^^^^^^^^^^^^^^^^\n  File \"/w/solution.py\", line 71, in evaluate\n    raise ValueError\nValueError\n"
+    },
+    {
+     "i": 2,
+     "passed": false,
+     "gen_seconds": 90.5,
+     "tokens": 689,
+     "detail": "ssion\n    result = term()\n             ^^^^^^\n  File \"/w/solution.py\", line 30, in term\n    while pos < len(tokens) and tokens[pos] in '* /':\n          ^^^\nUnboundLocalError: cannot access local variable 'pos' where it is not associated with a value\n"
+    },
+    {
+     "i": 3,
+     "passed": false,
+     "gen_seconds": 91.4,
+     "tokens": 689,
+     "detail": "ssion\n    result = term()\n             ^^^^^^\n  File \"/w/solution.py\", line 30, in term\n    while pos < len(tokens) and tokens[pos] in '* /':\n          ^^^\nUnboundLocalError: cannot access local variable 'pos' where it is not associated with a value\n"
+    }
+   ]
+  },
+  {
+   "id": "write_topo_sort",
+   "kind": "write",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 37.3,
+     "tokens": 264,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "write_lru_cache",
+   "kind": "write",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 37.2,
+     "tokens": 264,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "write_dijkstra",
+   "kind": "write",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "gen_seconds": 40.0,
+     "tokens": 280,
+     "detail": "ule>\n    assert dijkstra({\"a\": [(\"b\", 2)]}, \"a\") == {\"a\": 0, \"b\": 2}\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/w/solution.py\", line 32, in dijkstra\n    if distance < distances[neighbor]:\n                  ~~~~~~~~~^^^^^^^^^^\nKeyError: 'b'\n"
+    },
+    {
+     "i": 2,
+     "passed": false,
+     "gen_seconds": 34.7,
+     "tokens": 268,
+     "detail": "ule>\n    assert dijkstra({\"a\": [(\"b\", 2)]}, \"a\") == {\"a\": 0, \"b\": 2}\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/w/solution.py\", line 30, in dijkstra\n    if distance < distances[neighbor]:\n                  ~~~~~~~~~^^^^^^^^^^\nKeyError: 'b'\n"
+    },
+    {
+     "i": 3,
+     "passed": false,
+     "gen_seconds": 34.4,
+     "tokens": 268,
+     "detail": "ule>\n    assert dijkstra({\"a\": [(\"b\", 2)]}, \"a\") == {\"a\": 0, \"b\": 2}\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/w/solution.py\", line 30, in dijkstra\n    if distance < distances[neighbor]:\n                  ~~~~~~~~~^^^^^^^^^^\nKeyError: 'b'\n"
+    }
+   ]
+  },
+  {
+   "id": "write_parse_duration",
+   "kind": "write",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "gen_seconds": 52.6,
+     "tokens": 372,
+     "detail": "Traceback (most recent call last):\n  File \"/w/test_hidden.py\", line 3, in <module>\n    assert parse_duration(\"1h30m\") == 5400\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+     "i": 2,
+     "passed": false,
+     "gen_seconds": 28.9,
+     "tokens": 221,
+     "detail": "ed:\n\nTraceback (most recent call last):\n  File \"/w/test_hidden.py\", line 3, in <module>\n    assert parse_duration(\"1h30m\") == 5400\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/w/solution.py\", line 24, in parse_duration\n    raise ValueError\nValueError\n"
+    },
+    {
+     "i": 3,
+     "passed": false,
+     "gen_seconds": 29.8,
+     "tokens": 221,
+     "detail": "ed:\n\nTraceback (most recent call last):\n  File \"/w/test_hidden.py\", line 3, in <module>\n    assert parse_duration(\"1h30m\") == 5400\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/w/solution.py\", line 24, in parse_duration\n    raise ValueError\nValueError\n"
+    }
+   ]
+  },
+  {
+   "id": "write_sliding_window",
+   "kind": "write",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 23.2,
+     "tokens": 139,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "write_trie",
+   "kind": "write",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 52.1,
+     "tokens": 361,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "write_get_path",
+   "kind": "write",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 50.3,
+     "tokens": 331,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "feat_cart_coupons",
+   "kind": "feature",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 636.7,
+     "tokens": 336,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "feat_retry_backoff",
+   "kind": "feature",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 23.9,
+     "tokens": 174,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "feat_todo_priority",
+   "kind": "feature",
+   "solved_at": 2,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "gen_seconds": 861.1,
+     "tokens": 260,
+     "detail": "Traceback (most recent call last):\n  File \"/w/test_hidden.py\", line 13, in <module>\n    t.complete(d)\n  File \"/w/todo.py\", line 21, in complete\n    raise KeyError(\"Unknown id\")\nKeyError: 'Unknown id'\n"
+    },
+    {
+     "i": 2,
+     "passed": true,
+     "gen_seconds": 35.8,
+     "tokens": 288,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "feat_logger_levels",
+   "kind": "feature",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 68.7,
+     "tokens": 310,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "feat_matrix_ops",
+   "kind": "feature",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 2008.7,
+     "tokens": 382,
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "id": "feat_config_env",
+   "kind": "feature",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 34.6,
+     "tokens": 251,
+     "detail": ""
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,266 @@
+{
+ "model": "gemma-4-26b-a4b-nothink",
+ "k": 5,
+ "results": [
+  {
+   "id": "fizzbuzz",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 2.6,
+     "tokens": 108,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "is_palindrome",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 1.3,
+     "tokens": 41,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "binary_search",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 3.4,
+     "tokens": 99,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "flatten",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 2.1,
+     "tokens": 58,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "merge_sorted",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 4.1,
+     "tokens": 116,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "moving_average",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 2.1,
+     "tokens": 59,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "word_count",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 3.0,
+     "tokens": 81,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "max_subarray",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 2.3,
+     "tokens": 69,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "chunk",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 1.7,
+     "tokens": 38,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "roman_to_int",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 4.7,
+     "tokens": 145,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "dedupe_keep_order",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 2.1,
+     "tokens": 62,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "gcd",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 1.4,
+     "tokens": 36,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "rotate_left",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 1.8,
+     "tokens": 47,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "parse_kv",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 3.1,
+     "tokens": 87,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "balanced",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 2.9,
+     "tokens": 88,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "top_k",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 1.2,
+     "tokens": 28,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "transpose",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 2.0,
+     "tokens": 52,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "compound_interest",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 1.5,
+     "tokens": 37,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "min_stack",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 4.3,
+     "tokens": 135,
+     "tail": ""
+    }
+   ]
+  },
+  {
+   "id": "merge_intervals",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "gen_seconds": 2.8,
+     "tokens": 79,
+     "tail": ""
+    }
+   ]
+  }
+ ]
+}
