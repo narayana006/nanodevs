@@ -30,6 +30,22 @@ Known limits, stated plainly:
 - Retry counts (pass@k) in the early files used one fixed seed for every try and are not valid; only the first-try numbers above are used. The harness now uses a different seed per try and saves answers.
 - These tasks are small and single-shot. They do not measure long agentic work, which Devstral is built for.
 
+## Round 3: 132 python tasks (specialists/python), untrained base model
+Gemma 4 26B A4B (Q4_K_M, no adapter), hidden tests run in the locked sandbox. Up to 4 attempts, first greedy, the rest sampled with fresh seeds.
+
+| | First try | Pass within 4 |
+|---|---|---|
+| All 132 tasks | 116 (88%) | 120 (91%) |
+| Bug fixing (38) | 36 | 36 |
+| Writing new code (55) | 50 | 52 |
+| Extending code (18) | 13 | 14 |
+| Refactoring (21) | 17 | 18 |
+| Easy (32) | 30 | 30 |
+| Medium (73) | 66 | 67 |
+| Hard (27) | 20 | 23 |
+
+What this means: the base model is already strong on these tasks, so a trained python specialist has little room to show gains here. The 12 unsolved tasks and the hard tier are where a specialist can be measured. The 120 test-verified solutions are saved in `teacher/` as training data. Limits: single run, one model, tasks written by us (template-based in part), not an outside benchmark.
+
 ## CPU-only speed (4 threads)
 Gemma 26B A4B generates about 9.0 tokens/s and reads prompts at about 27 tokens/s. Devstral generates about 3.0 and reads at about 7.6. Memory use is about the same (14.2 to 14.3 GB).
 
