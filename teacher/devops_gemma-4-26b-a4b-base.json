@@ -1,0 +1,1103 @@
+{
+ "summary": {
+  "model": "gemma-4-26b-a4b-base",
+  "specialist": "devops",
+  "k": 1,
+  "limit": 60,
+  "n": 60,
+  "first_try": 45,
+  "pass_at_k": 45,
+  "first_try_unparsed": 2,
+  "kind:convert": "8/11 first try, 8/11 pass@1, 1 unparsed",
+  "kind:fix": "17/21 first try, 17/21 pass@1, 1 unparsed",
+  "kind:harden": "9/10 first try, 9/10 pass@1, 0 unparsed",
+  "kind:write": "11/18 first try, 11/18 pass@1, 0 unparsed",
+  "difficulty:easy": "11/15 first try, 11/15 pass@1, 1 unparsed",
+  "difficulty:hard": "18/23 first try, 18/23 pass@1, 0 unparsed",
+  "difficulty:medium": "16/22 first try, 16/22 pass@1, 1 unparsed"
+ },
+ "task_ids": [
+  "k8s-convert-pod-to-deployment",
+  "tf-convert-count-to-for-each",
+  "df-convert-shell-to-dockerfile",
+  "k8s-fix-selector-mismatch",
+  "df-fix-single-to-multistage",
+  "sh-fix-dangerous-rm",
+  "k8s-harden-deployment",
+  "df-harden-python-svc",
+  "k8s-deploy-basic",
+  "cp-migrate-then-app",
+  "k8s-ingress-tls",
+  "cp-convert-legacy-v2",
+  "df-convert-ubuntu-to-alpine",
+  "k8s-convert-compose",
+  "df-fix-shell-form-signals",
+  "sh-fix-secret-leak",
+  "df-fix-apt-layers",
+  "df-harden-node-prod",
+  "df-harden-user-root-end",
+  "sh-log-summary",
+  "sh-csv-to-env",
+  "sh-rotate-backups",
+  "ci-convert-gh-to-gitlab",
+  "cp-convert-docker-run",
+  "df-fix-latest-root-add",
+  "sh-fix-pipeline-status",
+  "ci-fix-slow-no-cache",
+  "k8s-harden-rbac",
+  "mk-harden-shell-flags",
+  "mk-go-basic",
+  "mk-python-venv-stamp",
+  "ci-gh-postgres-service",
+  "mk-convert-build-script",
+  "sh-fix-unquoted-copy",
+  "k8s-fix-dangling-refs",
+  "sh-fix-tempfile",
+  "sh-harden-injection",
+  "df-node-basic",
+  "ci-gh-docker-publish",
+  "ci-gh-release-job-split",
+  "mk-convert-npm-scripts",
+  "df-fix-no-healthcheck",
+  "mk-fix-shell-vars",
+  "ci-fix-hardcoded-creds",
+  "sh-harden-installer",
+  "df-dockerignore-node",
+  "sh-cron-lock",
+  "tf-s3-secure-bucket",
+  "ci-convert-script-to-workflow",
+  "k8s-fix-latest-no-limits",
+  "ci-fix-script-injection",
+  "cp-fix-plain-secrets",
+  "ci-harden-workflow",
+  "ci-gh-node-basic",
+  "df-py-venv-multistage",
+  "k8s-rbac-least-privilege",
+  "tf-fix-open-sg",
+  "tf-fix-rds-unsafe",
+  "ci-fix-pin-actions",
+  "tf-harden-iam-policy"
+ ],
+ "results": [
+  {
+   "id": "k8s-convert-pod-to-deployment",
+   "kind": "convert",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 14.7,
+     "tokens": 173,
+     "answer": "```yaml\n# file: deployment.yaml\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: scraper\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: scraper\n  template:\n    metadata:\n      labels:\n        app: scraper\n    spec:\n      containers:\n        - name: scraper\n          image: ghcr.io/acme/scraper:0.3.2\n          args: [\"--interval\", \"60\"]\n          env:\n            - name: TARGET\n              value: https://example.com\n          resources:\n            requests:\n              cpu: 50m\n              memory: 64Mi\n            limits:\n              memory: 128Mi\n```"
+    }
+   ]
+  },
+  {
+   "id": "tf-convert-count-to-for-each",
+   "kind": "convert",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 11.6,
+     "tokens": 145,
+     "answer": "```hcl\n# file: main.tf\nvariable \"ami_id\" {\n  type = string\n}\n\nvariable \"servers\" {\n  type = map(object({\n    type = string\n  }))\n}\n\nresource \"aws_instance\" \"web\" {\n  for_each      = var.servers\n  ami           = var.ami_id\n  instance_type = each.value.type\n\n  tags = {\n    Name = each.key\n  }\n}\n\noutput \"private_ips\" {\n  value = { for k, i in aws_instance.web : k => i.private_ip }\n}\n```"
+    }
+   ]
+  },
+  {
+   "id": "df-convert-shell-to-dockerfile",
+   "kind": "convert",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "{'c03_df_instr': \"no RUN matching 'python3.*python3-pip.*ca-certificates|ca-certificates.*python3'\"}",
+     "secs": 19.8,
+     "tokens": 236,
+     "answer": "```dockerfile\n# file: Dockerfile\nFROM python:3.11-slim-bookworm\n\n# Set environment variables\nENV REPORT_DIR=/var/reports \\\n    PYTHONUNBUFFERED=1 \\\n    PYTHONDONTWRITEBYTECODE=1\n\n# Create system user and directories\nRUN groupadd -r reports && \\\n    useradd -r -g reports -m -d /opt/reports reports && \\\n    mkdir -p /opt/reports /var/reports && \\\n    chown reports:reports /var/reports\n\n# Install system dependencies and clean up apt cache for hygiene\nRUN apt-get update && \\\n    apt-get install -y --no-install-recommends ca-certificates && \\\n    rm -rf /var/lib/apt/lists/*\n\n# Copy application code\nCOPY --chown=reports:reports app/ /opt/reports/\n\n# Set working directory\nWORKDIR /opt/reports\n\n# Switch to non-root user\nUSER reports\n\n# Execute the application\nCMD [\"python3\", \"run.py\"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "k8s-fix-selector-mismatch",
+   "kind": "fix",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 11.3,
+     "tokens": 188,
+     "answer": "```yaml\n# file: app.yaml\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: inventory\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: inventory\n      tier: backend\n  template:\n    metadata:\n      labels:\n        app: inventory\n        tier: backend\n    spec:\n      containers:\n        - name: inventory\n          image: ghcr.io/acme/inventory:1.1.0\n          ports:\n            - containerPort: 8080\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: inventory\nspec:\n  selector:\n    app: inventory\n    tier: backend\n  ports:\n    - port: 80\n      targetPort: 8080\n```"
+    }
+   ]
+  },
+  {
+   "id": "df-fix-single-to-multistage",
+   "kind": "fix",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 22.8,
+     "tokens": 222,
+     "answer": "```dockerfile\n# file: Dockerfile\nFROM golang:1.22.5-alpine AS builder\n\n# Install build dependencies if needed, though CGO_ENABLED=0 usually doesn't require them\nRUN apk add --no-cache git\n\nWORKDIR /src\n\n# Cache dependencies\nCOPY go.mod go.sum ./\nRUN go mod download\n\n# Copy source and build\nCOPY . .\nRUN CGO_ENABLED=0 GOOS=linux go build -o /out/server ./cmd/server\n\n# Final stage\nFROM alpine:3.19\n\n# Create a non-root user\nRUN addgroup -S appgroup && adduser -S appuser -G appgroup\n\n# Copy only the static binary from builder\nCOPY --from=builder /out/server /out/server\n\n# Set ownership to non-root user\nRUN chown appuser:appgroup /out/server\n\nUSER appuser\n\nWORKDIR /out\n\nEXPOSE 9090\n\nENTRYPOINT [\"/out/server\"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "sh-fix-dangerous-rm",
+   "kind": "fix",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "{'c02_sh_behavior': \"[cleans everything incl. hidden] stdout 'cleaned /tmp/case4r69lj0x/my build' != 'cleaned my build'\"}",
+     "secs": 24.2,
+     "tokens": 265,
+     "answer": "```bash\n# file: cleanup_build.sh\n#!/bin/bash\nset -euo pipefail\n\n# Check for exactly one argument\nif [ \"$#\" -ne 1 ]; then\n    exit 2\nfi\n\nBUILD_DIR=\"$1\"\n\n# Refuse empty strings or root directory\nif [ -z \"$BUILD_DIR\" ] || [ \"$BUILD_DIR\" = \"/\" ]; then\n    exit 2\nfi\n\n# Check if the argument is an existing directory\nif [ ! -d \"$BUILD_DIR\" ]; then\n    exit 1\nfi\n\n# Absolute path for the success message and safety\n# Use realpath if available, otherwise fallback to manual resolution\nTARGET_DIR=$(cd \"$BUILD_DIR\" && pwd)\n\n# Change directory and ensure it succeeded\ncd \"$TARGET_DIR\" || exit 1\n\n# Remove all contents including hidden files\n# Using dotglob to ensure * matches hidden files in bash\nshopt -s dotglob\n# Use find to delete contents to safely handle hidden files and spaces\n# We delete everything inside the directory, but not the directory itself\nfind . -mindepth 1 -delete\nshopt -u dotglob\n\necho \"cleaned $TARGET_DIR\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "k8s-harden-deployment",
+   "kind": "harden",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 22.8,
+     "tokens": 339,
+     "answer": "```yaml\n# file: deployment.yaml\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: portal\nspec:\n  replicas: 3\n  selector:\n    matchLabels:\n      app: portal\n  template:\n    metadata:\n      labels:\n        app: portal\n    spec:\n      automountServiceAccountToken: false\n      securityContext:\n        runAsNonRoot: true\n        runAsUser: 10001\n        seccompProfile:\n          type: RuntimeDefault\n      containers:\n        - name: portal\n          image: ghcr.io/acme/portal:8.4.1\n          ports:\n            - name: http\n              containerPort: 8080\n          resources:\n            requests:\n              cpu: 200m\n              memory: 256Mi\n            limits:\n              memory: 512Mi\n          livenessProbe:\n            httpGet:\n              path: /healthz\n              port: 8080\n          readinessProbe:\n            httpGet:\n              path: /ready\n              port: 8080\n          securityContext:\n            allowPrivilegeEscalation: false\n            readOnlyRootFilesystem: true\n            capabilities:\n              drop:\n                - ALL\n          volumeMounts:\n            - name: tmp-volume\n              mountPath: /tmp\n      volumes:\n        - name: tmp-volume\n          emptyDir: {}\n```"
+    }
+   ]
+  },
+  {
+   "id": "df-harden-python-svc",
+   "kind": "harden",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 23.1,
+     "tokens": 371,
+     "answer": "```dockerfile\n# file: Dockerfile\nFROM python:3.11-slim-bookworm\n\n# Create a non-privileged user to run the application\nRUN groupadd -r appuser && useradd -r -g appuser appuser\n\nWORKDIR /app\n\n# Install system dependencies (if any were needed) and clean up to reduce layer size\n# We avoid installing sudo as it is a security risk and unnecessary\nRUN apt-get update && apt-get install -y --no-install-recommends \\\n    && rm -rf /var/lib/apt/lists/*\n\n# Copy only requirements first to leverage Docker cache\nCOPY requirements.txt .\n\n# Install dependencies without cache to keep image small\nRUN pip install --no-cache-dir -r requirements.txt\n\n# Copy the rest of the application code\nCOPY . .\n\n# Ensure the appuser owns the application directory\nRUN chown -R appuser:appuser /app\n\n# Switch to non-root user\nUSER appuser\n\nEXPOSE 8000\n\n# Use exec-form for CMD to allow signals (SIGTERM) to reach Gunicorn\n# Healthcheck uses python to check if the port is listening, avoiding extra tools like curl\nHEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \\\n    CMD python -c 'import socket; s = socket.socket(socket.AF_INET, socket.SOCK_STREAM); s.connect((\"127.0.0.1\", 8000)); s.close()'\n\nCMD [\"gunicorn\", \"-b\", \"0.0.0.0:8000\", \"app:app\"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "k8s-deploy-basic",
+   "kind": "write",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 17.5,
+     "tokens": 223,
+     "answer": "```yaml\n# file: deployment.yaml\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: web\n  namespace: default\n  labels:\n    app: web\nspec:\n  replicas: 3\n  selector:\n    matchLabels:\n      app: web\n  template:\n    metadata:\n      labels:\n        app: web\n    spec:\n      containers:\n      - name: web\n        image: ghcr.io/acme/web:1.8.2\n        ports:\n        - name: http\n          containerPort: 8080\n        resources:\n          requests:\n            cpu: 100m\n            memory: 128Mi\n          limits:\n            memory: 256Mi\n        readinessProbe:\n          httpGet:\n            path: /ready\n            port: http\n        livenessProbe:\n          httpGet:\n            path: /healthz\n            port: http\n```"
+    }
+   ]
+  },
+  {
+   "id": "cp-migrate-then-app",
+   "kind": "write",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 26.1,
+     "tokens": 311,
+     "answer": "```yaml\n# file: docker-compose.yml\nx-api-env: &api-env\n  DATABASE_URL: postgresql://postgres:${DB_PASSWORD:?required}@db:5432/postgres\n\nservices:\n  db:\n    image: postgres:16.3-alpine\n    environment:\n      POSTGRES_PASSWORD: ${DB_PASSWORD:?required}\n    healthcheck:\n      test: [\"CMD-SHELL\", \"pg_isready -U postgres\"]\n      interval: 5s\n      timeout: 5s\n      retries: 5\n\n  migrate:\n    image: ghcr.io/acme/api:4.0.0\n    command: [\"migrate\", \"up\"]\n    restart: \"no\"\n    environment:\n      <<: *api-env\n    depends_on:\n      db:\n        condition: service_healthy\n\n  api:\n    image: ghcr.io/acme/api:4.0.0\n    command: [\"serve\"]\n    restart: unless-stopped\n    ports:\n      - \"127.0.0.1:4000:4000\"\n    environment:\n      <<: *api-env\n    depends_on:\n      db:\n        condition: service_healthy\n      migrate:\n        condition: service_completed_successfully\n```"
+    }
+   ]
+  },
+  {
+   "id": "k8s-ingress-tls",
+   "kind": "write",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 14.8,
+     "tokens": 191,
+     "answer": "```yaml\n# file: ingress.yaml\napiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:\n  name: shop\n  namespace: shop\n  annotations:\n    nginx.ingress.kubernetes.io/ssl-redirect: \"true\"\nspec:\n  ingressClassName: nginx\n  tls:\n    - hosts:\n        - shop.example.com\n      secretName: shop-tls\n  rules:\n    - host: shop.example.com\n      http:\n        paths:\n          - path: /api\n            pathType: Prefix\n            backend:\n              service:\n                name: api\n                port:\n                  number: 80\n          - path: /\n            pathType: Prefix\n            backend:\n              service:\n                name: web\n                port:\n                  name: http\n```"
+    }
+   ]
+  },
+  {
+   "id": "cp-convert-legacy-v2",
+   "kind": "convert",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 11.0,
+     "tokens": 140,
+     "answer": "```yaml\n# file: docker-compose.yml\nservices:\n  api:\n    image: ghcr.io/acme/api:1.0.0\n    ports:\n      - \"127.0.0.1:5000:5000\"\n    environment:\n      UPLOAD_DIR: /uploads\n    depends_on:\n      - worker\n    volumes:\n      - uploads:/uploads\n  worker:\n    image: ghcr.io/acme/worker:1.0.0\n    volumes:\n      - uploads:/uploads\n\nvolumes:\n  uploads:\n```"
+    }
+   ]
+  },
+  {
+   "id": "df-convert-ubuntu-to-alpine",
+   "kind": "convert",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 12.0,
+     "tokens": 84,
+     "answer": "```dockerfile\n# file: Dockerfile\nFROM alpine:3.20\n\nENV TZ=UTC\n\nRUN apk add --no-cache bash curl jq tzdata \\\n && adduser -D -u 10001 ops\n\nWORKDIR /ops\n\nCOPY scripts/ /ops/\n\nUSER ops\n\nENTRYPOINT [\"/bin/bash\", \"/ops/run.sh\"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "k8s-convert-compose",
+   "kind": "convert",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 24.1,
+     "tokens": 362,
+     "answer": "```yaml\n# file: app.yaml\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: catalog\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: catalog\n  template:\n    metadata:\n      labels:\n        app: catalog\n    spec:\n      containers:\n        - name: catalog\n          image: ghcr.io/acme/catalog:2.7.1\n          command: [\"python\", \"-m\", \"catalog\", \"--bind\", \"0.0.0.0:5000\"]\n          env:\n            - name: MODE\n              value: \"production\"\n            - name: CACHE_TTL\n              value: \"300\"\n          ports:\n            - containerPort: 5000\n          resources:\n            limits:\n              memory: 256Mi\n          livenessProbe:\n            httpGet:\n              path: /health\n              port: 5000\n            periodSeconds: 10\n            timeoutSeconds: 3\n            failureThreshold: 3\n          readinessProbe:\n            httpGet:\n              path: /health\n              port: 5000\n            periodSeconds: 10\n            timeoutSeconds: 3\n            failureThreshold: 3\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: catalog\nspec:\n  type: ClusterIP\n  selector:\n    app: catalog\n  ports:\n    - protocol: TCP\n      port: 80\n      targetPort: 5000\n```"
+    }
+   ]
+  },
+  {
+   "id": "df-fix-shell-form-signals",
+   "kind": "fix",
+   "difficulty": "easy",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": false,
+     "detail": "missing output file(s): Dockerfile",
+     "secs": 5.1,
+     "tokens": 74,
+     "answer": "# file: Dockerfile\nFROM python:3.12.4-slim\nWORKDIR /app\nCOPY . .\nRUN useradd -r -u 10001 app\nUSER app\nENTRYPOINT [\"python\", \"-u\", \"worker.py\"]\nCMD [\"--queue\", \"default\", \"--concurrency\", \"4\"]"
+    }
+   ]
+  },
+  {
+   "id": "sh-fix-secret-leak",
+   "kind": "fix",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 22.3,
+     "tokens": 120,
+     "answer": "```bash\n# file: fetch_token.sh\n#!/bin/bash\nset -e\n\nAPI_USER=\"deploy\"\n\nif [ -z \"${API_PASS}\" ]; then\n    echo \"Error: API_PASS environment variable is not set\" >&2\n    exit 2\nfi\n\nprintf 'user = \"%s:%s\"\\n' \"$API_USER\" \"$API_PASS\" | \\\n    curl -K - https://api.example.com/v1/token -o token.json\n\necho \"token saved\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "df-fix-apt-layers",
+   "kind": "fix",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 12.4,
+     "tokens": 114,
+     "answer": "```dockerfile\n# file: Dockerfile\nFROM ubuntu:22.04\nRUN apt-get update && \\\n    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \\\n    git \\\n    openssh-client \\\n    ca-certificates && \\\n    rm -rf /var/lib/apt/lists/*\nWORKDIR /work\nCOPY ci-scripts/ /work/\nUSER nobody\nENTRYPOINT [\"/work/run.sh\"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "df-harden-node-prod",
+   "kind": "harden",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 18.1,
+     "tokens": 326,
+     "answer": "```dockerfile\n# file: Dockerfile\nFROM node:20-alpine AS builder\n\n# Set working directory\nWORKDIR /app\n\n# Copy dependency manifests first to leverage Docker cache\nCOPY package*.json ./\n\n# Install all dependencies (including devDependencies for build)\nRUN npm ci\n\n# Copy source code and build\nCOPY . .\nRUN npm run build\n\n# Final production stage\nFROM node:20-alpine AS runner\n\n# Set production environment\nENV NODE_ENV=production\n\n# Set working directory\nWORKDIR /app\n\n# Copy only necessary files from builder\n# We copy package files to install only production dependencies\nCOPY --from=builder /app/package*.json ./\nCOPY --from=builder /app/dist ./dist\n\n# Install only production dependencies\nRUN npm ci --omit=dev\n\n# Use unprivileged node user provided by the official image\nUSER node\n\n# Expose application port\nEXPOSE 3000\n\n# Healthcheck using node itself (no curl dependency)\nHEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \\\n  CMD node -e \"require('http').get('http://localhost:3000/health', (res) => { if (res.statusCode === 200) process.exit(0); process.exit(1); }).on('error', () => process.exit(1))\"\n\n# Execute application using exec form\nCMD [\"node\", \"dist/main.js\"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "df-harden-user-root-end",
+   "kind": "harden",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 11.3,
+     "tokens": 129,
+     "answer": "```dockerfile\n# file: Dockerfile\nFROM debian:bookworm-20240612-slim\nRUN useradd --system --uid 10001 appuser\nUSER root\nRUN apt-get update \\\n && apt-get install -y --no-install-recommends netcat-openbsd \\\n && rm -rf /var/lib/apt/lists/*\nWORKDIR /home/appuser\nCOPY --chown=appuser:appuser poller.sh .\nUSER appuser\nCMD [\"./poller.sh\"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "sh-log-summary",
+   "kind": "write",
+   "difficulty": "easy",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "{'c03_sh_behavior': \"[file] stdout 'ERROR=0 WARN=0 INFO=0' != 'ERROR=2 WARN=1 INFO=2'; [stdin] stdout 'ERROR=0 WARN=0 INFO=0' != 'ERROR=2 WARN=1 INFO=2'\", 'c01_shellcheck': 'summarize.sh:37:15: warning: err appears unused. Verify use (or export if used externally). [SC2034]\\nsummarize.sh:37:19: warning: w appears unused. Verify use (or export if used externally). [SC2034]\\nsummarize.sh:37:21: warn",
+     "secs": 39.7,
+     "tokens": 434,
+     "answer": "```bash\n# file: summarize.sh\n#!/usr/bin/env bash\n\nset -euo pipefail\n\n# Function to print usage and exit\nusage() {\n    echo \"Usage: $0 LOGFILE or $0 -\" >&2\n    exit 2\n}\n\n# Check arguments\nif [[ $# -ne 1 ]]; then\n    usage\nfi\n\nINPUT=\"${1}\"\n\n# Check if input is stdin or a readable file\nif [[ \"$INPUT\" != \"-\" ]]; then\n    if [[ ! -r \"$INPUT\" ]]; then\n        echo \"Error: Cannot read file '$INPUT'\" >&2\n        exit 1\n    fi\n    exec 3< \"$INPUT\"\nelse\n    exec 3<&0\nfi\n\n# Initialize counters\nerror_count=0\nwarn_count=0\ninfo_count=0\n\n# Process the stream\n# awk is used for efficient field-based counting\n# We use awk to avoid shell loop overhead for large logs\nwhile read -r err w ar n; do\n    # This loop is a fallback, but we'll use awk for the heavy lifting\n    :\ndone <&3 # This is just to keep the FD open; logic moved to awk below\n\n# Use awk to parse the stream from FD 3\n# We extract the 2nd field and increment specific counters\nresults=$(awk '\n{\n    if ($2 == \"ERROR\") err++;\n    else if ($2 == \"WARN\") warn++;\n    else if ($2 == \"INFO\") info++;\n}\nEND {\n    printf \"%d %d %d\", err, warn, info\n}' <&3)\n\n# Parse the results back into shell variables\nread -r error_count warn_count info_count <<< \"$results\"\n\n# Print the required format\nprintf \"ERROR=%d WARN=%d INFO=%d\\n\" \"${error_count:-0}\" \"${warn_count:-0}\" \"${info_count:-0}\"\n\nexit 0\n```"
+    }
+   ]
+  },
+  {
+   "id": "sh-csv-to-env",
+   "kind": "write",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 39.2,
+     "tokens": 565,
+     "answer": "```bash\n# file: csv_to_env.sh\n#!/usr/bin/env bash\n\n# Exit codes:\n# 1: Invalid lines encountered\n# 2: File error (missing or unreadable)\n\nset -u\n\nexit_code=0\n\n# Check if argument is provided\nif [[ $# -ne 1 ]]; then\n    echo \"Usage: $0 FILE.csv\" >&2\n    exit 2\nfi\n\ninput_file=\"$1\"\n\n# Check if file exists and is readable\nif [[ ! -r \"$input_file\" ]]; then\n    echo \"Error: Cannot read file '$input_file'\" >&2\n    exit 2\nfi\n\n# Use a flag to skip the header on the first valid line\nfirst_line=true\n\n# Process file line by line\n# We use IFS= to preserve whitespace and -r to prevent backslash interpretation\n# We use sed to handle CRLF (\\r)\nwhile IFS= read -r line || [[ -n \"$line\" ]]; do\n    # Remove trailing carriage return (CRLF support)\n    line=\"${line%$'\\r'}\"\n\n    # Skip blank lines and lines starting with #\n    [[ -z \"$line\" ]] && continue\n    [[ \"$line\" =~ ^# ]] && continue\n\n    # Skip the header (the very first line of the file)\n    if $first_line; then\n        first_line=false\n        continue\n    fi\n\n    # Check for presence of comma\n    if [[ \"$line\" != *\",\"* ]]; then\n        echo \"invalid line: $line\" >&2\n        exit_code=1\n        continue\n    fi\n\n    # Extract key (everything before the FIRST comma)\n    key=\"${line%%,*}\"\n    # Extract value (everything after the FIRST comma)\n    value=\"${line#*,}\"\n\n    # Validate key: [A-Za-z_][A-Za-z0-9_]*\n    if [[ ! \"$key\" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then\n        echo \"invalid line: $line\" >&2\n        exit_code=1\n        continue\n    fi\n\n    # Escape single quotes for shell safety: ' becomes '\\''\n    # This allows the value to be wrapped in single quotes safely\n    safe_value=\"${value//\\'/\\'\\\\\\'\\'}\"\n\n    printf \"export %s='%s'\\n\" \"$key\" \"$safe_value\"\n\ndone < \"$input_file\"\n\nexit \"$exit_code\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "sh-rotate-backups",
+   "kind": "write",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 43.6,
+     "tokens": 410,
+     "answer": "```bash\n# file: rotate.sh\n#!/bin/bash\n\n# Check for correct number of arguments\nif [ \"$#\" -ne 2 ]; then\n    exit 2\nfi\n\nDIR=\"$1\"\nKEEP=\"$2\"\n\n# Validate KEEP is a non-negative integer\nif ! [[ \"$KEEP\" =~ ^[0-9]+$ ]]; then\n    exit 2\nfi\n\n# Check if DIR is a directory\nif [ ! -d \"$DIR\" ]; then\n    exit 1\nfi\n\n# Use nullglob to handle cases where no files match\nshopt -s nullglob\n\n# Find all matching files. \n# We use 'ls -1' on the directory to get names, then sort them.\n# Since names are ISO dates, alphabetical sort is chronological.\n# We use a loop with find/ls to handle spaces safely.\nmapfile -t files < <(find \"$DIR\" -maxdepth 1 -name \"backup-*.tar.gz\" -printf \"%f\\n\" | sort)\n\n# Total number of matching files found\ntotal_files=${#files[@]}\n\n# If we have more files than we want to keep\nif [ \"$total_files\" -gt \"$KEEP\" ]; then\n    # Calculate how many to delete\n    num_to_delete=$((total_files - KEEP))\n    \n    # The files are sorted oldest to newest. \n    # We delete the first 'num_to_delete' files.\n    for (( i=0; i<num_to_delete; i++ )); do\n        file_name=\"${files[$i]}\"\n        file_path=\"$DIR/$file_name\"\n        \n        if [ -f \"$file_path\" ]; then\n            rm \"$file_path\"\n            echo \"deleted $file_name\"\n        fi\n    done\nfi\n\nexit 0\n```"
+    }
+   ]
+  },
+  {
+   "id": "ci-convert-gh-to-gitlab",
+   "kind": "convert",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 27.6,
+     "tokens": 326,
+     "answer": "```yaml\n# file: .gitlab-ci.yml\nimage: golang:1.22.5\n\nvariables:\n  GOMODCACHE: \"$CI_PROJECT_DIR/.gomodcache\"\n\nstages:\n  - lint\n  - test\n  - build\n\ncache:\n  key:\n    files:\n      - go.sum\n  paths:\n    - .gomodcache/\n\nlint:\n  stage: lint\n  script:\n    - go vet ./...\n  rules:\n    - if: $CI_PIPELINE_SOURCE == \"merge_request_event\"\n    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH\n\ntest:\n  stage: test\n  needs:\n    - lint\n  script:\n    - go test ./... -race\n  rules:\n    - if: $CI_PIPELINE_SOURCE == \"merge_request_event\"\n    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH\n\nbuild:\n  stage: build\n  needs:\n    - test\n  script:\n    - go build -o bin/app ./cmd/app\n  artifacts:\n    paths:\n      - bin/app\n    expire_in: 1 week\n  rules:\n    - if: $CI_PIPELINE_SOURCE == \"merge_request_event\"\n    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH\n```"
+    }
+   ]
+  },
+  {
+   "id": "cp-convert-docker-run",
+   "kind": "convert",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "{'c09_q': \"docker-compose.yml / : services.app.environment.CACHE_HOST eq 'cache' failed (values: [])\", 'c10_q': \"docker-compose.yml / : services.app.environment.LOG_LEVEL eq 'info' failed (values: [])\"}",
+     "secs": 19.8,
+     "tokens": 237,
+     "answer": "```yaml\n# file: docker-compose.yml\nservices:\n  cache:\n    image: redis:7.2-alpine\n    command: redis-server --appendonly yes\n    restart: unless-stopped\n    networks:\n      - appnet\n    volumes:\n      - cachedata:/data\n    healthcheck:\n      test: [\"CMD\", \"redis-cli\", \"ping\"]\n      interval: 5s\n      timeout: 2s\n      retries: 5\n\n  app:\n    image: ghcr.io/acme/app:1.4.0\n    restart: on-failure\n    networks:\n      - appnet\n    ports:\n      - \"127.0.0.1:8080:8080\"\n    environment:\n      - CACHE_HOST=cache\n      - LOG_LEVEL=info\n    depends_on:\n      cache:\n        condition: service_healthy\n\nnetworks:\n  appnet:\n    driver: bridge\n\nvolumes:\n  cachedata:\n```"
+    }
+   ]
+  },
+  {
+   "id": "df-fix-latest-root-add",
+   "kind": "fix",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 26.5,
+     "tokens": 263,
+     "answer": "```dockerfile\n# file: Dockerfile\nFROM python:3.11-slim-bookworm\nWORKDIR /app\n\n# Create a non-root user and group\nRUN groupadd -r appuser && useradd -r -g appuser appuser\n\n# Use RUN instead of ADD to fetch content, verify checksum, and extract\nRUN curl -fsSL https://releases.example.com/app-1.4.2.tar.gz -o app.tar.gz \\\n    && echo \"3f5b0c1d2e4a6f8091b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718  app.tar.gz\" | sha256sum -c - \\\n    && tar -xzf app.tar.gz -C /app --strip-components=1 \\\n    && rm app.tar.gz \\\n    && chown -R appuser:appuser /app\n\nUSER appuser\n\nEXPOSE 5000\nCMD [\"python\", \"-m\", \"app\"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "sh-fix-pipeline-status",
+   "kind": "fix",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 21.9,
+     "tokens": 129,
+     "answer": "```bash\n# file: check_build.sh\n#!/bin/bash\nset -e\n\nif [[ ! -d \"build\" ]]; then\n  echo \"Error: build directory does not exist\" >&2\n  exit 1\nfi\n\ncd build\n\n# Use pipefail so the exit code of make is preserved through tee\nset -o pipefail\n\n# Run make and log to build.log\n# If make fails, the script exits immediately due to set -e and set -o pipefail\nmake all 2>&1 | tee build.log\n\necho \"build finished\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "ci-fix-slow-no-cache",
+   "kind": "fix",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 12.9,
+     "tokens": 153,
+     "answer": "```yaml\n# file: .github/workflows/ci.yml\nname: ci\non:\n  pull_request:\n\nconcurrency:\n  group: ${{ github.workflow }}-${{ github.ref }}\n  cancel-in-progress: true\n\npermissions:\n  contents: read\n\njobs:\n  test:\n    runs-on: ubuntu-latest\n    timeout-minutes: 15\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: 20\n          cache: 'npm'\n      - run: npm ci\n      - run: npm test\n```"
+    }
+   ]
+  },
+  {
+   "id": "k8s-harden-rbac",
+   "kind": "harden",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 16.1,
+     "tokens": 240,
+     "answer": "```yaml\n# file: rbac.yaml\napiVersion: v1\nkind: ServiceAccount\nmetadata:\n  name: ci-deployer\n  namespace: staging\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  name: deployer\n  namespace: staging\nrules:\n  - apiGroups: [\"apps\"]\n    resources: [\"deployments\"]\n    verbs: [\"get\", \"list\", \"watch\", \"update\", \"patch\"]\n  - apiGroups: [\"\"]\n    resources: [\"configmaps\", \"pods\"]\n    verbs: [\"get\", \"list\", \"watch\"]\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  name: ci-deployer-binding\n  namespace: staging\nsubjects:\n  - kind: ServiceAccount\n    name: ci-deployer\n    namespace: staging\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: deployer\n```"
+    }
+   ]
+  },
+  {
+   "id": "mk-harden-shell-flags",
+   "kind": "harden",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 11.3,
+     "tokens": 92,
+     "answer": "```makefile\n# file: Makefile\nSHELL := bash\n.SHELLFLAGS := -eu -o pipefail -c\n.DELETE_ON_ERROR:\nMAKEFLAGS += --warn-undefined-variables\n\n.PHONY: all clean\n\nall: report.txt\n\nreport.txt: data.txt\n\tsort data.txt | uniq -c > report.txt\n\nclean:\n\trm -f report.txt\n```"
+    }
+   ]
+  },
+  {
+   "id": "mk-go-basic",
+   "kind": "write",
+   "difficulty": "easy",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "{'c02_mk_default': \"default goal is 'all', want 'build'\"}",
+     "secs": 9.9,
+     "tokens": 79,
+     "answer": "```makefile\n# file: Makefile\n.PHONY: all build test lint check clean\n\nBINARY ?= app\n\nall: build\n\nbuild:\n\tgo build -o bin/$(BINARY) ./cmd/app\n\ntest:\n\tgo test ./...\n\nlint:\n\tgo vet ./...\n\ncheck: lint test\n\nclean:\n\trm -rf bin\n```"
+    }
+   ]
+  },
+  {
+   "id": "mk-python-venv-stamp",
+   "kind": "write",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "{'c02_mk_default': \"default goal is 'all', want 'test'\"}",
+     "secs": 11.6,
+     "tokens": 116,
+     "answer": "```makefile\n# file: Makefile\nVENV := .venv\n\n.PHONY: all venv test clean\n\nall: test\n\nvenv: $(VENV)/bin/activate\n\n$(VENV)/bin/activate: requirements.txt\n\tpython3 -m venv $(VENV)\n\t$(VENV)/bin/pip install -r requirements.txt\n\ttouch $(VENV)/bin/activate\n\ntest: venv\n\t$(VENV)/bin/pytest -q\n\nclean:\n\trm -rf $(VENV)\n```"
+    }
+   ]
+  },
+  {
+   "id": "ci-gh-postgres-service",
+   "kind": "write",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 20.6,
+     "tokens": 276,
+     "answer": "```yaml\n# file: .github/workflows/ci.yml\nname: CI\n\non:\n  push:\n    branches: [ main ]\n  pull_request:\n    branches: [ main ]\n\npermissions:\n  contents: read\n\njobs:\n  integration:\n    runs-on: ubuntu-latest\n    services:\n      postgres:\n        image: postgres:16-alpine\n        env:\n          POSTGRES_PASSWORD: test\n        ports:\n          - 5432:5432\n        options: >-\n          --health-cmd \"pg_isready -U postgres\"\n          --health-interval 5s\n          --health-timeout 5s\n          --health-retries 10\n\n    steps:\n      - name: Checkout code\n        uses: actions/checkout@v4\n\n      - name: Set up Go\n        uses: actions/setup-go@v5\n        with:\n          go-version-file: 'go.mod'\n\n      - name: Run integration tests\n        env:\n          DATABASE_URL: postgres://postgres:test@localhost:5432/postgres?sslmode=disable\n        run: go test ./... -tags=integration\n```"
+    }
+   ]
+  },
+  {
+   "id": "mk-convert-build-script",
+   "kind": "convert",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": false,
+     "detail": "missing output file(s): Makefile",
+     "secs": 2.6,
+     "tokens": 88,
+     "answer": "# file: Makefile\n.PHONY: all deps lint test build package clean\n\nall: package\n\ndeps:\n\tnpm ci\n\nlint: deps\n\tnpx eslint .\n\ntest: deps\n\tnpm test\n\nbuild: lint test\n\tnpm run build\n\npackage: build\n\ttar -czf dist.tar.gz dist\n\nclean:\n\trm -rf dist dist.tar.gz node_modules"
+    }
+   ]
+  },
+  {
+   "id": "sh-fix-unquoted-copy",
+   "kind": "fix",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 19.6,
+     "tokens": 140,
+     "answer": "```bash\n# file: copy_logs.sh\n#!/bin/bash\nset -eu\n\nif [ \"$#\" -ne 2 ]; then\n  exit 2\nfi\n\nsrc=\"$1\"\ndest=\"$2\"\n\nmkdir -p \"$dest\"\n\ncount=0\n# Use nullglob so the loop doesn't run if no .log files exist\nshopt -s nullglob\nfor f in \"$src\"/*.log; do\n  cp \"$f\" \"$dest/\"\n  count=$((count + 1))\ndone\nshopt -u nullglob\n\necho \"copied $count file(s) to $dest\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "k8s-fix-dangling-refs",
+   "kind": "fix",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 34.3,
+     "tokens": 299,
+     "answer": "```yaml\n# file: deployment.yaml\napiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: web-config\ndata:\n  LOG_LEVEL: info\n  nginx.conf: |\n    events {}\n---\napiVersion: v1\nkind: PersistentVolumeClaim\nmetadata:\n  name: web-data\nspec:\n  accessModes: [\"ReadWriteOnce\"]\n  resources:\n    requests:\n      storage: 5Gi\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: web\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: web\n  template:\n    metadata:\n      labels:\n        app: web\n    spec:\n      containers:\n        - name: web\n          image: nginx:1.27\n          envFrom:\n            - configMapRef:\n                name: web-config\n          volumeMounts:\n            - name: conf\n              mountPath: /etc/nginx/nginx.conf\n              subPath: nginx.conf\n            - name: data\n              mountPath: /var/www\n      volumes:\n        - name: conf\n          configMap:\n            name: web-config\n        - name: data\n          persistentVolumeClaim:\n            claimName: web-data\n```"
+    }
+   ]
+  },
+  {
+   "id": "sh-fix-tempfile",
+   "kind": "fix",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 31.8,
+     "tokens": 122,
+     "answer": "```bash\n# file: report.sh\n#!/bin/bash\nset -euo pipefail\n\nif [[ $# -ne 1 ]]; then\n    exit 2\nfi\n\ninput_file=\"$1\"\n\nif [[ ! -f \"$input_file\" ]]; then\n    exit 1\nfi\n\ntemp_file=$(mktemp)\ntrap 'rm -f \"$temp_file\"' EXIT\n\nsort \"$input_file\" | uniq -c | sort -rn | head -3 > \"$temp_file\"\ncat \"$temp_file\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "sh-harden-injection",
+   "kind": "harden",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "{'c02_not_contains': \"run_job.sh: forbidden pattern '\\\\\\\\beval\\\\\\\\b|bash\\\\\\\\s+-c|sh\\\\\\\\s+-c' found: 'eval'\"}",
+     "secs": 31.0,
+     "tokens": 183,
+     "answer": "```bash\n# file: run_job.sh\n#!/bin/bash\n\n# Check for exactly one argument\nif [ \"$#\" -ne 1 ]; then\n    echo \"Usage: $0 NAME\" >&2\n    exit 2\nfi\n\nname=\"$1\"\n\n# Validate NAME against ^[a-z0-9_-]+$\nif [[ ! \"$name\" =~ ^[a-z0-9_-]+$ ]]; then\n    echo \"invalid job name\" >&2\n    exit 2\nfi\n\njob_path=\"jobs/$name.sh\"\n\n# Check if the job script exists\nif [ ! -f \"$job_path\" ]; then\n    echo \"unknown job: $name\" >&2\n    exit 1\nfi\n\n# Run the job without eval\nbash \"$job_path\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "df-node-basic",
+   "kind": "write",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 16.4,
+     "tokens": 208,
+     "answer": "```dockerfile\n# file: Dockerfile\nFROM node:20.17.0-alpine3.20\n\n# Set working directory\nWORKDIR /app\n\n# Copy dependency manifests first to leverage Docker layer caching\n# This ensures 'npm ci' only runs when package files change\nCOPY package.json package-lock.json ./\n\n# Install only production dependencies\n# 'npm ci' ensures a reproducible install from the lockfile\nRUN npm ci --only=production && npm cache clean --force\n\n# Copy the rest of the application source code\n# This layer will invalidate whenever source files change\nCOPY . .\n\n# Ensure the unprivileged 'node' user owns the application files\nRUN chown -R node:node /app\n\n# Switch to the unprivileged user provided by the official image\nUSER node\n\n# Document the port the service listens on\nEXPOSE 3000\n\n# Start the application in exec form\nCMD [\"node\", \"server.js\"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "ci-gh-docker-publish",
+   "kind": "write",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 41.2,
+     "tokens": 447,
+     "answer": "```yaml\n# file: .github/workflows/release.yml\nname: Release\n\non:\n  push:\n    tags:\n      - 'v*'\n\npermissions:\n  contents: read\n\njobs:\n  build:\n    runs-on: ubuntu-latest\n    permissions:\n      contents: read\n      packages: write\n    timeout-minutes: 30\n    steps:\n      - name: Checkout\n        uses: actions/checkout@v4\n\n      - name: Set up Docker Buildx\n        uses: docker/setup-buildx-action@0d103c3126aa41d772a8362f6aa67afac040f80c\n\n      - name: Login to GHCR\n        uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20\n        with:\n          registry: ghcr.io\n          username: ${{ github.actor }}\n          password: ${{ secrets.GITHUB_TOKEN }}\n\n      - name: Extract Docker metadata\n        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81\n        with:\n          images: ghcr.io/${{ github.repository }}\n\n      - name: Build and push Docker image\n        uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991\n        with:\n          context: .\n          push: true\n          tags: ${{ steps.metadata.outputs.tags }}\n          labels: ${{ steps.metadata.outputs.labels }}\n          cache-from: type=gha\n          cache-to: type=gha,mode=max\n```"
+    }
+   ]
+  },
+  {
+   "id": "ci-gh-release-job-split",
+   "kind": "write",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "{'c06_q': \".github/workflows/release.yml / Release: jobs.build.permissions regex '^$|^\\\\\\\\{\\\\\\\\}$|read' failed (values: [{'contents': 'read'}])\"}",
+     "secs": 20.7,
+     "tokens": 273,
+     "answer": "```yaml\n# file: .github/workflows/release.yml\nname: Release\n\non:\n  push:\n    tags:\n      - 'v*'\n\npermissions:\n  contents: read\n\njobs:\n  build:\n    runs-on: ubuntu-latest\n    permissions:\n      contents: read\n    steps:\n      - name: Checkout\n        uses: actions/checkout@v4\n\n      - name: Build distribution\n        run: make dist\n\n      - name: Upload artifact\n        uses: actions/upload-artifact@v4\n        with:\n          name: dist\n          path: dist/\n          retention-days: 7\n\n  publish:\n    needs: build\n    runs-on: ubuntu-latest\n    permissions:\n      contents: write\n    steps:\n      - name: Download artifact\n        uses: actions/download-artifact@v4\n        with:\n          name: dist\n          path: dist\n\n      - name: Create Release\n        uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda\n        with:\n          files: dist/*\n```"
+    }
+   ]
+  },
+  {
+   "id": "mk-convert-npm-scripts",
+   "kind": "convert",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 14.3,
+     "tokens": 103,
+     "answer": "```makefile\n# file: Makefile\n.PHONY: dev build start test lint format ci\n\n.DEFAULT_GOAL: dev\n\ndev:\n\tvite --port 5173\n\nbuild:\n\ttsc -b && vite build\n\nstart: build\n\tnode server/index.js\n\ntest:\n\tvitest run --coverage\n\nlint:\n\teslint . --max-warnings 0\n\nformat:\n\tprettier --write .\n\nci: lint test build\n```"
+    }
+   ]
+  },
+  {
+   "id": "df-fix-no-healthcheck",
+   "kind": "fix",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 13.5,
+     "tokens": 132,
+     "answer": "```dockerfile\n# file: Dockerfile\nFROM alpine:3.20\nRUN apk add --no-cache ca-certificates && adduser -D -u 10001 svc\nCOPY svc /usr/local/bin/svc\nUSER svc\nEXPOSE 8080\nHEALTHCHECK --interval=15s --timeout=2s --retries=3 CMD wget --quiet --tries=1 --spider http://127.0.0.1:8080/healthz || exit 1\nENTRYPOINT [\"/usr/local/bin/svc\"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "mk-fix-shell-vars",
+   "kind": "fix",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 13.4,
+     "tokens": 60,
+     "answer": "```makefile\n# file: Makefile\nBUILD := $(shell date +%s)\n\n.PHONY: info sub\n\ninfo:\n\t@echo \"home=$$HOME build=$(BUILD) user=$$(id -un)\"\n\nsub:\n\tcd sub && $(MAKE)\n```"
+    }
+   ]
+  },
+  {
+   "id": "ci-fix-hardcoded-creds",
+   "kind": "fix",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 17.6,
+     "tokens": 208,
+     "answer": "```yaml\n# file: .github/workflows/ci.yml\nname: sync\non:\n  push:\n    branches: [main]\njobs:\n  sync:\n    runs-on: ubuntu-latest\n    permissions:\n      id-token: write\n      contents: read\n    steps:\n      - uses: actions/checkout@v4\n      - uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502\n        with:\n          role-to-assume: arn:aws:iam::123456789012:role/gh-s3-sync\n          aws-region: us-east-1\n      - run: aws s3 sync ./public s3://acme-static-site --delete\n```"
+    }
+   ]
+  },
+  {
+   "id": "sh-harden-installer",
+   "kind": "harden",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 45.6,
+     "tokens": 321,
+     "answer": "```bash\n# file: install.sh\n#!/bin/bash\nset -euo pipefail\n\nURL=\"${1:-}\"\nEXPECTED_SHA=\"${2:-}\"\nPREFIX=\"${3:-}\"\n\n# Validate arguments presence\nif [[ -z \"$URL\" || -z \"$EXPECTED_SHA\" || -z \"$PREFIX\" ]]; then\n    echo \"Usage: $0 URL SHA256 PREFIX\" >&2\n    exit 2\nfi\n\n# Validate SHA256 format (64 hex characters)\nif [[ ! \"$EXPECTED_SHA\" =~ ^[a-fA-F0-9]{64}$ ]]; then\n    echo \"Invalid SHA256 format\" >&2\n    exit 2\nfi\n\n# Create temporary file\nTMP_FILE=$(mktemp)\ntrap 'rm -f \"$TMP_FILE\"' EXIT\n\n# Download file\nif ! curl --fail -sL \"$URL\" -o \"$TMP_FILE\"; then\n    echo \"Download failed\" >&2\n    exit 1\nfi\n\n# Verify checksum\necho \"$EXPECTED_SHA  $TMP_FILE\" | sha256sum -c --status || {\n    echo \"checksum mismatch\" >&2\n    exit 1\n}\n\n# Install binary\nDEST_DIR=\"${PREFIX}/bin\"\nDEST_FILE=\"${DEST_DIR}/tool\"\n\ninstall -D -m 0755 \"$TMP_FILE\" \"$DEST_FILE\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "df-dockerignore-node",
+   "kind": "write",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 11.1,
+     "tokens": 52,
+     "answer": "```dockerignore\n# file: .dockerignore\nnode_modules\n.git\n.github\n.env\n.env.local\ncoverage\ndist\nnpm-debug.log\n*.md\nDockerfile\ndocker-compose.yml\n```"
+    }
+   ]
+  },
+  {
+   "id": "sh-cron-lock",
+   "kind": "write",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "{'c03_sh_behavior': \"[runs and releases] file lk must not exist; [propagates failure and releases] file lk must not exist; [released on SIGTERM] exit 0, want 143; stderr=''; [released on SIGTERM] file lk must not exist\"}",
+     "secs": 34.1,
+     "tokens": 206,
+     "answer": "```bash\n# file: locked.sh\n#!/usr/bin/env bash\n\nset -eu\n\nLOCK_DIR=\"${LOCK_DIR:-/tmp/locked.lock}\"\n\nusage() {\n    echo \"Usage: $0 command [args...]\" >&2\n    exit 2\n}\n\n# Check if command is provided\nif [ $# -eq 0 ]; then\n    usage\nfi\n\n# Attempt to acquire lock atomically\nif ! mkdir \"$LOCK_DIR\" 2>/dev/null; then\n    echo \"already running (lock $LOCK_DIR)\" >&2\n    exit 75\nfi\n\n# Function to release the lock\ncleanup() {\n    rmdir \"$LOCK_DIR\" 2>/dev/null || true\n}\n\n# Ensure lock is removed on exit or interruption\ntrap cleanup EXIT INT TERM\n\n# Execute the command with its original arguments\n# \"$@\" preserves argument quoting/splitting\nexec \"$@\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "tf-s3-secure-bucket",
+   "kind": "write",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 30.5,
+     "tokens": 315,
+     "answer": "```hcl\n# file: main.tf\nterraform {\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \"~> 5.0\"\n    }\n  }\n}\n\nprovider \"aws\" {\n  region = \"us-east-1\"\n}\n\nresource \"aws_s3_bucket\" \"data\" {\n  bucket = \"acme-app-data\"\n}\n\nresource \"aws_s3_bucket_public_access_block\" \"data\" {\n  bucket                  = aws_s3_bucket.data.id\n  block_public_acls       = true\n  block_public_policy     = true\n  ignore_public_acls      = true\n  restrict_public_buckets = true\n}\n\nresource \"aws_s3_bucket_versioning\" \"data\" {\n  bucket = aws_s3_bucket.data.id\n  versioning_configuration {\n    status = \"Enabled\"\n  }\n}\n\nresource \"aws_s3_bucket_server_side_encryption_configuration\" \"data\" {\n  bucket = aws_s3_bucket.data.id\n\n  rule {\n    apply_server_side_encryption_by_default {\n      sse_algorithm = \"aws:kms\"\n    }\n    bucket_key_enabled = true\n  }\n}\n```"
+    }
+   ]
+  },
+  {
+   "id": "ci-convert-script-to-workflow",
+   "kind": "convert",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 34.2,
+     "tokens": 443,
+     "answer": "```yaml\n# file: .github/workflows/ci.yml\nname: CI\n\non:\n  push:\n    branches:\n      - main\n  schedule:\n    - cron: \"0 3 * * *\"\n\npermissions:\n  contents: read\n\njobs:\n  lint:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n\n      - name: Set up Python 3.12\n        uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n          cache: 'pip'\n\n      - name: Install dependencies\n        run: pip install -r requirements.txt\n\n      - name: Lint with flake8\n        run: flake8 src\n\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n\n      - name: Set up Python 3.12\n        uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n          cache: 'pip'\n\n      - name: Install dependencies\n        run: pip install -r requirements.txt\n\n      - name: Test with pytest\n        run: pytest -q\n\n  package:\n    runs-on: ubuntu-latest\n    needs: [lint, test]\n    steps:\n      - uses: actions/checkout@v4\n\n      - name: Set up Python 3.12\n        uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n          cache: 'pip'\n\n      - name: Install dependencies\n        run: |\n          pip install -r requirements.txt\n          pip install build\n\n      - name: Build package\n        run: python -m build\n\n      - name: Upload package artifact\n        uses: actions/upload-artifact@v4\n        with:\n          name: package\n          path: dist/\n```"
+    }
+   ]
+  },
+  {
+   "id": "k8s-fix-latest-no-limits",
+   "kind": "fix",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 27.2,
+     "tokens": 164,
+     "answer": "```yaml\n# file: deployment.yaml\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: crawler\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: crawler\n  template:\n    metadata:\n      labels:\n        app: crawler\n    spec:\n      containers:\n        - name: crawler\n          image: ghcr.io/acme/crawler:2.3.4\n          imagePullPolicy: IfNotPresent\n          args: [\"--workers\", \"4\"]\n          resources:\n            requests:\n              cpu: 100m\n              memory: 128Mi\n            limits:\n              memory: 256Mi\n```"
+    }
+   ]
+  },
+  {
+   "id": "ci-fix-script-injection",
+   "kind": "fix",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 16.4,
+     "tokens": 181,
+     "answer": "```yaml\n# file: .github/workflows/ci.yml\nname: triage\non:\n  pull_request:\n  issue_comment:\n    types: [created]\npermissions:\n  contents: read\njobs:\n  triage:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Log PR info\n        env:\n          PR_TITLE: ${{ github.event.pull_request.title }}\n          BRANCH: ${{ github.head_ref }}\n        run: |\n          echo \"PR title: $PR_TITLE\"\n          echo \"Branch: $BRANCH\"\n      - name: Echo comment\n        env:\n          COMMENT: ${{ github.event.comment.body }}\n        run: echo \"Comment: $COMMENT\" >> \"$GITHUB_STEP_SUMMARY\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "cp-fix-plain-secrets",
+   "kind": "fix",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 20.5,
+     "tokens": 226,
+     "answer": "```yaml\n# file: docker-compose.yml\nservices:\n  db:\n    image: postgres:16.3-alpine\n    environment:\n      POSTGRES_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD must be set}\n  cache:\n    image: redis:7.2-alpine\n    command: [\"redis-server\", \"--requirepass\", \"${REDIS_PASSWORD:?REDIS_PASSWORD must be set}\"]\n  shop:\n    image: ghcr.io/acme/shop:1.12.0\n    environment:\n      DB_URL: postgres://shop:${DB_PASSWORD:?DB_PASSWORD must be set}@db/shop\n      REDIS_PASSWORD: ${REDIS_PASSWORD:?REDIS_PASSWORD must be set}\n      STRIPE_KEY: ${STRIPE_KEY:?STRIPE_KEY must be set}\n    ports:\n      - \"127.0.0.1:3000:3000\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "ci-harden-workflow",
+   "kind": "harden",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 26.2,
+     "tokens": 324,
+     "answer": "```yaml\n# file: .github/workflows/release.yml\nname: release\non:\n  push:\n    tags: [\"v*\"]\n\npermissions:\n  contents: read\n  packages: write\n\nconcurrency:\n  group: release-${{ github.ref }}\n  cancel-in-progress: false\n\njobs:\n  publish:\n    runs-on: ubuntu-latest\n    timeout-minutes: 30\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          persist-credentials: false\n      - uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20\n        with:\n          registry: ghcr.io\n          username: ${{ github.actor }}\n          password: ${{ secrets.GITHUB_TOKEN }}\n      - uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991\n        with:\n          push: true\n          tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}\n      - name: Announce\n        env:\n          COMMIT_MSG: ${{ github.event.head_commit.message }}\n        run: echo \"Released $COMMIT_MSG\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "ci-gh-node-basic",
+   "kind": "write",
+   "difficulty": "easy",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "{'c04_q': \".github/workflows/ci.yml / CI: permissions.contents eq 'read' failed (values: [])\"}",
+     "secs": 15.1,
+     "tokens": 176,
+     "answer": "```yaml\n# file: .github/workflows/ci.yml\nname: CI\n\non:\n  push:\n    branches: [ main ]\n  pull_request:\n    branches: [ main ]\n\njobs:\n  test:\n    runs-on: ubuntu-latest\n    permissions:\n      contents: read\n\n    steps:\n      - name: Checkout code\n        uses: actions/checkout@v4\n\n      - name: Setup Node.js\n        uses: actions/setup-node@v4\n        with:\n          node-version: '20'\n          cache: 'npm'\n\n      - name: Install dependencies\n        run: npm ci\n\n      - name: Run lint\n        run: npm run lint\n\n      - name: Run tests\n        run: npm test\n```"
+    }
+   ]
+  },
+  {
+   "id": "df-py-venv-multistage",
+   "kind": "write",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "{'c08_df_instr': \"no USER matching '^10001(:\\\\\\\\d+)?$'\"}",
+     "secs": 30.9,
+     "tokens": 357,
+     "answer": "```dockerfile\n# file: Dockerfile\nFROM python:3.12-slim AS builder\n\n# Prevent Python from writing .pyc files and enable unbuffered logging\nENV PYTHONDONTWRITEBYTECODE=1 \\\n    PYTHONUNBUFFERED=1 \\\n    PATH=\"/opt/venv/bin:$PATH\"\n\nWORKDIR /build\n\n# Install build dependencies, create venv, and install requirements\nRUN apt-get update && \\\n    apt-get install -y --no-install-recommends build-essential && \\\n    python -m venv /opt/venv && \\\n    rm -rf /var/lib/apt/lists/*\n\n# Copy requirements and install into the virtualenv\nCOPY requirements.txt .\nRUN /opt/venv/bin/pip install --no-cache-dir -r requirements.txt\n\n# Final Stage\nFROM python:3.12-slim\n\nENV PYTHONDONTWRITEBYTECODE=1 \\\n    PYTHONUNBUFFERED=1 \\\n    PATH=\"/opt/venv/bin:$PATH\"\n\n# Create a non-privileged user with UID 10001\nRUN groupadd -g 10001 appuser && \\\n    useradd -u 10001 -g appuser -s /bin/false appuser\n\nWORKDIR /app\n\n# Copy only the virtual environment from the builder\nCOPY --from=builder /opt/venv /opt/venv\n\n# Copy application code and set ownership\nCOPY --chown=appuser:appuser . .\n\n# Switch to non-root user\nUSER appuser\n\nCMD [\"python\", \"main.py\"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "k8s-rbac-least-privilege",
+   "kind": "write",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 26.3,
+     "tokens": 224,
+     "answer": "```yaml\n# file: rbac.yaml\napiVersion: v1\nkind: ServiceAccount\nmetadata:\n  name: pod-reader\n  namespace: ops\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  name: pod-reader\n  namespace: ops\nrules:\n- apiGroups: [\"\"]\n  resources: [\"pods\"]\n  verbs: [\"get\", \"list\", \"watch\"]\n- apiGroups: [\"\"]\n  resources: [\"pods/log\"]\n  verbs: [\"get\", \"list\", \"watch\"]\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  name: pod-reader\n  namespace: ops\nsubjects:\n- kind: ServiceAccount\n  name: pod-reader\n  namespace: ops\nroleRef:\n  kind: Role\n  name: pod-reader\n  apiGroup: rbac.authorization.k8s.io\n```"
+    }
+   ]
+  },
+  {
+   "id": "tf-fix-open-sg",
+   "kind": "fix",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 24.8,
+     "tokens": 288,
+     "answer": "```hcl\n# file: main.tf\nvariable \"admin_cidr\" {\n  type        = string\n  description = \"CIDR block for admin access\"\n}\n\nvariable \"app_sg_id\" {\n  type        = string\n  description = \"Security group ID of the application tier\"\n}\n\nresource \"aws_security_group\" \"db_access\" {\n  name   = \"db-access\"\n  vpc_id = \"vpc-0abc123\"\n\n  ingress {\n    from_port   = 443\n    to_port     = 443\n    protocol    = \"tcp\"\n    cidr_blocks = [\"0.0.0.0/0\"]\n  }\n\n  ingress {\n    from_port       = 22\n    to_port         = 22\n    protocol        = \"tcp\"\n    cidr_blocks     = [var.admin_cidr]\n  }\n\n  ingress {\n    from_port       = 3306\n    to_port         = 3306\n    protocol        = \"tcp\"\n    security_groups = [var.app_sg_id]\n  }\n\n  tags = {\n    Name = \"db-access\"\n  }\n}\n```"
+    }
+   ]
+  },
+  {
+   "id": "tf-fix-rds-unsafe",
+   "kind": "fix",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "{'c13_q': 'main.tf / : variable.db_password.sensitive eq True failed (values: [])', 'c14_q': \"main.tf / : variable.kms_key_arn.type eq 'string' failed (values: [])\"}",
+     "secs": 30.7,
+     "tokens": 292,
+     "answer": "```hcl\n# file: variables.tf\nvariable \"kms_key_arn\" {\n  type        = string\n  description = \"The ARN of the KMS key used for storage encryption\"\n}\n\nvariable \"db_password\" {\n  type        = string\n  sensitive   = true\n  description = \"The password for the database instance\"\n}\n```\n\n```hcl\n# file: main.tf\nresource \"aws_db_instance\" \"main\" {\n  identifier                  = \"main\"\n  engine                      = \"postgres\"\n  engine_version              = \"16.3\"\n  instance_class              = \"db.r6g.large\"\n  allocated_storage           = 200\n  username                    = \"app\"\n  password                    = var.db_password\n  publicly_accessible         = false\n  storage_encrypted           = true\n  kms_key_id                  = var.kms_key_arn\n  multi_az                    = true\n  backup_retention_period     = 14\n  deletion_protection         = true\n  skip_final_snapshot         = false\n  final_snapshot_identifier   = \"main-final\"\n  auto_minor_version_upgrade  = true\n  iam_database_authentication_enabled = true\n}\n```"
+    }
+   ]
+  },
+  {
+   "id": "ci-fix-pin-actions",
+   "kind": "fix",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "{'c02_ci_uses_pinned': 'uses actions/checkout@master tracks a moving branch', 'c04_q': \".github/workflows/ci.yml / docs: jobs.*.steps[*].uses regex '^actions/checkout@v\\\\\\\\d+$' failed (values: ['actions/checkout@master', 'actions/setup-python', 'peaceiris/actions-gh-pages@8e5442c4ef9f78752691e2d8f8d19755c6f78e81)\", 'c05_q': \".github/workflows/ci.yml / docs: jobs.*.steps[*].uses regex '^actions/set",
+     "secs": 18.6,
+     "tokens": 190,
+     "answer": "```yaml\n# file: .github/workflows/ci.yml\nname: docs\non:\n  push:\n    branches: [main]\npermissions:\n  contents: write\njobs:\n  docs:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@master\n      - uses: actions/setup-python\n        with:\n          python-version: \"3.12\"\n      - run: pip install mkdocs && mkdocs build\n      - uses: peaceiris/actions-gh-pages@8e5442c4ef9f78752691e2d8f8d19755c6f78e81\n        with:\n          github_token: ${{ secrets.GITHUB_TOKEN }}\n          publish_dir: ./site\n```"
+    }
+   ]
+  },
+  {
+   "id": "tf-harden-iam-policy",
+   "kind": "harden",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "{}",
+     "secs": 21.6,
+     "tokens": 263,
+     "answer": "```hcl\n# file: main.tf\ndata \"aws_iam_policy_document\" \"reports\" {\n  statement {\n    effect = \"Allow\"\n    actions = [\n      \"s3:ListBucket\"\n    ]\n    resources = [\n      \"arn:aws:s3:::acme-reports\"\n    ]\n  }\n\n  statement {\n    effect = \"Allow\"\n    actions = [\n      \"s3:GetObject\"\n    ]\n    resources = [\n      \"arn:aws:s3:::acme-reports/*\"\n    ]\n  }\n\n  statement {\n    effect = \"Allow\"\n    actions = [\n      \"logs:CreateLogStream\",\n      \"logs:PutLogEvents\"\n    ]\n    resources = [\n      \"arn:aws:logs:eu-west-1:123456789012:log-group:/app/reports:*\"\n    ]\n  }\n}\n\nresource \"aws_iam_policy\" \"reports\" {\n  name   = \"reports\"\n  policy = data.aws_iam_policy_document.reports.json\n}\n```"
+    }
+   ]
+  }
+ ]
+}

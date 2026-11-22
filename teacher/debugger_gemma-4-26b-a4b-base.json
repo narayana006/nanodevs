@@ -1,0 +1,2121 @@
+{
+ "summary": {
+  "model": "gemma-4-26b-a4b-base",
+  "k": 1,
+  "n": 60,
+  "first_try_pass": 55,
+  "pass_definition": "root_cause AND fix (grade.full)",
+  "root_cause_correct": 55,
+  "fix_correct": 60,
+  "mean_score": 0.9583,
+  "unparsed": 0,
+  "kind:debug": "55/60",
+  "difficulty:easy": "15/16",
+  "difficulty:hard": "17/19",
+  "difficulty:medium": "23/25"
+ },
+ "chosen_ids": [
+  "dbg_page_bounds_1",
+  "dbg_page_bounds_2",
+  "dbg_retry_default_2",
+  "dbg_retry_default_4",
+  "dbg_tally_default_4",
+  "dbg_grid_alias_1",
+  "dbg_grid_alias_2",
+  "dbg_grid_alias_4",
+  "dbg_to_ms_4",
+  "dbg_reserve_swallow_1",
+  "dbg_reserve_swallow_2",
+  "dbg_nickname_none_3",
+  "dbg_nickname_none_4",
+  "dbg_leaderboard_order_2",
+  "dbg_leaderboard_order_3",
+  "dbg_leaderboard_order_4",
+  "dbg_moving_avg_4",
+  "dbg_csv_qty_str_2",
+  "dbg_csv_qty_str_3",
+  "dbg_median_inplace_1",
+  "dbg_median_inplace_4",
+  "dbg_cache_put_2",
+  "dbg_cache_put_3",
+  "dbg_tax_half_even_1",
+  "dbg_tax_half_even_2",
+  "dbg_tax_half_even_3",
+  "dbg_tax_half_even_4",
+  "dbg_tz_sign_3",
+  "dbg_codec_latin1_2",
+  "dbg_wired_pool_1",
+  "dbg_wired_pool_2",
+  "dbg_wired_pool_4",
+  "dbg_tax_percent_3",
+  "dbg_tax_percent_4",
+  "dbg_retry_fatal_2",
+  "dbg_retry_fatal_3",
+  "dbg_shallow_cfg_1",
+  "dbg_shallow_cfg_2",
+  "dbg_step_order_4",
+  "dbg_min_score_default_2",
+  "dbg_min_score_default_4",
+  "dbg_alloc_remainder_1",
+  "dbg_alloc_remainder_4",
+  "dbg_limiter_wiring_1",
+  "dbg_limiter_wiring_2",
+  "dbg_chunk_tail_1",
+  "dbg_chunk_tail_3",
+  "dbg_chunk_tail_4",
+  "dbg_falsy_zero_2",
+  "dbg_falsy_zero_3",
+  "dbg_txn_swallow_1",
+  "dbg_txn_swallow_2",
+  "dbg_txn_swallow_4",
+  "dbg_undo_alias_1",
+  "dbg_undo_alias_3",
+  "dbg_nfc_keys_2",
+  "dbg_nfc_keys_3",
+  "dbg_version_sort_1",
+  "dbg_version_sort_2",
+  "dbg_version_sort_4"
+ ],
+ "results": [
+  {
+   "id": "dbg_page_bounds_1",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "off-by-one",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"paginate.py\",\n  \"function\": \"page_bounds\",\n  \"category\": \"off-by-one\",\n  \"cause\": \"The start index calculation fails to account for the 1-based page number, causing the first page to skip the first 'per_page' items.\"\n}\n```\n\n```python\n# file: paginate.py\ndef page_bounds(page, per_page):\n    \"\"\"Return (start, end) slice indexes for a 1-based page number.\"\"\"\n    start = (page - 1) * per_page\n    return start, start + per_page\n\n\ndef page_count(total, per_page):\n    \"\"\"Number of pages needed for `total` items.\"\"\"\n    return (total + per_page - 1) // per_page\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 16.0,
+     "tokens": 188,
+     "answer": "```json\n{\n  \"file\": \"paginate.py\",\n  \"function\": \"page_bounds\",\n  \"category\": \"off-by-one\",\n  \"cause\": \"The start index calculation fails to account for the 1-based page number, causing the first page to skip the first 'per_page' items.\"\n}\n```\n\n```python\n# file: paginate.py\ndef page_bounds(page, per_page):\n    \"\"\"Return (start, end) slice indexes for a 1-based page number.\"\"\"\n    start = (page - 1) * per_page\n    return start, start + per_page\n\n\ndef page_count(total, per_page):\n    \"\"\"Number of pages needed for `total` items.\"\"\"\n    return (total + per_page - 1) // per_page\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_page_bounds_2",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "off-by-one",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"paginate.py\",\n  \"function\": \"page_bounds\",\n  \"category\": \"off-by-one\",\n  \"cause\": \"The start index calculation fails to account for 1-based page numbers, causing page 1 to start at index 'per_page' instead of 0.\"\n}\n```\n\n```python\n# file: paginate.py\ndef page_bounds(page, per_page):\n    \"\"\"Return (start, end) slice indexes for a 1-based page number.\"\"\"\n    start = (page - 1) * per_page\n    return start, start + per_page\n\n\ndef page_count(total, per_page):\n    \"\"\"Number of pages needed for `total` items.\"\"\"\n    return (total + per_page - 1) // per_page\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 14.0,
+     "tokens": 190,
+     "answer": "```json\n{\n  \"file\": \"paginate.py\",\n  \"function\": \"page_bounds\",\n  \"category\": \"off-by-one\",\n  \"cause\": \"The start index calculation fails to account for 1-based page numbers, causing page 1 to start at index 'per_page' instead of 0.\"\n}\n```\n\n```python\n# file: paginate.py\ndef page_bounds(page, per_page):\n    \"\"\"Return (start, end) slice indexes for a 1-based page number.\"\"\"\n    start = (page - 1) * per_page\n    return start, start + per_page\n\n\ndef page_count(total, per_page):\n    \"\"\"Number of pages needed for `total` items.\"\"\"\n    return (total + per_page - 1) // per_page\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_retry_default_2",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "wrong default",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"config.py\",\n  \"function\": \"DEFAULTS\",\n  \"category\": \"wrong default\",\n  \"cause\": \"The default 'max_retries' is set to 0, which results in only 1 attempt (0 + 1), causing the loop to fail before exhausting the flaky operations.\"\n}\n```\n\n```python\n# file: config.py\nDEFAULTS = {\"max_retries\": 3, \"timeout\": 5, \"verbose\": False}\n\n\ndef load(overrides=None):\n    cfg = dict(DEFAULTS)\n    cfg.update(overrides or {})\n    return cfg\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 16.6,
+     "tokens": 152,
+     "answer": "```json\n{\n  \"file\": \"config.py\",\n  \"function\": \"DEFAULTS\",\n  \"category\": \"wrong default\",\n  \"cause\": \"The default 'max_retries' is set to 0, which results in only 1 attempt (0 + 1), causing the loop to fail before exhausting the flaky operations.\"\n}\n```\n\n```python\n# file: config.py\nDEFAULTS = {\"max_retries\": 3, \"timeout\": 5, \"verbose\": False}\n\n\ndef load(overrides=None):\n    cfg = dict(DEFAULTS)\n    cfg.update(overrides or {})\n    return cfg\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_retry_default_4",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "wrong default",
+   "passed": false,
+   "root_cause": false,
+   "fix": true,
+   "score": 0.5,
+   "unparsed": false,
+   "answer": null,
+   "first_try_text": "```json\n{\n  \"file\": \"config.py\",\n  \"function\": \"DEFAULTS\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The load function modifies the DEFAULTS dictionary in-place because dict(DEFAULTS) creates a shallow copy, and cfg.update(overrides) can mutate nested structures if they existed, but more importantly, the logic implies DEFAULTS should be immutable while the current implementation is prone to side effects if DEFAULTS were ever nested.\"\n}\n```\n\nWait, looking closer at the traceback and the code:\nThe test fails because `c.fetch(make_flaky(4))` raises `ConnectionError`.\n`make_flaky(4)` raises error 4 times, then returns \"ok\" on the 5th call.\n`attempts = self.cfg[\"extra_attempts\"] + 1`.\nWith `extra_attempts: 0`, `attempts` is `1`.\nThe loop runs once. It fails. It raises `last`.\nThe test expects `c.fetch` to succeed, which requires `attempts` to be at least 5.\nThis means `extra_attempts` must be at least 4.\nThe `DEFAULTS` has `extra_attempts: 0`.\nThe test `assert c.fetch(make_flaky(4)) == \"ok\"` implies that the `Client` should have been initialized with `extra_attempts=4` or the default should have been higher.\nHowever, looking at `client.py`: `self.cfg = load(overrides)`.\nThe test does `c = Client()`. This uses `DEFAULTS`.\n`DEFAULTS` has `extra_attempts: 0`. `attempts` becomes `1`.\nThe loop runs once, fails, and raises.\nThe test expects it to work. This means the `extra_attempts` logic or the default is wrong.\nActually, the `Client` is initialized with `c = Client()`.\nThe te",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "root_cause": false,
+     "fix": true,
+     "score": 0.5,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": false,
+      "format": false
+     },
+     "detail": "",
+     "secs": 89.2,
+     "tokens": 1546,
+     "answer": "```json\n{\n  \"file\": \"config.py\",\n  \"function\": \"DEFAULTS\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The load function modifies the DEFAULTS dictionary in-place because dict(DEFAULTS) creates a shallow copy, and cfg.update(overrides) can mutate nested structures if they existed, but more importantly, the logic implies DEFAULTS should be immutable while the current implementation is prone to side effects if DEFAULTS were ever nested.\"\n}\n```\n\nWait, looking closer at the traceback and the code:\nThe test fails because `c.fetch(make_flaky(4))` raises `ConnectionError`.\n`make_flaky(4)` raises error 4 times, then returns \"ok\" on the 5th call.\n`attempts = self.cfg[\"extra_attempts\"] + 1`.\nWith `extra_attempts: 0`, `attempts` is `1`.\nThe loop runs once. It fails. It raises `last`.\nThe test expects `c.fetch` to succeed, which requires `attempts` to be at least 5.\nThis means `extra_attempts` must be at least 4.\nThe `DEFAULTS` has `extra_attempts: 0`.\nThe test `assert c.fetch(make_flaky(4)) == \"ok\"` implies that the `Client` should have been initialized with `extra_attempts=4` or the default should have been higher.\nHowever, looking at `client.py`: `self.cfg = load(overrides)`.\nThe test does `c = Client()`. This uses `DEFAULTS`.\n`DEFAULTS` has `extra_attempts: 0`. `attempts` becomes `1`.\nThe loop runs once, fails, and raises.\nThe test expects it to work. This means the `extra_attempts` logic or the default is wrong.\nActually, the `Client` is initialized with `c = Client()`.\nThe te"
+    }
+   ]
+  },
+  {
+   "id": "dbg_tally_default_4",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "mutated shared state",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"report.py\",\n  \"function\": \"tally_votes\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The default argument `counts={}` is a mutable object that persists across multiple function calls, causing counts from previous calls to leak into subsequent ones.\"\n}\n```\n\n```python\n# file: report.py\ndef tally_votes(words, counts=None):\n    \"\"\"Count word occurrences; pass `counts` to continue an earlier tally.\"\"\"\n    if counts is None:\n        counts = {}\n    for w in words:\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n\n\ndef top(counts, n=1):\n    return sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))[:n]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 13.4,
+     "tokens": 195,
+     "answer": "```json\n{\n  \"file\": \"report.py\",\n  \"function\": \"tally_votes\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The default argument `counts={}` is a mutable object that persists across multiple function calls, causing counts from previous calls to leak into subsequent ones.\"\n}\n```\n\n```python\n# file: report.py\ndef tally_votes(words, counts=None):\n    \"\"\"Count word occurrences; pass `counts` to continue an earlier tally.\"\"\"\n    if counts is None:\n        counts = {}\n    for w in words:\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n\n\ndef top(counts, n=1):\n    return sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))[:n]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_grid_alias_1",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "aliasing",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"board.py\",\n  \"function\": \"new_board\",\n  \"category\": \"aliasing\",\n  \"cause\": \"The list multiplication `[row] * rows` creates multiple references to the same list object, so modifying one row modifies all rows.\"\n}\n```\n\n```python\n# file: board.py\ndef new_board(rows, cols, fill=\".\"):\n    return [[fill] * cols for _ in range(rows)]\n\n\ndef place(board, r, c, mark):\n    board[r][c] = mark\n\n\ndef render(board):\n    return \"\\n\".join(\"\".join(row) for row in board)\n\n\ndef count(board, mark):\n    return sum(row.count(mark) for row in board)\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 14.2,
+     "tokens": 182,
+     "answer": "```json\n{\n  \"file\": \"board.py\",\n  \"function\": \"new_board\",\n  \"category\": \"aliasing\",\n  \"cause\": \"The list multiplication `[row] * rows` creates multiple references to the same list object, so modifying one row modifies all rows.\"\n}\n```\n\n```python\n# file: board.py\ndef new_board(rows, cols, fill=\".\"):\n    return [[fill] * cols for _ in range(rows)]\n\n\ndef place(board, r, c, mark):\n    board[r][c] = mark\n\n\ndef render(board):\n    return \"\\n\".join(\"\".join(row) for row in board)\n\n\ndef count(board, mark):\n    return sum(row.count(mark) for row in board)\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_grid_alias_2",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "aliasing",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"board.py\",\n  \"function\": \"new_board\",\n  \"category\": \"aliasing\",\n  \"cause\": \"The list multiplication syntax `[[fill] * cols] * rows` creates multiple references to the same row object, causing updates to one row to reflect in all rows.\"\n}\n```\n\n```python\n# file: board.py\ndef new_board(rows, cols, fill=\"-\"):\n    return [[fill] * cols for _ in range(rows)]\n\n\ndef place(board, r, c, mark):\n    board[r][c] = mark\n\n\ndef render(board):\n    return \"\\n\".join(\"\".join(row) for row in board)\n\n\ndef count(board, mark):\n    return sum(row.count(mark) for row in board)\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 10.4,
+     "tokens": 188,
+     "answer": "```json\n{\n  \"file\": \"board.py\",\n  \"function\": \"new_board\",\n  \"category\": \"aliasing\",\n  \"cause\": \"The list multiplication syntax `[[fill] * cols] * rows` creates multiple references to the same row object, causing updates to one row to reflect in all rows.\"\n}\n```\n\n```python\n# file: board.py\ndef new_board(rows, cols, fill=\"-\"):\n    return [[fill] * cols for _ in range(rows)]\n\n\ndef place(board, r, c, mark):\n    board[r][c] = mark\n\n\ndef render(board):\n    return \"\\n\".join(\"\".join(row) for row in board)\n\n\ndef count(board, mark):\n    return sum(row.count(mark) for row in board)\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_grid_alias_4",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "aliasing",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"board.py\",\n  \"function\": \"new_board\",\n  \"category\": \"aliasing\",\n  \"cause\": \"The list multiplication syntax [[fill] * cols] * rows creates multiple references to the same row object, causing updates to one row to appear in all rows.\"\n}\n```\n\n```python\n# file: board.py\ndef new_board(rows, cols, fill=\"0\"):\n    return [[fill] * cols for _ in range(rows)]\n\n\ndef place(board, r, c, mark):\n    board[r][c] = mark\n\n\ndef render(board):\n    return \"\\n\".join(\"\".join(row) for row in board)\n\n\ndef count(board, mark):\n    return sum(row.count(mark) for row in board)\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 13.1,
+     "tokens": 187,
+     "answer": "```json\n{\n  \"file\": \"board.py\",\n  \"function\": \"new_board\",\n  \"category\": \"aliasing\",\n  \"cause\": \"The list multiplication syntax [[fill] * cols] * rows creates multiple references to the same row object, causing updates to one row to appear in all rows.\"\n}\n```\n\n```python\n# file: board.py\ndef new_board(rows, cols, fill=\"0\"):\n    return [[fill] * cols for _ in range(rows)]\n\n\ndef place(board, r, c, mark):\n    board[r][c] = mark\n\n\ndef render(board):\n    return \"\\n\".join(\"\".join(row) for row in board)\n\n\ndef count(board, mark):\n    return sum(row.count(mark) for row in board)\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_to_ms_4",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "wrong unit",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"units.py\",\n  \"function\": \"FACTORS\",\n  \"category\": \"wrong unit\",\n  \"cause\": \"The conversion factor for 's' (seconds) is incorrectly set to 1 instead of 1000.\"\n}\n```\n\n```python\n# file: units.py\nFACTORS = {\"ms\": 1, \"s\": 1000, \"m\": 60000, \"h\": 3600000, \"d\": 86400000}\n\n\ndef to_ms(amount, unit):\n    \"\"\"Convert a duration to milliseconds.\"\"\"\n    return amount * FACTORS[unit]\n\n\ndef to_seconds(ms):\n    return ms / 1000\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 10.3,
+     "tokens": 179,
+     "answer": "```json\n{\n  \"file\": \"units.py\",\n  \"function\": \"FACTORS\",\n  \"category\": \"wrong unit\",\n  \"cause\": \"The conversion factor for 's' (seconds) is incorrectly set to 1 instead of 1000.\"\n}\n```\n\n```python\n# file: units.py\nFACTORS = {\"ms\": 1, \"s\": 1000, \"m\": 60000, \"h\": 3600000, \"d\": 86400000}\n\n\ndef to_ms(amount, unit):\n    \"\"\"Convert a duration to milliseconds.\"\"\"\n    return amount * FACTORS[unit]\n\n\ndef to_seconds(ms):\n    return ms / 1000\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_reserve_swallow_1",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "incorrect exception handling",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"inventory.py\",\n  \"function\": \"reserve\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The reserve function catches the OutOfStock exception internally and returns False instead of allowing it to propagate to the caller.\"\n}\n```\n\n```python\n# file: inventory.py\nclass OutOfStock(Exception):\n    pass\n\n\ndef reserve(stock, sku, qty):\n    \"\"\"Take qty units from stock. Raises OutOfStock if there are not enough.\"\"\"\n    if stock[sku] < qty:\n        raise OutOfStock(sku)\n    stock[sku] -= qty\n    return True\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 9.8,
+     "tokens": 149,
+     "answer": "```json\n{\n  \"file\": \"inventory.py\",\n  \"function\": \"reserve\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The reserve function catches the OutOfStock exception internally and returns False instead of allowing it to propagate to the caller.\"\n}\n```\n\n```python\n# file: inventory.py\nclass OutOfStock(Exception):\n    pass\n\n\ndef reserve(stock, sku, qty):\n    \"\"\"Take qty units from stock. Raises OutOfStock if there are not enough.\"\"\"\n    if stock[sku] < qty:\n        raise OutOfStock(sku)\n    stock[sku] -= qty\n    return True\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_reserve_swallow_2",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "incorrect exception handling",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"inventory.py\",\n  \"function\": \"reserve\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The reserve function catches the OutOfStock exception internally and returns False instead of allowing it to propagate to the caller.\"\n}\n```\n\n```python\n# file: inventory.py\nclass OutOfStock(Exception):\n    pass\n\n\ndef reserve(stock, sku, qty):\n    \"\"\"Take qty units from stock. Raises OutOfStock if there are not enough.\"\"\"\n    if stock[sku] < qty:\n        raise OutOfStock(sku)\n    stock[sku] -= qty\n    return True\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 15.4,
+     "tokens": 149,
+     "answer": "```json\n{\n  \"file\": \"inventory.py\",\n  \"function\": \"reserve\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The reserve function catches the OutOfStock exception internally and returns False instead of allowing it to propagate to the caller.\"\n}\n```\n\n```python\n# file: inventory.py\nclass OutOfStock(Exception):\n    pass\n\n\ndef reserve(stock, sku, qty):\n    \"\"\"Take qty units from stock. Raises OutOfStock if there are not enough.\"\"\"\n    if stock[sku] < qty:\n        raise OutOfStock(sku)\n    stock[sku] -= qty\n    return True\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_nickname_none_3",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "wrong type/None handling",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"people.py\",\n  \"function\": \"display_name\",\n  \"category\": \"wrong type/None handling\",\n  \"cause\": \"The function attempts to call .strip() on the 'handle' value without checking if it is None.\"\n}\n```\n\n```python\n# file: people.py\ndef display_name(user):\n    \"\"\"Nickname if the user set a non-blank one, otherwise the full name.\"\"\"\n    nick = user.get(\"handle\")\n    return (nick.strip() if nick else None) or user[\"name\"]\n\n\ndef initials(user):\n    return \"\".join(part[0].upper() for part in user[\"name\"].split())\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 12.3,
+     "tokens": 162,
+     "answer": "```json\n{\n  \"file\": \"people.py\",\n  \"function\": \"display_name\",\n  \"category\": \"wrong type/None handling\",\n  \"cause\": \"The function attempts to call .strip() on the 'handle' value without checking if it is None.\"\n}\n```\n\n```python\n# file: people.py\ndef display_name(user):\n    \"\"\"Nickname if the user set a non-blank one, otherwise the full name.\"\"\"\n    nick = user.get(\"handle\")\n    return (nick.strip() if nick else None) or user[\"name\"]\n\n\ndef initials(user):\n    return \"\".join(part[0].upper() for part in user[\"name\"].split())\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_nickname_none_4",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "wrong type/None handling",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"people.py\",\n  \"function\": \"display_name\",\n  \"category\": \"wrong type/None handling\",\n  \"cause\": \"The function attempts to call .strip() on the value of 'short_name' without checking if it is None.\"\n}\n```\n\n```python\n# file: people.py\ndef display_name(user):\n    \"\"\"Nickname if the user set a non-blank one, otherwise the full name.\"\"\"\n    nick = user.get(\"short_name\")\n    return (nick.strip() if nick else None) or user[\"name\"]\n\n\ndef initials(user):\n    return \"\".join(part[0].upper() for part in user[\"name\"].split())\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 19.0,
+     "tokens": 167,
+     "answer": "```json\n{\n  \"file\": \"people.py\",\n  \"function\": \"display_name\",\n  \"category\": \"wrong type/None handling\",\n  \"cause\": \"The function attempts to call .strip() on the value of 'short_name' without checking if it is None.\"\n}\n```\n\n```python\n# file: people.py\ndef display_name(user):\n    \"\"\"Nickname if the user set a non-blank one, otherwise the full name.\"\"\"\n    nick = user.get(\"short_name\")\n    return (nick.strip() if nick else None) or user[\"name\"]\n\n\ndef initials(user):\n    return \"\".join(part[0].upper() for part in user[\"name\"].split())\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_leaderboard_order_2",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "incorrect ordering",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"leaderboard.py\",\n  \"function\": \"rank\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The sorting key sorts scores in ascending order instead of descending order, and it does not correctly handle the requirement to sort names A-Z for ties.\"\n}\n```\n\n```python\n# file: leaderboard.py\ndef rank(scores):\n    \"\"\"(name, score) pairs, highest score first; ties are broken by name A-Z.\"\"\"\n    return sorted(scores.items(), key=lambda kv: (-kv[1], kv[0]))\n\n\ndef position(scores, name):\n    names = [n for n, _ in rank(scores)]\n    return names.index(name) + 1\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 15.8,
+     "tokens": 172,
+     "answer": "```json\n{\n  \"file\": \"leaderboard.py\",\n  \"function\": \"rank\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The sorting key sorts scores in ascending order instead of descending order, and it does not correctly handle the requirement to sort names A-Z for ties.\"\n}\n```\n\n```python\n# file: leaderboard.py\ndef rank(scores):\n    \"\"\"(name, score) pairs, highest score first; ties are broken by name A-Z.\"\"\"\n    return sorted(scores.items(), key=lambda kv: (-kv[1], kv[0]))\n\n\ndef position(scores, name):\n    names = [n for n, _ in rank(scores)]\n    return names.index(name) + 1\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_leaderboard_order_3",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "incorrect ordering",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"leaderboard.py\",\n  \"function\": \"rank\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The sorting key sorts scores in ascending order instead of descending order, and it does not correctly handle the requirement to sort names A-Z for ties.\"\n}\n```\n\n```python\n# file: leaderboard.py\ndef rank(scores):\n    \"\"\"(name, score) pairs, highest score first; ties are broken by name A-Z.\"\"\"\n    return sorted(scores.items(), key=lambda kv: (-kv[1], kv[0]))\n\n\ndef position(scores, name):\n    names = [n for n, _ in rank(scores)]\n    return names.index(name) + 1\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 15.5,
+     "tokens": 172,
+     "answer": "```json\n{\n  \"file\": \"leaderboard.py\",\n  \"function\": \"rank\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The sorting key sorts scores in ascending order instead of descending order, and it does not correctly handle the requirement to sort names A-Z for ties.\"\n}\n```\n\n```python\n# file: leaderboard.py\ndef rank(scores):\n    \"\"\"(name, score) pairs, highest score first; ties are broken by name A-Z.\"\"\"\n    return sorted(scores.items(), key=lambda kv: (-kv[1], kv[0]))\n\n\ndef position(scores, name):\n    names = [n for n, _ in rank(scores)]\n    return names.index(name) + 1\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_leaderboard_order_4",
+   "kind": "debug",
+   "difficulty": "easy",
+   "category": "incorrect ordering",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"leaderboard.py\",\n  \"function\": \"rank\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The sorting key sorts scores in ascending order instead of descending order, and does not correctly implement the requirement to break ties with names A-Z.\"\n}\n```\n\n```python\n# file: leaderboard.py\ndef rank(scores):\n    \"\"\"(name, score) pairs, highest score first; ties are broken by name A-Z.\"\"\"\n    return sorted(scores.items(), key=lambda kv: (-kv[1], kv[0]))\n\n\ndef position(scores, name):\n    names = [n for n, _ in rank(scores)]\n    return names.index(name) + 1\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 18.1,
+     "tokens": 171,
+     "answer": "```json\n{\n  \"file\": \"leaderboard.py\",\n  \"function\": \"rank\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The sorting key sorts scores in ascending order instead of descending order, and does not correctly implement the requirement to break ties with names A-Z.\"\n}\n```\n\n```python\n# file: leaderboard.py\ndef rank(scores):\n    \"\"\"(name, score) pairs, highest score first; ties are broken by name A-Z.\"\"\"\n    return sorted(scores.items(), key=lambda kv: (-kv[1], kv[0]))\n\n\ndef position(scores, name):\n    names = [n for n, _ in rank(scores)]\n    return names.index(name) + 1\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_moving_avg_4",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "off-by-one",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"stats.py\",\n  \"function\": \"moving_average\",\n  \"category\": \"off-by-one\",\n  \"cause\": \"The loop range `len(values) - window` excludes the final possible window, resulting in an empty list when the window size equals the list length.\"\n}\n```\n\n```python\n# file: stats.py\ndef moving_average(values, window):\n    \"\"\"Average of every run of `window` consecutive values.\"\"\"\n    out = []\n    for i in range(len(values) - window + 1):\n        out.append(sum(values[i:i + window]) / window)\n    return out\n\n\ndef chunks(values, size):\n    \"\"\"Non-overlapping chunks; the last one may be shorter.\"\"\"\n    return [values[i:i + size] for i in range(0, len(values), size)]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 18.6,
+     "tokens": 207,
+     "answer": "```json\n{\n  \"file\": \"stats.py\",\n  \"function\": \"moving_average\",\n  \"category\": \"off-by-one\",\n  \"cause\": \"The loop range `len(values) - window` excludes the final possible window, resulting in an empty list when the window size equals the list length.\"\n}\n```\n\n```python\n# file: stats.py\ndef moving_average(values, window):\n    \"\"\"Average of every run of `window` consecutive values.\"\"\"\n    out = []\n    for i in range(len(values) - window + 1):\n        out.append(sum(values[i:i + window]) / window)\n    return out\n\n\ndef chunks(values, size):\n    \"\"\"Non-overlapping chunks; the last one may be shorter.\"\"\"\n    return [values[i:i + size] for i in range(0, len(values), size)]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_csv_qty_str_2",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "wrong type/None handling",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"ingest.py\",\n  \"function\": \"parse_row\",\n  \"category\": \"wrong type/None handling\",\n  \"cause\": \"The 'qty' field is being parsed as a string instead of an integer, causing a TypeError when compared to an integer threshold.\"\n}\n```\n\n```python\n# file: ingest.py\ndef parse_row(line):\n    name, qty, price = line.split(\",\")\n    return {\"name\": name.strip(), \"qty\": int(qty.strip()), \"price\": float(price)}\n\n\ndef parse_lines(text):\n    return [parse_row(l) for l in text.strip().splitlines() if l.strip()]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 17.7,
+     "tokens": 165,
+     "answer": "```json\n{\n  \"file\": \"ingest.py\",\n  \"function\": \"parse_row\",\n  \"category\": \"wrong type/None handling\",\n  \"cause\": \"The 'qty' field is being parsed as a string instead of an integer, causing a TypeError when compared to an integer threshold.\"\n}\n```\n\n```python\n# file: ingest.py\ndef parse_row(line):\n    name, qty, price = line.split(\",\")\n    return {\"name\": name.strip(), \"qty\": int(qty.strip()), \"price\": float(price)}\n\n\ndef parse_lines(text):\n    return [parse_row(l) for l in text.strip().splitlines() if l.strip()]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_csv_qty_str_3",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "wrong type/None handling",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"ingest.py\",\n  \"function\": \"parse_row\",\n  \"category\": \"wrong type/None handling\",\n  \"cause\": \"The 'qty' field is being parsed as a string instead of an integer, causing a TypeError when compared to an integer threshold.\"\n}\n```\n\n```python\n# file: ingest.py\ndef parse_row(line):\n    name, qty, price = line.split(\",\")\n    return {\"name\": name.strip(), \"qty\": int(qty.strip()), \"price\": float(price)}\n\n\ndef parse_lines(text):\n    return [parse_row(l) for l in text.strip().splitlines() if l.strip()]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 19.2,
+     "tokens": 165,
+     "answer": "```json\n{\n  \"file\": \"ingest.py\",\n  \"function\": \"parse_row\",\n  \"category\": \"wrong type/None handling\",\n  \"cause\": \"The 'qty' field is being parsed as a string instead of an integer, causing a TypeError when compared to an integer threshold.\"\n}\n```\n\n```python\n# file: ingest.py\ndef parse_row(line):\n    name, qty, price = line.split(\",\")\n    return {\"name\": name.strip(), \"qty\": int(qty.strip()), \"price\": float(price)}\n\n\ndef parse_lines(text):\n    return [parse_row(l) for l in text.strip().splitlines() if l.strip()]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_median_inplace_1",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "mutated shared state",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"stats.py\",\n  \"function\": \"median\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The median function calls .sort() on the input list in-place, which modifies the original list and changes the 'first' and 'last' values in the summary.\"\n}\n```\n\n```python\n# file: stats.py\ndef median(values):\n    sorted_values = sorted(values)\n    n = len(sorted_values)\n    mid = n // 2\n    if n % 2:\n        return sorted_values[mid]\n    return (sorted_values[mid - 1] + sorted_values[mid]) / 2\n\n\ndef mean(values):\n    return sum(values) / len(values)\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 18.8,
+     "tokens": 183,
+     "answer": "```json\n{\n  \"file\": \"stats.py\",\n  \"function\": \"median\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The median function calls .sort() on the input list in-place, which modifies the original list and changes the 'first' and 'last' values in the summary.\"\n}\n```\n\n```python\n# file: stats.py\ndef median(values):\n    sorted_values = sorted(values)\n    n = len(sorted_values)\n    mid = n // 2\n    if n % 2:\n        return sorted_values[mid]\n    return (sorted_values[mid - 1] + sorted_values[mid]) / 2\n\n\ndef mean(values):\n    return sum(values) / len(values)\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_median_inplace_4",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "mutated shared state",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"stats.py\",\n  \"function\": \"median\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The median function calls .sort() on the input list in-place, which modifies the original list and changes the 'last' value in the summary dictionary.\"\n}\n```\n\n```python\n# file: stats.py\ndef median(values):\n    sorted_values = sorted(values)\n    n = len(sorted_values)\n    mid = n // 2\n    if n % 2:\n        return sorted_values[mid]\n    return (sorted_values[mid - 1] + sorted_values[mid]) / 2\n\n\ndef mean(values):\n    return sum(values) / len(values)\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 17.2,
+     "tokens": 180,
+     "answer": "```json\n{\n  \"file\": \"stats.py\",\n  \"function\": \"median\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The median function calls .sort() on the input list in-place, which modifies the original list and changes the 'last' value in the summary dictionary.\"\n}\n```\n\n```python\n# file: stats.py\ndef median(values):\n    sorted_values = sorted(values)\n    n = len(sorted_values)\n    mid = n // 2\n    if n % 2:\n        return sorted_values[mid]\n    return (sorted_values[mid - 1] + sorted_values[mid]) / 2\n\n\ndef mean(values):\n    return sum(values) / len(values)\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_cache_put_2",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "stale cache",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"cache.py\",\n  \"function\": \"CachedRepo.put\",\n  \"category\": \"stale cache\",\n  \"cause\": \"The put method updates the underlying repository but fails to update or invalidate the local cache, leading to stale reads.\"\n}\n```\n\n```python\n# file: cache.py\nclass CachedRepo:\n    def __init__(self, repo):\n        self.repo = repo\n        self._cache = {}\n\n    def get(self, key):\n        if key not in self._cache:\n            self._cache[key] = self.repo.get(key)\n        return self._cache[key]\n\n    def put(self, key, value):\n        self.repo.put(key, value)\n        self._cache[key] = value\n\n    def delete(self, key):\n        self.repo.delete(key)\n        self._cache.pop(key, None)\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 18.0,
+     "tokens": 218,
+     "answer": "```json\n{\n  \"file\": \"cache.py\",\n  \"function\": \"CachedRepo.put\",\n  \"category\": \"stale cache\",\n  \"cause\": \"The put method updates the underlying repository but fails to update or invalidate the local cache, leading to stale reads.\"\n}\n```\n\n```python\n# file: cache.py\nclass CachedRepo:\n    def __init__(self, repo):\n        self.repo = repo\n        self._cache = {}\n\n    def get(self, key):\n        if key not in self._cache:\n            self._cache[key] = self.repo.get(key)\n        return self._cache[key]\n\n    def put(self, key, value):\n        self.repo.put(key, value)\n        self._cache[key] = value\n\n    def delete(self, key):\n        self.repo.delete(key)\n        self._cache.pop(key, None)\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_cache_put_3",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "stale cache",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"cache.py\",\n  \"function\": \"CachedRepo.put\",\n  \"category\": \"stale cache\",\n  \"cause\": \"The put method updates the underlying repository but fails to update or invalidate the local cache, leading to stale reads.\"\n}\n```\n\n```python\n# file: cache.py\nclass CachedRepo:\n    def __init__(self, repo):\n        self.repo = repo\n        self._cache = {}\n\n    def get(self, key):\n        if key not in self._cache:\n            self._cache[key] = self.repo.get(key)\n        return self._cache[key]\n\n    def put(self, key, value):\n        self.repo.put(key, value)\n        self._cache[key] = value\n\n    def delete(self, key):\n        self.repo.delete(key)\n        self._cache.pop(key, None)\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 16.6,
+     "tokens": 218,
+     "answer": "```json\n{\n  \"file\": \"cache.py\",\n  \"function\": \"CachedRepo.put\",\n  \"category\": \"stale cache\",\n  \"cause\": \"The put method updates the underlying repository but fails to update or invalidate the local cache, leading to stale reads.\"\n}\n```\n\n```python\n# file: cache.py\nclass CachedRepo:\n    def __init__(self, repo):\n        self.repo = repo\n        self._cache = {}\n\n    def get(self, key):\n        if key not in self._cache:\n            self._cache[key] = self.repo.get(key)\n        return self._cache[key]\n\n    def put(self, key, value):\n        self.repo.put(key, value)\n        self._cache[key] = value\n\n    def delete(self, key):\n        self.repo.delete(key)\n        self._cache.pop(key, None)\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_tax_half_even_1",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "timezone/rounding",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"tax.py\",\n  \"function\": \"tax_cents\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"Python's round() function uses 'round half to even' strategy, but the requirement specifies 'halves rounded up'.\"\n}\n```\n\n```python\n# file: tax.py\nimport math\n\ndef tax_cents(amount_cents, rate_bp):\n    \"\"\"Tax on an amount in whole cents, halves rounded up. rate_bp is basis points (500 = 5%).\"\"\"\n    return math.floor(amount_cents * rate_bp / 10000 + 0.5)\n\n\ndef split_even(total_cents, parts):\n    base, extra = divmod(total_cents, parts)\n    return [base + 1 if i < extra else base for i in range(parts)]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 21.5,
+     "tokens": 204,
+     "answer": "```json\n{\n  \"file\": \"tax.py\",\n  \"function\": \"tax_cents\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"Python's round() function uses 'round half to even' strategy, but the requirement specifies 'halves rounded up'.\"\n}\n```\n\n```python\n# file: tax.py\nimport math\n\ndef tax_cents(amount_cents, rate_bp):\n    \"\"\"Tax on an amount in whole cents, halves rounded up. rate_bp is basis points (500 = 5%).\"\"\"\n    return math.floor(amount_cents * rate_bp / 10000 + 0.5)\n\n\ndef split_even(total_cents, parts):\n    base, extra = divmod(total_cents, parts)\n    return [base + 1 if i < extra else base for i in range(parts)]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_tax_half_even_2",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "timezone/rounding",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"tax.py\",\n  \"function\": \"tax_cents\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"Python's round() function uses 'round half to even' strategy, but the docstring and test expectation require rounding halves up.\"\n}\n```\n\n```python\n# file: tax.py\nimport math\n\ndef tax_cents(amount_cents, rate_bp):\n    \"\"\"Tax on an amount in whole cents, halves rounded up. rate_bp is basis points (500 = 5%).\"\"\"\n    return math.floor(amount_cents * rate_bp / 10000 + 0.5)\n\n\ndef split_even(total_cents, parts):\n    base, extra = divmod(total_cents, parts)\n    return [base + 1 if i < extra else base for i in range(parts)]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 19.7,
+     "tokens": 206,
+     "answer": "```json\n{\n  \"file\": \"tax.py\",\n  \"function\": \"tax_cents\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"Python's round() function uses 'round half to even' strategy, but the docstring and test expectation require rounding halves up.\"\n}\n```\n\n```python\n# file: tax.py\nimport math\n\ndef tax_cents(amount_cents, rate_bp):\n    \"\"\"Tax on an amount in whole cents, halves rounded up. rate_bp is basis points (500 = 5%).\"\"\"\n    return math.floor(amount_cents * rate_bp / 10000 + 0.5)\n\n\ndef split_even(total_cents, parts):\n    base, extra = divmod(total_cents, parts)\n    return [base + 1 if i < extra else base for i in range(parts)]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_tax_half_even_3",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "timezone/rounding",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"tax.py\",\n  \"function\": \"tax_cents\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"Python's round() function uses 'round half to even' strategy, but the requirement specifies 'halves rounded up'.\"\n}\n```\n\n```python\n# file: tax.py\nimport math\n\ndef tax_cents(amount_cents, rate_bp):\n    \"\"\"Tax on an amount in whole cents, halves rounded up. rate_bp is basis points (500 = 5%).\"\"\"\n    return math.floor(amount_cents * rate_bp / 10000 + 0.5)\n\n\ndef split_even(total_cents, parts):\n    base, extra = divmod(total_cents, parts)\n    return [base + 1 if i < extra else base for i in range(parts)]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 16.7,
+     "tokens": 204,
+     "answer": "```json\n{\n  \"file\": \"tax.py\",\n  \"function\": \"tax_cents\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"Python's round() function uses 'round half to even' strategy, but the requirement specifies 'halves rounded up'.\"\n}\n```\n\n```python\n# file: tax.py\nimport math\n\ndef tax_cents(amount_cents, rate_bp):\n    \"\"\"Tax on an amount in whole cents, halves rounded up. rate_bp is basis points (500 = 5%).\"\"\"\n    return math.floor(amount_cents * rate_bp / 10000 + 0.5)\n\n\ndef split_even(total_cents, parts):\n    base, extra = divmod(total_cents, parts)\n    return [base + 1 if i < extra else base for i in range(parts)]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_tax_half_even_4",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "timezone/rounding",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"tax.py\",\n  \"function\": \"tax_cents\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"The built-in round() function uses 'round half to even' strategy, but the docstring and test expectation require rounding halves up.\"\n}\n```\n\n```python\n# file: tax.py\nimport math\n\ndef tax_cents(amount_cents, rate_bp):\n    \"\"\"Tax on an amount in whole cents, halves rounded up. rate_bp is basis points (500 = 5%).\"\"\"\n    return math.floor(amount_cents * rate_bp / 10000 + 0.5)\n\n\ndef split_even(total_cents, parts):\n    base, extra = divmod(total_cents, parts)\n    return [base + 1 if i < extra else base for i in range(parts)]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 19.6,
+     "tokens": 207,
+     "answer": "```json\n{\n  \"file\": \"tax.py\",\n  \"function\": \"tax_cents\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"The built-in round() function uses 'round half to even' strategy, but the docstring and test expectation require rounding halves up.\"\n}\n```\n\n```python\n# file: tax.py\nimport math\n\ndef tax_cents(amount_cents, rate_bp):\n    \"\"\"Tax on an amount in whole cents, halves rounded up. rate_bp is basis points (500 = 5%).\"\"\"\n    return math.floor(amount_cents * rate_bp / 10000 + 0.5)\n\n\ndef split_even(total_cents, parts):\n    base, extra = divmod(total_cents, parts)\n    return [base + 1 if i < extra else base for i in range(parts)]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_tz_sign_3",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "timezone/rounding",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"tzutil.py\",\n  \"function\": \"to_local\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"The function subtracts the offset instead of adding it, causing timestamps to shift west instead of east.\"\n}\n```\n\n```python\n# file: tzutil.py\nfrom datetime import timedelta\n\n\ndef to_local(ts, offset_minutes):\n    \"\"\"Convert a naive UTC datetime to local wall time at a fixed UTC offset (minutes east of UTC).\"\"\"\n    return ts + timedelta(minutes=offset_minutes)\n\n\ndef fmt_offset(offset_minutes):\n    sign = \"+\" if offset_minutes >= 0 else \"-\"\n    m = abs(offset_minutes)\n    return f\"{sign}{m // 60:02d}:{m % 60:02d}\"\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 15.1,
+     "tokens": 194,
+     "answer": "```json\n{\n  \"file\": \"tzutil.py\",\n  \"function\": \"to_local\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"The function subtracts the offset instead of adding it, causing timestamps to shift west instead of east.\"\n}\n```\n\n```python\n# file: tzutil.py\nfrom datetime import timedelta\n\n\ndef to_local(ts, offset_minutes):\n    \"\"\"Convert a naive UTC datetime to local wall time at a fixed UTC offset (minutes east of UTC).\"\"\"\n    return ts + timedelta(minutes=offset_minutes)\n\n\ndef fmt_offset(offset_minutes):\n    sign = \"+\" if offset_minutes >= 0 else \"-\"\n    m = abs(offset_minutes)\n    return f\"{sign}{m // 60:02d}:{m % 60:02d}\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_codec_latin1_2",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "encoding",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"codec.py\",\n  \"function\": \"encode\",\n  \"category\": \"encoding\",\n  \"cause\": \"The encode function uses 'latin-1' while the decode function uses 'utf-8', causing a mismatch when processing non-ASCII characters like '\u00ef'.\"\n}\n```\n\n```python\n# file: codec.py\ndef encode(text):\n    return text.encode(\"utf-8\", errors=\"replace\")\n\n\ndef decode(data):\n    return data.decode(\"utf-8\")\n\n\ndef truncate_bytes(text, limit):\n    \"\"\"Longest prefix of text that fits in `limit` UTF-8 bytes.\"\"\"\n    data = text.encode(\"utf-8\")[:limit]\n    return data.decode(\"utf-8\", errors=\"ignore\")\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 14.5,
+     "tokens": 182,
+     "answer": "```json\n{\n  \"file\": \"codec.py\",\n  \"function\": \"encode\",\n  \"category\": \"encoding\",\n  \"cause\": \"The encode function uses 'latin-1' while the decode function uses 'utf-8', causing a mismatch when processing non-ASCII characters like '\u00ef'.\"\n}\n```\n\n```python\n# file: codec.py\ndef encode(text):\n    return text.encode(\"utf-8\", errors=\"replace\")\n\n\ndef decode(data):\n    return data.decode(\"utf-8\")\n\n\ndef truncate_bytes(text, limit):\n    \"\"\"Longest prefix of text that fits in `limit` UTF-8 bytes.\"\"\"\n    data = text.encode(\"utf-8\")[:limit]\n    return data.decode(\"utf-8\", errors=\"ignore\")\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_wired_pool_1",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "mis-wired config",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"app.py\",\n  \"function\": \"build\",\n  \"category\": \"mis-wired config\",\n  \"cause\": \"The cache pool size is incorrectly being initialized using the database pool size instead of the cache pool size.\"\n}\n```\n\n```python\n# file: app.py\nfrom config import CONFIG\nfrom pools import Pool\n\n\nclass App:\n    pass\n\n\ndef build(cfg=CONFIG):\n    app = App()\n    app.db = Pool(\"db\", cfg[\"db\"][\"host\"], cfg[\"db\"][\"size\"], 32)\n    app.cache = Pool(\"cache\", cfg[\"cache\"][\"host\"], cfg[\"cache\"][\"size\"], 8)\n    return app\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 12.7,
+     "tokens": 162,
+     "answer": "```json\n{\n  \"file\": \"app.py\",\n  \"function\": \"build\",\n  \"category\": \"mis-wired config\",\n  \"cause\": \"The cache pool size is incorrectly being initialized using the database pool size instead of the cache pool size.\"\n}\n```\n\n```python\n# file: app.py\nfrom config import CONFIG\nfrom pools import Pool\n\n\nclass App:\n    pass\n\n\ndef build(cfg=CONFIG):\n    app = App()\n    app.db = Pool(\"db\", cfg[\"db\"][\"host\"], cfg[\"db\"][\"size\"], 32)\n    app.cache = Pool(\"cache\", cfg[\"cache\"][\"host\"], cfg[\"cache\"][\"size\"], 8)\n    return app\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_wired_pool_2",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "mis-wired config",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"app.py\",\n  \"function\": \"build\",\n  \"category\": \"mis-wired config\",\n  \"cause\": \"The replica pool is incorrectly using the primary pool's size instead of its own size from the configuration.\"\n}\n```\n\n```python\n# file: app.py\nfrom config import CONFIG\nfrom pools import Pool\n\n\nclass App:\n    pass\n\n\ndef build(cfg=CONFIG):\n    app = App()\n    app.primary = Pool(\"primary\", cfg[\"primary\"][\"host\"], cfg[\"primary\"][\"size\"], 64)\n    app.replica = Pool(\"replica\", cfg[\"replica\"][\"host\"], cfg[\"replica\"][\"size\"], 16)\n    return app\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 18.2,
+     "tokens": 164,
+     "answer": "```json\n{\n  \"file\": \"app.py\",\n  \"function\": \"build\",\n  \"category\": \"mis-wired config\",\n  \"cause\": \"The replica pool is incorrectly using the primary pool's size instead of its own size from the configuration.\"\n}\n```\n\n```python\n# file: app.py\nfrom config import CONFIG\nfrom pools import Pool\n\n\nclass App:\n    pass\n\n\ndef build(cfg=CONFIG):\n    app = App()\n    app.primary = Pool(\"primary\", cfg[\"primary\"][\"host\"], cfg[\"primary\"][\"size\"], 64)\n    app.replica = Pool(\"replica\", cfg[\"replica\"][\"host\"], cfg[\"replica\"][\"size\"], 16)\n    return app\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_wired_pool_4",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "mis-wired config",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"app.py\",\n  \"function\": \"build\",\n  \"category\": \"mis-wired config\",\n  \"cause\": \"The audit pool is incorrectly using the orders pool size instead of its own size.\"\n}\n```\n\n```python\n# file: app.py\nfrom config import CONFIG\nfrom pools import Pool\n\n\nclass App:\n    pass\n\n\ndef build(cfg=CONFIG):\n    app = App()\n    app.orders = Pool(\"orders\", cfg[\"orders\"][\"host\"], cfg[\"orders\"][\"size\"], 40)\n    app.audit = Pool(\"audit\", cfg[\"audit\"][\"host\"], cfg[\"audit\"][\"size\"], 5)\n    return app\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 17.1,
+     "tokens": 158,
+     "answer": "```json\n{\n  \"file\": \"app.py\",\n  \"function\": \"build\",\n  \"category\": \"mis-wired config\",\n  \"cause\": \"The audit pool is incorrectly using the orders pool size instead of its own size.\"\n}\n```\n\n```python\n# file: app.py\nfrom config import CONFIG\nfrom pools import Pool\n\n\nclass App:\n    pass\n\n\ndef build(cfg=CONFIG):\n    app = App()\n    app.orders = Pool(\"orders\", cfg[\"orders\"][\"host\"], cfg[\"orders\"][\"size\"], 40)\n    app.audit = Pool(\"audit\", cfg[\"audit\"][\"host\"], cfg[\"audit\"][\"size\"], 5)\n    return app\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_tax_percent_3",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "wrong unit",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"checkout.py\",\n  \"function\": \"total\",\n  \"category\": \"wrong unit\",\n  \"cause\": \"The TAX_PERCENT constant is a percentage value (12.5), but it is being used as a decimal multiplier without being divided by 100.\"\n}\n```\n\n```python\n# file: checkout.py\nfrom settings import TAX_PERCENT\n\n\ndef apply_discount(amount, percent):\n    return amount * (1 - percent / 100)\n\n\ndef total(subtotal, discount_percent=0):\n    discounted = apply_discount(subtotal, discount_percent)\n    return round(discounted * (1 + TAX_PERCENT / 100), 2)\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 16.6,
+     "tokens": 171,
+     "answer": "```json\n{\n  \"file\": \"checkout.py\",\n  \"function\": \"total\",\n  \"category\": \"wrong unit\",\n  \"cause\": \"The TAX_PERCENT constant is a percentage value (12.5), but it is being used as a decimal multiplier without being divided by 100.\"\n}\n```\n\n```python\n# file: checkout.py\nfrom settings import TAX_PERCENT\n\n\ndef apply_discount(amount, percent):\n    return amount * (1 - percent / 100)\n\n\ndef total(subtotal, discount_percent=0):\n    discounted = apply_discount(subtotal, discount_percent)\n    return round(discounted * (1 + TAX_PERCENT / 100), 2)\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_tax_percent_4",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "wrong unit",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"checkout.py\",\n  \"function\": \"total\",\n  \"category\": \"wrong unit\",\n  \"cause\": \"The TAX_PERCENT constant is a percentage value (5), but it is being used as a multiplier (1 + 5) instead of being converted to a decimal (1 + 5/100).\"\n}\n```\n\n```python\n# file: checkout.py\nfrom settings import TAX_PERCENT\n\n\ndef apply_discount(amount, percent):\n    return amount * (1 - percent / 100)\n\n\ndef total(subtotal, discount_percent=0):\n    discounted = apply_discount(subtotal, discount_percent)\n    return round(discounted * (1 + TAX_PERCENT / 100), 2)\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 16.7,
+     "tokens": 181,
+     "answer": "```json\n{\n  \"file\": \"checkout.py\",\n  \"function\": \"total\",\n  \"category\": \"wrong unit\",\n  \"cause\": \"The TAX_PERCENT constant is a percentage value (5), but it is being used as a multiplier (1 + 5) instead of being converted to a decimal (1 + 5/100).\"\n}\n```\n\n```python\n# file: checkout.py\nfrom settings import TAX_PERCENT\n\n\ndef apply_discount(amount, percent):\n    return amount * (1 - percent / 100)\n\n\ndef total(subtotal, discount_percent=0):\n    discounted = apply_discount(subtotal, discount_percent)\n    return round(discounted * (1 + TAX_PERCENT / 100), 2)\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_retry_fatal_2",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "incorrect exception handling",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"runner.py\",\n  \"function\": \"run_with_retry\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The function catches Fatal exceptions and continues the loop instead of propagating them immediately as required.\"\n}\n```\n\n```python\n# file: runner.py\nfrom errors import Retryable, Fatal\n\n\ndef run_with_retry(op, attempts=4):\n    \"\"\"Retry on Retryable only; Fatal must propagate immediately.\"\"\"\n    last = None\n    for _ in range(attempts):\n        try:\n            return op()\n        except Retryable as exc:\n            last = exc\n        except Fatal:\n            raise\n    raise last\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 14.4,
+     "tokens": 160,
+     "answer": "```json\n{\n  \"file\": \"runner.py\",\n  \"function\": \"run_with_retry\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The function catches Fatal exceptions and continues the loop instead of propagating them immediately as required.\"\n}\n```\n\n```python\n# file: runner.py\nfrom errors import Retryable, Fatal\n\n\ndef run_with_retry(op, attempts=4):\n    \"\"\"Retry on Retryable only; Fatal must propagate immediately.\"\"\"\n    last = None\n    for _ in range(attempts):\n        try:\n            return op()\n        except Retryable as exc:\n            last = exc\n        except Fatal:\n            raise\n    raise last\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_retry_fatal_3",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "incorrect exception handling",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"runner.py\",\n  \"function\": \"run_with_retry\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The function catches Fatal exceptions and continues the loop instead of propagating them immediately as required.\"\n}\n```\n\n```python\n# file: runner.py\nfrom errors import Retryable, Fatal\n\n\ndef run_with_retry(op, attempts=2):\n    \"\"\"Retry on Retryable only; Fatal must propagate immediately.\"\"\"\n    last = None\n    for _ in range(attempts):\n        try:\n            return op()\n        except Retryable as exc:\n            last = exc\n        except Fatal:\n            raise\n    raise last\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 17.4,
+     "tokens": 160,
+     "answer": "```json\n{\n  \"file\": \"runner.py\",\n  \"function\": \"run_with_retry\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The function catches Fatal exceptions and continues the loop instead of propagating them immediately as required.\"\n}\n```\n\n```python\n# file: runner.py\nfrom errors import Retryable, Fatal\n\n\ndef run_with_retry(op, attempts=2):\n    \"\"\"Retry on Retryable only; Fatal must propagate immediately.\"\"\"\n    last = None\n    for _ in range(attempts):\n        try:\n            return op()\n        except Retryable as exc:\n            last = exc\n        except Fatal:\n            raise\n    raise last\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_shallow_cfg_1",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "aliasing",
+   "passed": false,
+   "root_cause": false,
+   "fix": true,
+   "score": 0.5,
+   "unparsed": false,
+   "answer": null,
+   "first_try_text": "```json\n{\n  \"file\": \"settings.py\",\n  \"function\": \"derive\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The derive function uses BASE.copy(), which is a shallow copy, causing nested dictionaries like 'db' to be mutated in the original BASE object.\"\n}\n```\n\n```python\n# file: settings.py\nimport copy\n\nBASE = {\"db\": {\"host\": \"localhost\", \"port\": 5432}, \"cache\": {\"ttl\": 60}, \"debug\": False}\n\n\ndef derive(overrides):\n    \"\"\"New config: BASE with `overrides` merged one level deep (per section).\"\"\"\n    cfg = copy.deepcopy(BASE)\n    for section, values in overrides.items():\n        if isinstance(values, dict):\n            cfg.setdefault(section, {}).update(values)\n        else:\n            cfg[section] = values\n    return cfg\n```",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "root_cause": false,
+     "fix": true,
+     "score": 0.5,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": false,
+      "format": true
+     },
+     "detail": "",
+     "secs": 19.1,
+     "tokens": 213,
+     "answer": "```json\n{\n  \"file\": \"settings.py\",\n  \"function\": \"derive\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The derive function uses BASE.copy(), which is a shallow copy, causing nested dictionaries like 'db' to be mutated in the original BASE object.\"\n}\n```\n\n```python\n# file: settings.py\nimport copy\n\nBASE = {\"db\": {\"host\": \"localhost\", \"port\": 5432}, \"cache\": {\"ttl\": 60}, \"debug\": False}\n\n\ndef derive(overrides):\n    \"\"\"New config: BASE with `overrides` merged one level deep (per section).\"\"\"\n    cfg = copy.deepcopy(BASE)\n    for section, values in overrides.items():\n        if isinstance(values, dict):\n            cfg.setdefault(section, {}).update(values)\n        else:\n            cfg[section] = values\n    return cfg\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_shallow_cfg_2",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "aliasing",
+   "passed": false,
+   "root_cause": false,
+   "fix": true,
+   "score": 0.5,
+   "unparsed": false,
+   "answer": null,
+   "first_try_text": "```json\n{\n  \"file\": \"settings.py\",\n  \"function\": \"derive\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The derive function uses BASE.copy(), which is a shallow copy, causing nested dictionaries like 'db' to be mutated in the original BASE object.\"\n}\n```\n\n```python\n# file: settings.py\nimport copy\n\nBASE = {\"db\": {\"host\": \"localhost\", \"port\": 3306}, \"cache\": {\"ttl\": 60}, \"debug\": False}\n\n\ndef derive(overrides):\n    \"\"\"New config: BASE with `overrides` merged one level deep (per section).\"\"\"\n    cfg = copy.deepcopy(BASE)\n    for section, values in overrides.items():\n        if isinstance(values, dict):\n            cfg.setdefault(section, {}).update(values)\n        else:\n            cfg[section] = values\n    return cfg\n```",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "root_cause": false,
+     "fix": true,
+     "score": 0.5,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": false,
+      "format": true
+     },
+     "detail": "",
+     "secs": 10.7,
+     "tokens": 213,
+     "answer": "```json\n{\n  \"file\": \"settings.py\",\n  \"function\": \"derive\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The derive function uses BASE.copy(), which is a shallow copy, causing nested dictionaries like 'db' to be mutated in the original BASE object.\"\n}\n```\n\n```python\n# file: settings.py\nimport copy\n\nBASE = {\"db\": {\"host\": \"localhost\", \"port\": 3306}, \"cache\": {\"ttl\": 60}, \"debug\": False}\n\n\ndef derive(overrides):\n    \"\"\"New config: BASE with `overrides` merged one level deep (per section).\"\"\"\n    cfg = copy.deepcopy(BASE)\n    for section, values in overrides.items():\n        if isinstance(values, dict):\n            cfg.setdefault(section, {}).update(values)\n        else:\n            cfg[section] = values\n    return cfg\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_step_order_4",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "incorrect ordering",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"checkout.py\",\n  \"function\": \"ORDER\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The ORDER list applies tax before the discount, but the business logic requires the discount to be applied first.\"\n}\n```\n\n```python\n# file: checkout.py\nfrom steps import apply_discount, apply_tax, apply_shipping\nfrom pipeline import run\n\nORDER = [apply_discount, apply_tax, apply_shipping]\n\n\ndef total(cents):\n    \"\"\"Coupon first, then tax on the discounted amount, shipping is added last and untaxed.\"\"\"\n    return run(cents, ORDER)\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 15.1,
+     "tokens": 148,
+     "answer": "```json\n{\n  \"file\": \"checkout.py\",\n  \"function\": \"ORDER\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The ORDER list applies tax before the discount, but the business logic requires the discount to be applied first.\"\n}\n```\n\n```python\n# file: checkout.py\nfrom steps import apply_discount, apply_tax, apply_shipping\nfrom pipeline import run\n\nORDER = [apply_discount, apply_tax, apply_shipping]\n\n\ndef total(cents):\n    \"\"\"Coupon first, then tax on the discounted amount, shipping is added last and untaxed.\"\"\"\n    return run(cents, ORDER)\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_min_score_default_2",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "wrong default",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"scoring.py\",\n  \"function\": \"keep\",\n  \"category\": \"wrong default\",\n  \"cause\": \"The docstring claims the default min_score is 0, but the actual parameter default is 50, causing rows with scores between 0 and 49 to be filtered out.\"\n}\n```\n\n```python\n# file: scoring.py\nDEFAULT_LIMIT = 10\n\n\ndef keep(rows, min_score=0):\n    \"\"\"Rows scoring at least min_score. By default every row is kept (min_score 0).\"\"\"\n    return [r for r in rows if r[\"score\"] >= min_score]\n\n\ndef best(rows, n=3):\n    return sorted(rows, key=lambda r: -r[\"score\"])[:n]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 16.8,
+     "tokens": 187,
+     "answer": "```json\n{\n  \"file\": \"scoring.py\",\n  \"function\": \"keep\",\n  \"category\": \"wrong default\",\n  \"cause\": \"The docstring claims the default min_score is 0, but the actual parameter default is 50, causing rows with scores between 0 and 49 to be filtered out.\"\n}\n```\n\n```python\n# file: scoring.py\nDEFAULT_LIMIT = 10\n\n\ndef keep(rows, min_score=0):\n    \"\"\"Rows scoring at least min_score. By default every row is kept (min_score 0).\"\"\"\n    return [r for r in rows if r[\"score\"] >= min_score]\n\n\ndef best(rows, n=3):\n    return sorted(rows, key=lambda r: -r[\"score\"])[:n]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_min_score_default_4",
+   "kind": "debug",
+   "difficulty": "medium",
+   "category": "wrong default",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"scoring.py\",\n  \"function\": \"keep\",\n  \"category\": \"wrong default\",\n  \"cause\": \"The docstring claims the default min_score is 0, but the actual default value is 0.25, which filters out rows with scores below 0.25.\"\n}\n```\n\n```python\n# file: scoring.py\nDEFAULT_LIMIT = 10\n\n\ndef keep(rows, min_score=0):\n    \"\"\"Rows scoring at least min_score. By default every row is kept (min_score 0).\"\"\"\n    return [r for r in rows if r[\"score\"] >= min_score]\n\n\ndef best(rows, n=3):\n    return sorted(rows, key=lambda r: -r[\"score\"])[:n]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 18.8,
+     "tokens": 186,
+     "answer": "```json\n{\n  \"file\": \"scoring.py\",\n  \"function\": \"keep\",\n  \"category\": \"wrong default\",\n  \"cause\": \"The docstring claims the default min_score is 0, but the actual default value is 0.25, which filters out rows with scores below 0.25.\"\n}\n```\n\n```python\n# file: scoring.py\nDEFAULT_LIMIT = 10\n\n\ndef keep(rows, min_score=0):\n    \"\"\"Rows scoring at least min_score. By default every row is kept (min_score 0).\"\"\"\n    return [r for r in rows if r[\"score\"] >= min_score]\n\n\ndef best(rows, n=3):\n    return sorted(rows, key=lambda r: -r[\"score\"])[:n]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_alloc_remainder_1",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "timezone/rounding",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"alloc.py\",\n  \"function\": \"allocate\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"The function uses floor division which discards remainders, causing the sum of shares to be less than the total_cents.\"\n}\n```\n\n```python\n# file: alloc.py\ndef normalize(weights):\n    total = sum(weights)\n    return [w / total for w in weights]\n\n\ndef allocate(total_cents, weights):\n    \"\"\"Split total_cents proportionally to weights; the shares must add up to total_cents exactly\n    (leftover cents go to the largest fractional remainders, ties to the lowest index).\"\"\"\n    wsum = sum(weights)\n    # Calculate initial floor shares and track remainders\n    shares = []\n    remainders = []\n    for i, w in enumerate(weights):\n        exact_share = (total_cents * w) / wsum\n        floor_share = int(exact_share)\n        shares.append(floor_share)\n        # Store (fractional_part, negative_index) to handle ties (lowest index wins)\n        remainders.append((exact_share - floor_share, -i))\n\n    # Distribute leftover cents to those with largest remainders\n    leftover = total_cents - sum(shares)\n    # Sort by remainder descending, then by index ascending (via negative index)\n    remainders.sort(key=lambda x: (x[0], x[1]), reverse=True)\n    \n    for i in range(leftover):\n        idx = -remainders[i][1]\n        shares[idx] += 1\n        \n    return shares\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 31.3,
+     "tokens": 385,
+     "answer": "```json\n{\n  \"file\": \"alloc.py\",\n  \"function\": \"allocate\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"The function uses floor division which discards remainders, causing the sum of shares to be less than the total_cents.\"\n}\n```\n\n```python\n# file: alloc.py\ndef normalize(weights):\n    total = sum(weights)\n    return [w / total for w in weights]\n\n\ndef allocate(total_cents, weights):\n    \"\"\"Split total_cents proportionally to weights; the shares must add up to total_cents exactly\n    (leftover cents go to the largest fractional remainders, ties to the lowest index).\"\"\"\n    wsum = sum(weights)\n    # Calculate initial floor shares and track remainders\n    shares = []\n    remainders = []\n    for i, w in enumerate(weights):\n        exact_share = (total_cents * w) / wsum\n        floor_share = int(exact_share)\n        shares.append(floor_share)\n        # Store (fractional_part, negative_index) to handle ties (lowest index wins)\n        remainders.append((exact_share - floor_share, -i))\n\n    # Distribute leftover cents to those with largest remainders\n    leftover = total_cents - sum(shares)\n    # Sort by remainder descending, then by index ascending (via negative index)\n    remainders.sort(key=lambda x: (x[0], x[1]), reverse=True)\n    \n    for i in range(leftover):\n        idx = -remainders[i][1]\n        shares[idx] += 1\n        \n    return shares\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_alloc_remainder_4",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "timezone/rounding",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"alloc.py\",\n  \"function\": \"allocate\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"The function uses floor division which discards remainders, causing the sum of shares to be less than the total cents.\"\n}\n```\n\n```python\n# file: alloc.py\ndef normalize(weights):\n    total = sum(weights)\n    return [w / total for w in weights]\n\n\ndef allocate(total_cents, weights):\n    \"\"\"Split total_cents proportionally to weights; the shares must add up to total_cents exactly\n    (leftover cents go to the largest fractional remainders, ties to the lowest index).\"\"\"\n    wsum = sum(weights)\n    # Calculate initial floor shares and track remainders\n    shares = [total_cents * w // wsum for w in weights]\n    remainders = [(total_cents * w % wsum, -i) for i, w in enumerate(weights)]\n    \n    # Distribute leftover cents to the largest remainders\n    leftover = total_cents - sum(shares)\n    # Sort by remainder descending, then by index ascending (via negative index)\n    remainders.sort(reverse=True)\n    \n    for i in range(leftover):\n        idx = -remainders[i][1]\n        shares[idx] += 1\n        \n    return shares\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 18.8,
+     "tokens": 316,
+     "answer": "```json\n{\n  \"file\": \"alloc.py\",\n  \"function\": \"allocate\",\n  \"category\": \"timezone/rounding\",\n  \"cause\": \"The function uses floor division which discards remainders, causing the sum of shares to be less than the total cents.\"\n}\n```\n\n```python\n# file: alloc.py\ndef normalize(weights):\n    total = sum(weights)\n    return [w / total for w in weights]\n\n\ndef allocate(total_cents, weights):\n    \"\"\"Split total_cents proportionally to weights; the shares must add up to total_cents exactly\n    (leftover cents go to the largest fractional remainders, ties to the lowest index).\"\"\"\n    wsum = sum(weights)\n    # Calculate initial floor shares and track remainders\n    shares = [total_cents * w // wsum for w in weights]\n    remainders = [(total_cents * w % wsum, -i) for i, w in enumerate(weights)]\n    \n    # Distribute leftover cents to the largest remainders\n    leftover = total_cents - sum(shares)\n    # Sort by remainder descending, then by index ascending (via negative index)\n    remainders.sort(reverse=True)\n    \n    for i in range(leftover):\n        idx = -remainders[i][1]\n        shares[idx] += 1\n        \n    return shares\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_limiter_wiring_1",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "mis-wired config",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"registry.py\",\n  \"function\": \"build_limiters\",\n  \"category\": \"mis-wired config\",\n  \"cause\": \"The arguments for rate and burst are passed to the TokenBucket constructor in the wrong order.\"\n}\n```\n\n```python\n# file: registry.py\nfrom bucket import TokenBucket\n\n\ndef build_limiters(clock, limits):\n    out = {}\n    for name, cfg in limits.items():\n        out[name] = TokenBucket(clock, cfg[\"rate\"], cfg[\"burst\"])\n    return out\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 16.0,
+     "tokens": 134,
+     "answer": "```json\n{\n  \"file\": \"registry.py\",\n  \"function\": \"build_limiters\",\n  \"category\": \"mis-wired config\",\n  \"cause\": \"The arguments for rate and burst are passed to the TokenBucket constructor in the wrong order.\"\n}\n```\n\n```python\n# file: registry.py\nfrom bucket import TokenBucket\n\n\ndef build_limiters(clock, limits):\n    out = {}\n    for name, cfg in limits.items():\n        out[name] = TokenBucket(clock, cfg[\"rate\"], cfg[\"burst\"])\n    return out\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_limiter_wiring_2",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "mis-wired config",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"registry.py\",\n  \"function\": \"build_limiters\",\n  \"category\": \"mis-wired config\",\n  \"cause\": \"The arguments for rate and burst are passed to the TokenBucket constructor in the wrong order.\"\n}\n```\n\n```python\n# file: registry.py\nfrom bucket import TokenBucket\n\n\ndef build_limiters(clock, limits):\n    out = {}\n    for name, cfg in limits.items():\n        out[name] = TokenBucket(clock, cfg[\"rate\"], cfg[\"burst\"])\n    return out\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 15.0,
+     "tokens": 134,
+     "answer": "```json\n{\n  \"file\": \"registry.py\",\n  \"function\": \"build_limiters\",\n  \"category\": \"mis-wired config\",\n  \"cause\": \"The arguments for rate and burst are passed to the TokenBucket constructor in the wrong order.\"\n}\n```\n\n```python\n# file: registry.py\nfrom bucket import TokenBucket\n\n\ndef build_limiters(clock, limits):\n    out = {}\n    for name, cfg in limits.items():\n        out[name] = TokenBucket(clock, cfg[\"rate\"], cfg[\"burst\"])\n    return out\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_chunk_tail_1",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "off-by-one",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"chunker.py\",\n  \"function\": \"chunk\",\n  \"category\": \"off-by-one\",\n  \"cause\": \"The loop terminates early when the current window reaches the end of the list, preventing the final partial window from being appended.\"\n}\n```\n\n```python\n# file: chunker.py\ndef chunk(items, size, overlap):\n    \"\"\"Windows of `size` items; consecutive windows share `overlap` items; the last window ends at the last item.\"\"\"\n    step = size - overlap\n    out = []\n    start = 0\n    while start < len(items):\n        out.append(items[start:start + size])\n        if start + size >= len(items):\n            break\n        start += step\n    return out\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 19.3,
+     "tokens": 184,
+     "answer": "```json\n{\n  \"file\": \"chunker.py\",\n  \"function\": \"chunk\",\n  \"category\": \"off-by-one\",\n  \"cause\": \"The loop terminates early when the current window reaches the end of the list, preventing the final partial window from being appended.\"\n}\n```\n\n```python\n# file: chunker.py\ndef chunk(items, size, overlap):\n    \"\"\"Windows of `size` items; consecutive windows share `overlap` items; the last window ends at the last item.\"\"\"\n    step = size - overlap\n    out = []\n    start = 0\n    while start < len(items):\n        out.append(items[start:start + size])\n        if start + size >= len(items):\n            break\n        start += step\n    return out\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_chunk_tail_3",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "off-by-one",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"chunker.py\",\n  \"function\": \"chunk\",\n  \"category\": \"off-by-one\",\n  \"cause\": \"The loop terminates early when the current window reaches the end of the list, preventing the final partial window from being appended if it doesn't reach the full size.\"\n}\n```\n\n```python\n# file: chunker.py\ndef chunk(items, size, overlap):\n    \"\"\"Windows of `size` items; consecutive windows share `overlap` items; the last window ends at the last item.\"\"\"\n    step = size - overlap\n    out = []\n    start = 0\n    while start < len(items):\n        end = start + size\n        out.append(items[start:end])\n        if end >= len(items):\n            break\n        start += step\n    return out\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 15.3,
+     "tokens": 196,
+     "answer": "```json\n{\n  \"file\": \"chunker.py\",\n  \"function\": \"chunk\",\n  \"category\": \"off-by-one\",\n  \"cause\": \"The loop terminates early when the current window reaches the end of the list, preventing the final partial window from being appended if it doesn't reach the full size.\"\n}\n```\n\n```python\n# file: chunker.py\ndef chunk(items, size, overlap):\n    \"\"\"Windows of `size` items; consecutive windows share `overlap` items; the last window ends at the last item.\"\"\"\n    step = size - overlap\n    out = []\n    start = 0\n    while start < len(items):\n        end = start + size\n        out.append(items[start:end])\n        if end >= len(items):\n            break\n        start += step\n    return out\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_chunk_tail_4",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "off-by-one",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"chunker.py\",\n  \"function\": \"chunk\",\n  \"category\": \"off-by-one\",\n  \"cause\": \"The loop terminates early when the current window reaches the end of the list, preventing the final window from being processed if it doesn't start exactly at the boundary.\"\n}\n```\n\n```python\n# file: chunker.py\ndef chunk(items, size, overlap):\n    \"\"\"Windows of `size` items; consecutive windows share `overlap` items; the last window ends at the last item.\"\"\"\n    step = size - overlap\n    out = []\n    start = 0\n    while start < len(items):\n        end = start + size\n        out.append(items[start:end])\n        if end >= len(items):\n            break\n        start += step\n    return out\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 19.6,
+     "tokens": 196,
+     "answer": "```json\n{\n  \"file\": \"chunker.py\",\n  \"function\": \"chunk\",\n  \"category\": \"off-by-one\",\n  \"cause\": \"The loop terminates early when the current window reaches the end of the list, preventing the final window from being processed if it doesn't start exactly at the boundary.\"\n}\n```\n\n```python\n# file: chunker.py\ndef chunk(items, size, overlap):\n    \"\"\"Windows of `size` items; consecutive windows share `overlap` items; the last window ends at the last item.\"\"\"\n    step = size - overlap\n    out = []\n    start = 0\n    while start < len(items):\n        end = start + size\n        out.append(items[start:end])\n        if end >= len(items):\n            break\n        start += step\n    return out\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_falsy_zero_2",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "wrong type/None handling",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"normalize.py\",\n  \"function\": \"clean\",\n  \"category\": \"wrong type/None handling\",\n  \"cause\": \"The function uses 'if v' to decide whether to parse a value, which incorrectly treats the integer 0 as a falsy value and converts it to None.\"\n}\n```\n\n```python\n# file: normalize.py\nfrom parse import to_number\nfrom sources import FIELDS\n\n\ndef clean(record):\n    out = dict(record)\n    for f in FIELDS:\n        v = record.get(f)\n        out[f] = to_number(v) if v is not None and v != \"\" else None\n    return out\n\n\ndef clean_all(rows):\n    return [clean(r) for r in rows]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 18.1,
+     "tokens": 182,
+     "answer": "```json\n{\n  \"file\": \"normalize.py\",\n  \"function\": \"clean\",\n  \"category\": \"wrong type/None handling\",\n  \"cause\": \"The function uses 'if v' to decide whether to parse a value, which incorrectly treats the integer 0 as a falsy value and converts it to None.\"\n}\n```\n\n```python\n# file: normalize.py\nfrom parse import to_number\nfrom sources import FIELDS\n\n\ndef clean(record):\n    out = dict(record)\n    for f in FIELDS:\n        v = record.get(f)\n        out[f] = to_number(v) if v is not None and v != \"\" else None\n    return out\n\n\ndef clean_all(rows):\n    return [clean(r) for r in rows]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_falsy_zero_3",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "wrong type/None handling",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"normalize.py\",\n  \"function\": \"clean\",\n  \"category\": \"wrong type/None handling\",\n  \"cause\": \"The function uses 'if v' to decide whether to parse a value, which incorrectly treats the integer/float 0 as a falsy value and converts it to None.\"\n}\n```\n\n```python\n# file: normalize.py\nfrom parse import to_number\nfrom sources import FIELDS\n\n\ndef clean(record):\n    out = dict(record)\n    for f in FIELDS:\n        v = record.get(f)\n        out[f] = to_number(v) if v is not None and v != \"\" else None\n    return out\n\n\ndef clean_all(rows):\n    return [clean(r) for r in rows]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 29.3,
+     "tokens": 184,
+     "answer": "```json\n{\n  \"file\": \"normalize.py\",\n  \"function\": \"clean\",\n  \"category\": \"wrong type/None handling\",\n  \"cause\": \"The function uses 'if v' to decide whether to parse a value, which incorrectly treats the integer/float 0 as a falsy value and converts it to None.\"\n}\n```\n\n```python\n# file: normalize.py\nfrom parse import to_number\nfrom sources import FIELDS\n\n\ndef clean(record):\n    out = dict(record)\n    for f in FIELDS:\n        v = record.get(f)\n        out[f] = to_number(v) if v is not None and v != \"\" else None\n    return out\n\n\ndef clean_all(rows):\n    return [clean(r) for r in rows]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_txn_swallow_1",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "incorrect exception handling",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"txn.py\",\n  \"function\": \"Transaction.__exit__\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The __exit__ method returns True, which suppresses the InsufficientFunds exception and prevents the test's try-except block from catching it.\"\n}\n```\n\n```python\n# file: txn.py\nclass Transaction:\n    \"\"\"All-or-nothing block: on any exception the store is restored and the exception propagates.\"\"\"\n\n    def __init__(self, store):\n        self.store = store\n        self._snapshot = None\n\n    def __enter__(self):\n        self._snapshot = dict(self.store.data)\n        return self\n\n    def __exit__(self, exc_type, exc, tb):\n        if exc_type is not None:\n            self.store.data = self._snapshot\n        return False\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 19.2,
+     "tokens": 204,
+     "answer": "```json\n{\n  \"file\": \"txn.py\",\n  \"function\": \"Transaction.__exit__\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The __exit__ method returns True, which suppresses the InsufficientFunds exception and prevents the test's try-except block from catching it.\"\n}\n```\n\n```python\n# file: txn.py\nclass Transaction:\n    \"\"\"All-or-nothing block: on any exception the store is restored and the exception propagates.\"\"\"\n\n    def __init__(self, store):\n        self.store = store\n        self._snapshot = None\n\n    def __enter__(self):\n        self._snapshot = dict(self.store.data)\n        return self\n\n    def __exit__(self, exc_type, exc, tb):\n        if exc_type is not None:\n            self.store.data = self._snapshot\n        return False\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_txn_swallow_2",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "incorrect exception handling",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"txn.py\",\n  \"function\": \"Transaction.__exit__\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The __exit__ method returns True, which suppresses all exceptions and prevents the transfer function from seeing the InsufficientFunds error.\"\n}\n```\n\n```python\n# file: txn.py\nclass Transaction:\n    \"\"\"All-or-nothing block: on any exception the store is restored and the exception propagates.\"\"\"\n\n    def __init__(self, store):\n        self.store = store\n        self._snapshot = None\n\n    def __enter__(self):\n        self._snapshot = dict(self.store.data)\n        return self\n\n    def __exit__(self, exc_type, exc, tb):\n        if exc_type is not None:\n            self.store.data = self._snapshot\n        return False\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 20.2,
+     "tokens": 200,
+     "answer": "```json\n{\n  \"file\": \"txn.py\",\n  \"function\": \"Transaction.__exit__\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The __exit__ method returns True, which suppresses all exceptions and prevents the transfer function from seeing the InsufficientFunds error.\"\n}\n```\n\n```python\n# file: txn.py\nclass Transaction:\n    \"\"\"All-or-nothing block: on any exception the store is restored and the exception propagates.\"\"\"\n\n    def __init__(self, store):\n        self.store = store\n        self._snapshot = None\n\n    def __enter__(self):\n        self._snapshot = dict(self.store.data)\n        return self\n\n    def __exit__(self, exc_type, exc, tb):\n        if exc_type is not None:\n            self.store.data = self._snapshot\n        return False\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_txn_swallow_4",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "incorrect exception handling",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"txn.py\",\n  \"function\": \"Transaction.__exit__\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The __exit__ method returns True, which suppresses all exceptions, preventing the transfer function from seeing the InsufficientFunds error and causing the receipt variable to remain unbound.\"\n}\n```\n\n```python\n# file: txn.py\nclass Transaction:\n    \"\"\"All-or-nothing block: on any exception the store is restored and the exception propagates.\"\"\"\n\n    def __init__(self, store):\n        self.store = store\n        self._snapshot = None\n\n    def __enter__(self):\n        self._snapshot = dict(self.store.data)\n        return self\n\n    def __exit__(self, exc_type, exc, tb):\n        if exc_type is not None:\n            self.store.data = self._snapshot\n        return False\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 16.8,
+     "tokens": 208,
+     "answer": "```json\n{\n  \"file\": \"txn.py\",\n  \"function\": \"Transaction.__exit__\",\n  \"category\": \"incorrect exception handling\",\n  \"cause\": \"The __exit__ method returns True, which suppresses all exceptions, preventing the transfer function from seeing the InsufficientFunds error and causing the receipt variable to remain unbound.\"\n}\n```\n\n```python\n# file: txn.py\nclass Transaction:\n    \"\"\"All-or-nothing block: on any exception the store is restored and the exception propagates.\"\"\"\n\n    def __init__(self, store):\n        self.store = store\n        self._snapshot = None\n\n    def __enter__(self):\n        self._snapshot = dict(self.store.data)\n        return self\n\n    def __exit__(self, exc_type, exc, tb):\n        if exc_type is not None:\n            self.store.data = self._snapshot\n        return False\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_undo_alias_1",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "aliasing",
+   "passed": false,
+   "root_cause": false,
+   "fix": true,
+   "score": 0.5,
+   "unparsed": false,
+   "answer": null,
+   "first_try_text": "```json\n{\n  \"file\": \"document.py\",\n  \"function\": \"Document.checkpoint\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The checkpoint method pushes a reference to the mutable state dictionary instead of a deep copy, causing subsequent modifications to retroactively change all saved snapshots.\"\n}\n```\n\n```python\n# file: document.py\nfrom history import History\nimport copy\n\n\nclass Document:\n    def __init__(self):\n        self.state = {\"text\": \"\", \"tags\": []}\n        self.history = History()\n\n    def checkpoint(self):\n        self.history.push(copy.deepcopy(self.state))\n\n    def undo(self):\n        self.state = self.history.pop()\n\n    def text(self):\n        return self.state[\"text\"]\n```",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "root_cause": false,
+     "fix": true,
+     "score": 0.5,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": false,
+      "function": false,
+      "category": false,
+      "format": true
+     },
+     "detail": "",
+     "secs": 19.0,
+     "tokens": 187,
+     "answer": "```json\n{\n  \"file\": \"document.py\",\n  \"function\": \"Document.checkpoint\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The checkpoint method pushes a reference to the mutable state dictionary instead of a deep copy, causing subsequent modifications to retroactively change all saved snapshots.\"\n}\n```\n\n```python\n# file: document.py\nfrom history import History\nimport copy\n\n\nclass Document:\n    def __init__(self):\n        self.state = {\"text\": \"\", \"tags\": []}\n        self.history = History()\n\n    def checkpoint(self):\n        self.history.push(copy.deepcopy(self.state))\n\n    def undo(self):\n        self.state = self.history.pop()\n\n    def text(self):\n        return self.state[\"text\"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_undo_alias_3",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "aliasing",
+   "passed": false,
+   "root_cause": false,
+   "fix": true,
+   "score": 0.5,
+   "unparsed": false,
+   "answer": null,
+   "first_try_text": "```json\n{\n  \"file\": \"document.py\",\n  \"function\": \"Document.checkpoint\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The checkpoint method pushes a reference to the mutable state dictionary instead of a deep copy, causing subsequent modifications to retroactively change all saved snapshots.\"\n}\n```\n\n```python\n# file: document.py\nfrom history import History\nimport copy\n\n\nclass Document:\n    def __init__(self):\n        self.state = {\"text\": \"\", \"tags\": []}\n        self.history = History()\n\n    def checkpoint(self):\n        self.history.push(copy.deepcopy(self.state))\n\n    def undo(self):\n        self.state = self.history.pop()\n\n    def text(self):\n        return self.state[\"text\"]\n```",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "root_cause": false,
+     "fix": true,
+     "score": 0.5,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": false,
+      "function": false,
+      "category": false,
+      "format": true
+     },
+     "detail": "",
+     "secs": 19.3,
+     "tokens": 187,
+     "answer": "```json\n{\n  \"file\": \"document.py\",\n  \"function\": \"Document.checkpoint\",\n  \"category\": \"mutated shared state\",\n  \"cause\": \"The checkpoint method pushes a reference to the mutable state dictionary instead of a deep copy, causing subsequent modifications to retroactively change all saved snapshots.\"\n}\n```\n\n```python\n# file: document.py\nfrom history import History\nimport copy\n\n\nclass Document:\n    def __init__(self):\n        self.state = {\"text\": \"\", \"tags\": []}\n        self.history = History()\n\n    def checkpoint(self):\n        self.history.push(copy.deepcopy(self.state))\n\n    def undo(self):\n        self.state = self.history.pop()\n\n    def text(self):\n        return self.state[\"text\"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_nfc_keys_2",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "encoding",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"normalize.py\",\n  \"function\": \"fold\",\n  \"category\": \"encoding\",\n  \"cause\": \"The fold function uses casefolding but fails to apply NFC normalization, causing mismatches between decomposed (NFD) and composed (NFC) Unicode characters.\"\n}\n```\n\n```python\n# file: normalize.py\nimport unicodedata\n\n\ndef collapse_spaces(s):\n    return \" \".join(s.split())\n\n\ndef strip_accents(s):\n    return \"\".join(c for c in unicodedata.normalize(\"NFD\", s) if not unicodedata.combining(c))\n\n\ndef fold(s):\n    \"\"\"Canonical lookup key: NFC-normalised, casefolded, whitespace collapsed.\"\"\"\n    return collapse_spaces(unicodedata.normalize(\"NFC\", s).casefold())\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 26.9,
+     "tokens": 194,
+     "answer": "```json\n{\n  \"file\": \"normalize.py\",\n  \"function\": \"fold\",\n  \"category\": \"encoding\",\n  \"cause\": \"The fold function uses casefolding but fails to apply NFC normalization, causing mismatches between decomposed (NFD) and composed (NFC) Unicode characters.\"\n}\n```\n\n```python\n# file: normalize.py\nimport unicodedata\n\n\ndef collapse_spaces(s):\n    return \" \".join(s.split())\n\n\ndef strip_accents(s):\n    return \"\".join(c for c in unicodedata.normalize(\"NFD\", s) if not unicodedata.combining(c))\n\n\ndef fold(s):\n    \"\"\"Canonical lookup key: NFC-normalised, casefolded, whitespace collapsed.\"\"\"\n    return collapse_spaces(unicodedata.normalize(\"NFC\", s).casefold())\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_nfc_keys_3",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "encoding",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"normalize.py\",\n  \"function\": \"fold\",\n  \"category\": \"encoding\",\n  \"cause\": \"The fold function uses casefolding but fails to apply NFC normalization, causing a mismatch between decomposed (NFD) and composed (NFC) Unicode characters.\"\n}\n```\n\n```python\n# file: normalize.py\nimport unicodedata\n\n\ndef collapse_spaces(s):\n    return \" \".join(s.split())\n\n\ndef strip_accents(s):\n    return \"\".join(c for c in unicodedata.normalize(\"NFD\", s) if not unicodedata.combining(c))\n\n\ndef fold(s):\n    \"\"\"Canonical lookup key: NFC-normalised, casefolded, whitespace collapsed.\"\"\"\n    return collapse_spaces(unicodedata.normalize(\"NFC\", s).casefold())\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 20.8,
+     "tokens": 194,
+     "answer": "```json\n{\n  \"file\": \"normalize.py\",\n  \"function\": \"fold\",\n  \"category\": \"encoding\",\n  \"cause\": \"The fold function uses casefolding but fails to apply NFC normalization, causing a mismatch between decomposed (NFD) and composed (NFC) Unicode characters.\"\n}\n```\n\n```python\n# file: normalize.py\nimport unicodedata\n\n\ndef collapse_spaces(s):\n    return \" \".join(s.split())\n\n\ndef strip_accents(s):\n    return \"\".join(c for c in unicodedata.normalize(\"NFD\", s) if not unicodedata.combining(c))\n\n\ndef fold(s):\n    \"\"\"Canonical lookup key: NFC-normalised, casefolded, whitespace collapsed.\"\"\"\n    return collapse_spaces(unicodedata.normalize(\"NFC\", s).casefold())\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_version_sort_1",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "incorrect ordering",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"releases.py\",\n  \"function\": \"sorted_versions\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The function uses default string sorting instead of numeric version sorting, causing '1.9.0' to be ranked higher than '1.10.0'.\"\n}\n```\n\n```python\n# file: releases.py\nfrom version import parse_version\n\n\ndef sorted_versions(versions):\n    \"\"\"Versions in ascending numeric order.\"\"\"\n    return sorted(versions, key=parse_version)\n\n\ndef newest_in_series(versions, major):\n    return [v for v in sorted_versions(versions) if parse_version(v)[0] == major][-1]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 20.2,
+     "tokens": 166,
+     "answer": "```json\n{\n  \"file\": \"releases.py\",\n  \"function\": \"sorted_versions\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The function uses default string sorting instead of numeric version sorting, causing '1.9.0' to be ranked higher than '1.10.0'.\"\n}\n```\n\n```python\n# file: releases.py\nfrom version import parse_version\n\n\ndef sorted_versions(versions):\n    \"\"\"Versions in ascending numeric order.\"\"\"\n    return sorted(versions, key=parse_version)\n\n\ndef newest_in_series(versions, major):\n    return [v for v in sorted_versions(versions) if parse_version(v)[0] == major][-1]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_version_sort_2",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "incorrect ordering",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"releases.py\",\n  \"function\": \"sorted_versions\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The function uses default string sorting instead of numeric version sorting, causing '2.0.9' to be ranked higher than '2.0.10'.\"\n}\n```\n\n```python\n# file: releases.py\nfrom version import parse_version\n\n\ndef sorted_versions(versions):\n    \"\"\"Versions in ascending numeric order.\"\"\"\n    return sorted(versions, key=parse_version)\n\n\ndef newest_in_series(versions, major):\n    return [v for v in sorted_versions(versions) if parse_version(v)[0] == major][-1]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 16.3,
+     "tokens": 166,
+     "answer": "```json\n{\n  \"file\": \"releases.py\",\n  \"function\": \"sorted_versions\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The function uses default string sorting instead of numeric version sorting, causing '2.0.9' to be ranked higher than '2.0.10'.\"\n}\n```\n\n```python\n# file: releases.py\nfrom version import parse_version\n\n\ndef sorted_versions(versions):\n    \"\"\"Versions in ascending numeric order.\"\"\"\n    return sorted(versions, key=parse_version)\n\n\ndef newest_in_series(versions, major):\n    return [v for v in sorted_versions(versions) if parse_version(v)[0] == major][-1]\n```"
+    }
+   ]
+  },
+  {
+   "id": "dbg_version_sort_4",
+   "kind": "debug",
+   "difficulty": "hard",
+   "category": "incorrect ordering",
+   "passed": true,
+   "root_cause": true,
+   "fix": true,
+   "score": 1.0,
+   "unparsed": false,
+   "answer": "```json\n{\n  \"file\": \"releases.py\",\n  \"function\": \"sorted_versions\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The function uses default string sorting instead of numeric version sorting, causing '3.9.5' to be ranked higher than '10.0.0'.\"\n}\n```\n\n```python\n# file: releases.py\nfrom version import parse_version\n\n\ndef sorted_versions(versions):\n    \"\"\"Versions in ascending numeric order.\"\"\"\n    return sorted(versions, key=parse_version)\n\n\ndef newest_in_series(versions, major):\n    return [v for v in sorted_versions(versions) if parse_version(v)[0] == major][-1]\n```",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "root_cause": true,
+     "fix": true,
+     "score": 1.0,
+     "unparsed": false,
+     "json_error": null,
+     "parts": {
+      "file": true,
+      "function": true,
+      "category": true,
+      "format": true
+     },
+     "detail": "",
+     "secs": 13.6,
+     "tokens": 166,
+     "answer": "```json\n{\n  \"file\": \"releases.py\",\n  \"function\": \"sorted_versions\",\n  \"category\": \"incorrect ordering\",\n  \"cause\": \"The function uses default string sorting instead of numeric version sorting, causing '3.9.5' to be ranked higher than '10.0.0'.\"\n}\n```\n\n```python\n# file: releases.py\nfrom version import parse_version\n\n\ndef sorted_versions(versions):\n    \"\"\"Versions in ascending numeric order.\"\"\"\n    return sorted(versions, key=parse_version)\n\n\ndef newest_in_series(versions, major):\n    return [v for v in sorted_versions(versions) if parse_version(v)[0] == major][-1]\n```"
+    }
+   ]
+  }
+ ]
+}

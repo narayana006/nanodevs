@@ -1,0 +1,22 @@
+# One command: docker compose up -d server
+# Runs the shared base model (Gemma 4 26B A4B, Q4_K_M) on CPU only, OpenAI-compatible API on :8080.
+# Specialist adapters (when released) go in ./adapters and are enabled with ADAPTERS in .env.
+services:
+  server:
+    image: ghcr.io/ggml-org/llama.cpp:server
+    ports: ["127.0.0.1:8080:8080"]
+    volumes:
+      - hf-cache:/root/.cache
+      - ./adapters:/adapters:ro
+    environment:
+      LLAMA_CACHE: /root/.cache/llama.cpp
+    command: >
+      -hf lmstudio-community/gemma-4-26B-A4B-it-GGUF:Q4_K_M
+      --host 0.0.0.0 --port 8080 -c ${CTX:-8192} -t ${THREADS:-4} -np 1
+      --reasoning off ${ADAPTERS:-}
+    deploy:
+      resources:
+        limits:
+          memory: ${MEM:-20g}
+volumes:
+  hf-cache:

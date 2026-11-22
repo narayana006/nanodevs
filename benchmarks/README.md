@@ -46,6 +46,26 @@ Gemma 4 26B A4B (Q4_K_M, no adapter), hidden tests run in the locked sandbox. Up
 
 What this means: the base model is already strong on these tasks, so a trained python specialist has little room to show gains here. The 12 unsolved tasks and the hard tier are where a specialist can be measured. The 120 test-verified solutions are saved in `teacher/` as training data. Limits: single run, one model, tasks written by us (template-based in part), not an outside benchmark.
 
+## Round 4: all ten specialist task sets, untrained base model
+Same Gemma 4 26B A4B (Q4_K_M, no adapter), greedy, first try only, each task graded by that specialist's own grader. 60 tasks per set, sampled with a fixed seed across kinds and difficulties (python: all 132). Small samples: expect a few points of noise per cell. Per-task results and the passing answers are in `teacher/`.
+
+| Specialist | First-try pass | Where it fails |
+|---|---|---|
+| java | 57/60 (95%) | 3 real misses |
+| debugger | 55/60 (92%) | wrong root-cause label; the fix passed the hidden tests on 60/60 |
+| python | 116/132 (88%) | hard tier 20/27 |
+| data | 51/60 (85%) | etl 6/12; sql_write 21/24 |
+| devops | 45/60 (75%) | write 11/18; 2 answers missing the code fence |
+| ui | 42/60 (70%) | write 20/30; 2 answers missing the code fence |
+| reviewer | 42/60 (70%) | finds only 16/30 planted bugs (right verdict, wrong line or category); 26/30 clean diffs approved |
+| qa | 33/60 (55%) | regression 21/21, but improve 7/21 and tests 5/18 (mutation-graded) |
+| ops | 31/60 (52%) | slo 0/12 (wrong arithmetic), runbook 3/12, script 8/12 |
+| planner | 4/60 (7%) | 12 plans fail the format gate; the pass bar needs every component perfect (mean score 0.57) |
+
+Limits: the qa sample over-represents the small kinds and its regression tasks are easy, so its headline number is inflated. Java prompts include the failing test output and exact signatures. Debugger tasks are templated, so the sample may include sibling tasks. Pass bars for debugger, reviewer and planner are stated in each runner. These are tasks we wrote, not an outside benchmark.
+
+Reading: the base model is already strong on java, debugger, python and data. A trained specialist has the most room on planner, ops, qa, reviewer and ui.
+
 ## CPU-only speed (4 threads)
 Gemma 26B A4B generates about 9.0 tokens/s and reads prompts at about 27 tokens/s. Devstral generates about 3.0 and reads at about 7.6. Memory use is about the same (14.2 to 14.3 GB).
 

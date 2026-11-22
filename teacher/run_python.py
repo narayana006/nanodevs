@@ -1,5 +1,5 @@
 """Run a model over the python task set: first-try pass rate (greedy), pass@k with fresh seeds, and keep verified solutions.
-Usage: run_python.py NAME PORT [K] [WORKERS]"""
+Usage: run_python.py NAME PORT [K] [WORKERS] [LIMIT]"""
 import json, os, re, sys, time, tempfile, shutil
 from concurrent.futures import ThreadPoolExecutor
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -13,8 +13,12 @@ from common import run_files
 name, port = sys.argv[1], sys.argv[2]
 K = int(sys.argv[3]) if len(sys.argv) > 3 else 4
 W = int(sys.argv[4]) if len(sys.argv) > 4 else 2
+LIMIT = int(sys.argv[5]) if len(sys.argv) > 5 else 0
 base = f"http://127.0.0.1:{port}"
 tasks = [json.loads(l) for l in open(os.path.join(ROOT, "specialists", "python", "tasks.jsonl"))]
+if LIMIT:
+    import random
+    tasks = random.Random(7).sample(tasks, min(LIMIT, len(tasks)))  # fixed seed: same tasks every run
 
 def prompt(t):
     k = t["kind"]

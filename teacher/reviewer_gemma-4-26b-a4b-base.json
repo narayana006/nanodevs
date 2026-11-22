@@ -1,0 +1,2422 @@
+{
+ "summary": {
+  "model": "gemma-4-26b-a4b-base",
+  "k": 1,
+  "n": 60,
+  "first_try_pass": 42,
+  "pass_definition": "buggy: verdict=request_changes and F1>=0.75; clean: verdict=approve and no findings",
+  "unparsed": 2,
+  "strict_json_pass": 42,
+  "mean_f1_buggy": 0.5556,
+  "false_positive_findings_clean": 3,
+  "kind:buggy": "16/30",
+  "kind:clean": "26/30",
+  "difficulty:easy": "21/24",
+  "difficulty:hard": "5/12",
+  "difficulty:medium": "16/24"
+ },
+ "chosen_ids": [
+  "rev-can_edit-v2-buggy",
+  "rev-checkout-v2-clean",
+  "rev-cleanup_finally-v1-clean",
+  "rev-cleanup_finally-v2-clean",
+  "rev-day_range-v1-buggy",
+  "rev-day_range-v2-buggy",
+  "rev-deadline-v1-buggy",
+  "rev-deadline-v1-clean",
+  "rev-deadline-v2-clean",
+  "rev-discount-v2-buggy",
+  "rev-except_order-v1-buggy",
+  "rev-except_order-v2-buggy",
+  "rev-except_order-v2-clean",
+  "rev-fallback-v1-clean",
+  "rev-find_first-v1-clean",
+  "rev-first_token-v1-clean",
+  "rev-locked_cache-v1-buggy",
+  "rev-locked_cache-v2-buggy",
+  "rev-lockout-v2-buggy",
+  "rev-lockout-v2-clean",
+  "rev-lower_bound-v1-buggy",
+  "rev-lru-v1-buggy",
+  "rev-lru-v1-clean",
+  "rev-lru-v2-buggy",
+  "rev-memoize-v1-buggy",
+  "rev-memoize-v1-clean",
+  "rev-memoize-v2-buggy",
+  "rev-mention-v1-clean",
+  "rev-mention-v2-buggy",
+  "rev-moving_avg-v1-clean",
+  "rev-paginate-v2-clean",
+  "rev-parse_kv-v2-buggy",
+  "rev-parse_kv-v2-clean",
+  "rev-parse_number-v2-clean",
+  "rev-process_all-v1-clean",
+  "rev-process_all-v2-buggy",
+  "rev-process_all-v2-clean",
+  "rev-rate-v1-buggy",
+  "rev-rate-v2-clean",
+  "rev-rate_limiter-v1-buggy",
+  "rev-rate_limiter-v1-clean",
+  "rev-report_keys-v2-clean",
+  "rev-retry-v1-clean",
+  "rev-retry-v2-buggy",
+  "rev-run_ping-v1-clean",
+  "rev-run_step-v1-buggy",
+  "rev-run_step-v1-clean",
+  "rev-run_step-v2-buggy",
+  "rev-safe_join-v1-buggy",
+  "rev-safe_join-v2-buggy",
+  "rev-save_record-v2-clean",
+  "rev-should_retry-v1-clean",
+  "rev-summarize-v2-clean",
+  "rev-top_n-v1-buggy",
+  "rev-transfer-v2-buggy",
+  "rev-truncate-v1-buggy",
+  "rev-truncate-v1-clean",
+  "rev-truncate-v2-clean",
+  "rev-with_conn-v1-buggy",
+  "rev-with_conn-v2-buggy"
+ ],
+ "results": [
+  {
+   "id": "rev-can_edit-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"acl.py\", \"line\": 9, \"category\": \"inverted_condition\", \"explanation\": \"The logic in can_edit is inverted. It returns True if the user is NOT the owner, and only checks for editor permissions if the user IS the owner. This allows any non-owner to edit any document regardless of lock status, and prevents owners from editing if the document is locked.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 6.1,
+     "tokens": 99,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"acl.py\", \"line\": 9, \"category\": \"inverted_condition\", \"explanation\": \"The logic in can_edit is inverted. It returns True if the user is NOT the owner, and only checks for editor permissions if the user IS the owner. This allows any non-owner to edit any document regardless of lock status, and prevents owners from editing if the document is locked.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-checkout-v2-clean",
+   "kind": "clean",
+   "difficulty": "hard",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 0,
+   "verdict_ok": false,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"ticketing.py\", \"line\": 22, \"category\": \"state_update\", \"explanation\": \"The code raises PaymentDeclined with 'item' as the argument, but the exception is likely intended to communicate the failure of the transaction. More importantly, if the charge fails, the stock is not updated, which is correct, but the error message/exception payload is misleading as it passes the item name where a failure reason or amount might be expected, though the primary bug is that the logic does not account for the fact that if 'charge' fails, the order is not placed, but the exception raised (PaymentDeclined) uses 'item' as the only argument, which might be unexpected if the caller expects an error related to the amount or a generic error.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": false,
+      "tp": 0,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 9.9,
+     "tokens": 177,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"ticketing.py\", \"line\": 22, \"category\": \"state_update\", \"explanation\": \"The code raises PaymentDeclined with 'item' as the argument, but the exception is likely intended to communicate the failure of the transaction. More importantly, if the charge fails, the stock is not updated, which is correct, but the error message/exception payload is misleading as it passes the item name where a failure reason or amount might be expected, though the primary bug is that the logic does not account for the fact that if 'charge' fails, the order is not placed, but the exception raised (PaymentDeclined) uses 'item' as the only argument, which might be unexpected if the caller expects an error related to the amount or a generic error.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-cleanup_finally-v1-clean",
+   "kind": "clean",
+   "difficulty": "hard",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 5.9,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-cleanup_finally-v2-clean",
+   "kind": "clean",
+   "difficulty": "hard",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 1.1,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-day_range-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"calendar_util.py\", \"line\": 3, \"category\": \"off_by_one\", \"explanation\": \"The range(start, end) function excludes the 'end' value, but the docstring and the intended logic for count_days require the range to be inclusive of 'end'.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 4.6,
+     "tokens": 81,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"calendar_util.py\", \"line\": 3, \"category\": \"off_by_one\", \"explanation\": \"The range(start, end) function excludes the 'end' value, but the docstring and the intended logic for count_days require the range to be inclusive of 'end'.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-day_range-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"booking_dates.py\", \"line\": 3, \"category\": \"off_by_one\", \"explanation\": \"The docstring for nights() states it returns day numbers in [start, end] inclusive, but range(start, end) excludes the end value. This causes night_count to return the wrong value compared to the previous implementation.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 5.1,
+     "tokens": 91,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"booking_dates.py\", \"line\": 3, \"category\": \"off_by_one\", \"explanation\": \"The docstring for nights() states it returns day numbers in [start, end] inclusive, but range(start, end) excludes the end value. This causes night_count to return the wrong value compared to the previous implementation.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-deadline-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "medium",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 1,
+   "verdict_ok": false,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"approve\", \"findings\": []}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 3.9,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-deadline-v1-clean",
+   "kind": "clean",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 1.1,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-deadline-v2-clean",
+   "kind": "clean",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 1.2,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-discount-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "easy",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": true,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 1,
+   "verdict_ok": false,
+   "error": "invalid JSON: Extra data: line 3 column 1 (char 2423)",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"checkout.py\", \"line\": 7, \"category\": \"state_update\", \"explanation\": \"The member discount is no longer applied to the 'total' variable. Instead, a 'rate' is calculated, but the 'total' variable remains at its original value (price * qty) before the rate is applied. However, if 'member' is true, the code calculates 'rate += 0.10' but the 'total' variable itself is never updated with the member discount logic that previously existed, and the logic for applying the rate is applied to the original total. While this might be intended, the logic is fragile because if 'member' is true, the 'total' is not modified, but the 'rate' is. The real bug is that the member discount is now additive to the bulk discount via 'rate', but the 'total' variable is not being reduced by the member discount specifically, only by the final 'rate'. Wait, looking closer: 'total' is 'price * qty'. If member is true, 'rate' becomes 0.10. If qty > BULK_QTY, 'rate' becomes 0.15. The final return is 'round(total * (1 - rate), 2)'. This actually works mathematically for a combined discount. However, there is a logic error: if 'member' is true, the code executes 'rate += 0.10' but the 'total' variable is not updated. This is fine. But if 'member' is false, 'rate' remains 0.0. The logic seems mathematically sound for a cumulative discount. Let's re-examine. Actually, there is no bug in the math. But wait, the 'total' variable is initialized as 'price * qty'. I",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": true,
+     "score": {
+      "valid": false,
+      "verdict_ok": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": "invalid JSON: Extra data: line 3 column 1 (char 2423)"
+     },
+     "secs": 41.2,
+     "tokens": 910,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"checkout.py\", \"line\": 7, \"category\": \"state_update\", \"explanation\": \"The member discount is no longer applied to the 'total' variable. Instead, a 'rate' is calculated, but the 'total' variable remains at its original value (price * qty) before the rate is applied. However, if 'member' is true, the code calculates 'rate += 0.10' but the 'total' variable itself is never updated with the member discount logic that previously existed, and the logic for applying the rate is applied to the original total. While this might be intended, the logic is fragile because if 'member' is true, the 'total' is not modified, but the 'rate' is. The real bug is that the member discount is now additive to the bulk discount via 'rate', but the 'total' variable is not being reduced by the member discount specifically, only by the final 'rate'. Wait, looking closer: 'total' is 'price * qty'. If member is true, 'rate' becomes 0.10. If qty > BULK_QTY, 'rate' becomes 0.15. The final return is 'round(total * (1 - rate), 2)'. This actually works mathematically for a combined discount. However, there is a logic error: if 'member' is true, the code executes 'rate += 0.10' but the 'total' variable is not updated. This is fine. But if 'member' is false, 'rate' remains 0.0. The logic seems mathematically sound for a cumulative discount. Let's re-examine. Actually, there is no bug in the math. But wait, the 'total' variable is initialized as 'price * qty'. I"
+    }
+   ]
+  },
+  {
+   "id": "rev-except_order-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "hard",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 1,
+   "verdict_ok": true,
+   "error": "",
+   "answer": null,
+   "first_try_text": "```json\n{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"readers.py\", \"line\": 5, \"category\": \"inverted_condition\", \"explanation\": \"FileNotFoundError is a subclass of OSError. The existing 'except OSError' block will catch FileNotFoundError before it reaches the new 'except FileNotFoundError' block, making the new logic unreachable.\"}]}\n```",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 4.6,
+     "tokens": 82,
+     "answer": "```json\n{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"readers.py\", \"line\": 5, \"category\": \"inverted_condition\", \"explanation\": \"FileNotFoundError is a subclass of OSError. The existing 'except OSError' block will catch FileNotFoundError before it reaches the new 'except FileNotFoundError' block, making the new logic unreachable.\"}]}\n```"
+    }
+   ]
+  },
+  {
+   "id": "rev-except_order-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "hard",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 1,
+   "verdict_ok": true,
+   "error": "",
+   "answer": null,
+   "first_try_text": "```json\n{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"fileio.py\", \"line\": 5, \"category\": \"inverted_condition\", \"explanation\": \"FileNotFoundError is a subclass of OSError. The current order of except blocks means FileNotFoundError will be caught by the OSError block first, preventing the specific logic for missing files from ever executing.\"}]}\n```",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 6.3,
+     "tokens": 83,
+     "answer": "```json\n{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"fileio.py\", \"line\": 5, \"category\": \"inverted_condition\", \"explanation\": \"FileNotFoundError is a subclass of OSError. The current order of except blocks means FileNotFoundError will be caught by the OSError block first, preventing the specific logic for missing files from ever executing.\"}]}\n```"
+    }
+   ]
+  },
+  {
+   "id": "rev-except_order-v2-clean",
+   "kind": "clean",
+   "difficulty": "hard",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 1.0,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-fallback-v1-clean",
+   "kind": "clean",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 1.2,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-find_first-v1-clean",
+   "kind": "clean",
+   "difficulty": "easy",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": true,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": false,
+   "error": "invalid JSON: Extra data: line 3 column 1 (char 1854)",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"lookup.py\", \"line\": 3, \"category\": \"state_update\", \"explanation\": \"The variable 'value' is used in the lambda on line 4, but it is only defined if 'pred' is not callable. If 'pred' is not callable, 'value' is assigned, but if the loop continues or if there were other logic, this relies on a local variable assignment that doesn't change the scope of 'pred' for the caller. More importantly, if 'pred' is not callable, the function modifies the local 'pred' but the logic is fragile. However, the real bug is that if 'pred' is not callable, the code attempts to use 'value' which is defined, but the logic is actually correct for a single function call. Wait, looking closer: if 'pred' is not callable, 'value' is assigned 'pred'. Then 'pred' becomes a lambda. This works. But there is a subtle bug: if 'pred' is not callable, the function works, but if 'pred' is a function, it works. Is there a bug? Let's re-examine. If 'pred' is not callable, 'value = pred' and 'pred = lambda it: it == value'. This is correct. Is there any other issue? The loop uses 'pred(it)'. If 'pred' was originally a value, it is now a function. This seems correct. Let me re-read. Actually, there is no bug in the logic itself, but the diff shows a syntax error in the provided snippet: the line numbers and the diff format are malformed (the '-' and '+' are mixed with line numbers). Assuming the logic is the focus: the logic is sound. Wait, I see a potential issue",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": true,
+     "score": {
+      "valid": false,
+      "verdict_ok": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": "invalid JSON: Extra data: line 3 column 1 (char 1854)"
+     },
+     "secs": 143.5,
+     "tokens": 3000,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"lookup.py\", \"line\": 3, \"category\": \"state_update\", \"explanation\": \"The variable 'value' is used in the lambda on line 4, but it is only defined if 'pred' is not callable. If 'pred' is not callable, 'value' is assigned, but if the loop continues or if there were other logic, this relies on a local variable assignment that doesn't change the scope of 'pred' for the caller. More importantly, if 'pred' is not callable, the function modifies the local 'pred' but the logic is fragile. However, the real bug is that if 'pred' is not callable, the code attempts to use 'value' which is defined, but the logic is actually correct for a single function call. Wait, looking closer: if 'pred' is not callable, 'value' is assigned 'pred'. Then 'pred' becomes a lambda. This works. But there is a subtle bug: if 'pred' is not callable, the function works, but if 'pred' is a function, it works. Is there a bug? Let's re-examine. If 'pred' is not callable, 'value = pred' and 'pred = lambda it: it == value'. This is correct. Is there any other issue? The loop uses 'pred(it)'. If 'pred' was originally a value, it is now a function. This seems correct. Let me re-read. Actually, there is no bug in the logic itself, but the diff shows a syntax error in the provided snippet: the line numbers and the diff format are malformed (the '-' and '+' are mixed with line numbers). Assuming the logic is the focus: the logic is sound. Wait, I see a potential issue"
+    }
+   ]
+  },
+  {
+   "id": "rev-first_token-v1-clean",
+   "kind": "clean",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 13.1,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-locked_cache-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "hard",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 1,
+   "verdict_ok": true,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"memo.py\", \"line\": 7, \"category\": \"exception_handling\", \"explanation\": \"The lock is acquired manually but not released in a finally block. If factory(key) raises an exception, the lock will remain held indefinitely, causing a deadlock for all subsequent calls.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 2.8,
+     "tokens": 77,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"memo.py\", \"line\": 7, \"category\": \"exception_handling\", \"explanation\": \"The lock is acquired manually but not released in a finally block. If factory(key) raises an exception, the lock will remain held indefinitely, causing a deadlock for all subsequent calls.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-locked_cache-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "hard",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 1,
+   "verdict_ok": true,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"registry.py\", \"line\": 7, \"category\": \"exception_handling\", \"explanation\": \"The lock is acquired manually but not released in a finally block. If factory(key) raises an exception, the lock will remain held indefinitely, causing a deadlock for all subsequent calls.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 4.0,
+     "tokens": 77,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"registry.py\", \"line\": 7, \"category\": \"exception_handling\", \"explanation\": \"The lock is acquired manually but not released in a finally block. If factory(key) raises an exception, the lock will remain held indefinitely, causing a deadlock for all subsequent calls.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-lockout-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "hard",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.6667,
+   "tp": 1,
+   "fp": 0,
+   "fn": 1,
+   "verdict_ok": true,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"bruteforce.py\", \"line\": 19, \"category\": \"state_update\", \"explanation\": \"The record_success method does not reset the failure count or the lock status for a user, meaning once a user reaches the failure threshold, they remain locked until the duration expires even if they provide the correct password.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6667,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 5.5,
+     "tokens": 87,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"bruteforce.py\", \"line\": 19, \"category\": \"state_update\", \"explanation\": \"The record_success method does not reset the failure count or the lock status for a user, meaning once a user reaches the failure threshold, they remain locked until the duration expires even if they provide the correct password.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-lockout-v2-clean",
+   "kind": "clean",
+   "difficulty": "hard",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 4.0,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-lower_bound-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "medium",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 1,
+   "verdict_ok": true,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"search.py\", \"line\": 10, \"category\": \"off_by_one\", \"explanation\": \"The binary search implementation returns `lo` which will be `len(a) - 1` instead of `len(a)` when the target is greater than all elements in the list, because `hi` is initialized to `len(a) - 1` and the loop terminates when `lo == hi`. This breaks the contract of returning `len(a)` if no element is found.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 6.7,
+     "tokens": 125,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"search.py\", \"line\": 10, \"category\": \"off_by_one\", \"explanation\": \"The binary search implementation returns `lo` which will be `len(a) - 1` instead of `len(a)` when the target is greater than all elements in the list, because `hi` is initialized to `len(a) - 1` and the loop terminates when `lo == hi`. This breaks the contract of returning `len(a)` if no element is found.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-lru-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"lrucache.py\", \"line\": 10, \"category\": \"state_update\", \"explanation\": \"The get method does not update the order of the accessed key, meaning it does not correctly implement the Least Recently Used (LRU) policy. An item accessed via get() should be moved to the end to mark it as most recently used.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 13.3,
+     "tokens": 92,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"lrucache.py\", \"line\": 10, \"category\": \"state_update\", \"explanation\": \"The get method does not update the order of the accessed key, meaning it does not correctly implement the Least Recently Used (LRU) policy. An item accessed via get() should be moved to the end to mark it as most recently used.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-lru-v1-clean",
+   "kind": "clean",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 1.5,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-lru-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "medium",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 1,
+   "verdict_ok": false,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"approve\", \"findings\": []}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 1.4,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-memoize-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"cachetools_lite.py\", \"line\": 10, \"category\": \"state_update\", \"explanation\": \"The result of the function call `fn(arg)` is not being stored in the `cache` dictionary, so subsequent calls will always return the same value (or fail if the key was never set), and the cache is never actually updated with the computed value.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 10.1,
+     "tokens": 97,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"cachetools_lite.py\", \"line\": 10, \"category\": \"state_update\", \"explanation\": \"The result of the function call `fn(arg)` is not being stored in the `cache` dictionary, so subsequent calls will always return the same value (or fail if the key was never set), and the cache is never actually updated with the computed value.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-memoize-v1-clean",
+   "kind": "clean",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 1.0,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-memoize-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"fastcalls.py\", \"line\": 10, \"category\": \"state_update\", \"explanation\": \"The result of the function call `fn(arg)` is not being stored in the `cache` dictionary, so subsequent calls with the same argument will result in a KeyError when trying to access `cache[arg]`.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 4.7,
+     "tokens": 86,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"fastcalls.py\", \"line\": 10, \"category\": \"state_update\", \"explanation\": \"The result of the function call `fn(arg)` is not being stored in the `cache` dictionary, so subsequent calls with the same argument will result in a KeyError when trying to access `cache[arg]`.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-mention-v1-clean",
+   "kind": "clean",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 6.5,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-mention-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "easy",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 1,
+   "verdict_ok": true,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"notify_text.py\", \"line\": 10, \"category\": \"exception_handling\", \"explanation\": \"If uid is not found in users, user will be None, causing display_name(user) to raise a TypeError when attempting to call .get() or access ['name'] on None.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 4.5,
+     "tokens": 82,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"notify_text.py\", \"line\": 10, \"category\": \"exception_handling\", \"explanation\": \"If uid is not found in users, user will be None, causing display_name(user) to raise a TypeError when attempting to call .get() or access ['name'] on None.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-moving_avg-v1-clean",
+   "kind": "clean",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 1.5,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-paginate-v2-clean",
+   "kind": "clean",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 2.8,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-parse_kv-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"cookie_util.py\", \"line\": 10, \"category\": \"return_type_change\", \"explanation\": \"The function's return type changes from a dictionary to a list of tuples when 'strict' is True, which will break any calling code expecting a dictionary (e.g., code performing key-based lookups).\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 5.0,
+     "tokens": 89,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"cookie_util.py\", \"line\": 10, \"category\": \"return_type_change\", \"explanation\": \"The function's return type changes from a dictionary to a list of tuples when 'strict' is True, which will break any calling code expecting a dictionary (e.g., code performing key-based lookups).\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-parse_kv-v2-clean",
+   "kind": "clean",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 1.0,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-parse_number-v2-clean",
+   "kind": "clean",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 1.2,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-process_all-v1-clean",
+   "kind": "clean",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 13.9,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-process_all-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "medium",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 1,
+   "verdict_ok": true,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"pipeline.py\", \"line\": 11, \"category\": \"state_update\", \"explanation\": \"The function catches exceptions during batch processing but fails to append the error to the 'errors' list, making the 'errors' list always empty regardless of failures.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 3.3,
+     "tokens": 73,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"pipeline.py\", \"line\": 11, \"category\": \"state_update\", \"explanation\": \"The function catches exceptions during batch processing but fails to append the error to the 'errors' list, making the 'errors' list always empty regardless of failures.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-process_all-v2-clean",
+   "kind": "clean",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 0.6,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-rate-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"funnel.py\", \"line\": 5, \"category\": \"missing_check\", \"explanation\": \"The conversion function does not check if 'visits' is zero, which will cause a ZeroDivisionError in the pct function if visits is 0.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 2.4,
+     "tokens": 71,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"funnel.py\", \"line\": 5, \"category\": \"missing_check\", \"explanation\": \"The conversion function does not check if 'visits' is zero, which will cause a ZeroDivisionError in the pct function if visits is 0.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-rate-v2-clean",
+   "kind": "clean",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 2.7,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-rate_limiter-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"limiter.py\", \"line\": 17, \"category\": \"state_update\", \"explanation\": \"The timestamp of the current successful call is never added to the hits list, meaning the rate limiter will never actually track new calls and will only ever count historical calls that haven't expired.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 4.9,
+     "tokens": 80,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"limiter.py\", \"line\": 17, \"category\": \"state_update\", \"explanation\": \"The timestamp of the current successful call is never added to the hits list, meaning the rate limiter will never actually track new calls and will only ever count historical calls that haven't expired.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-rate_limiter-v1-clean",
+   "kind": "clean",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 17.7,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-report_keys-v2-clean",
+   "kind": "clean",
+   "difficulty": "hard",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 1.3,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-retry-v1-clean",
+   "kind": "clean",
+   "difficulty": "medium",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 0,
+   "verdict_ok": false,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"resilience.py\", \"line\": 12, \"category\": \"exception_handling\", \"explanation\": \"If attempts is 0 or less, the loop never executes and 'last' remains None, causing 'raise last' to raise a TypeError instead of a meaningful error or the intended exception.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": false,
+      "tp": 0,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 5.0,
+     "tokens": 80,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"resilience.py\", \"line\": 12, \"category\": \"exception_handling\", \"explanation\": \"If attempts is 0 or less, the loop never executes and 'last' remains None, causing 'raise last' to raise a TypeError instead of a meaningful error or the intended exception.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-retry-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"flaky.py\", \"line\": 12, \"category\": \"exception_handling\", \"explanation\": \"If attempts is 0 or less, the loop never executes and 'last' remains None, causing 'raise last' to raise a TypeError instead of a meaningful exception.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 4.5,
+     "tokens": 76,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"flaky.py\", \"line\": 12, \"category\": \"exception_handling\", \"explanation\": \"If attempts is 0 or less, the loop never executes and 'last' remains None, causing 'raise last' to raise a TypeError instead of a meaningful exception.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-run_ping-v1-clean",
+   "kind": "clean",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 13.0,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-run_step-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"build_steps.py\", \"line\": 6, \"category\": \"dropped_error\", \"explanation\": \"The function executes a command via a runner but fails to check the return code (rc). If the command fails (non-zero exit code), the function continues as if it succeeded, potentially masking build failures.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 5.1,
+     "tokens": 84,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"build_steps.py\", \"line\": 6, \"category\": \"dropped_error\", \"explanation\": \"The function executes a command via a runner but fails to check the return code (rc). If the command fails (non-zero exit code), the function continues as if it succeeded, potentially masking build failures.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-run_step-v1-clean",
+   "kind": "clean",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 1.1,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-run_step-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"deploy_tasks.py\", \"line\": 6, \"category\": \"dropped_error\", \"explanation\": \"The function exec_command executes a command but ignores the return code (rc). If the command fails (non-zero exit code), the function continues as if it succeeded, which can lead to silent failures in build steps.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 4.7,
+     "tokens": 87,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"deploy_tasks.py\", \"line\": 6, \"category\": \"dropped_error\", \"explanation\": \"The function exec_command executes a command but ignores the return code (rc). If the command fails (non-zero exit code), the function continues as if it succeeded, which can lead to silent failures in build steps.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-safe_join-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"uploads.py\", \"line\": 10, \"category\": \"injection\", \"explanation\": \"The safe_join function uses posixpath.join and normpath, but does not prevent directory traversal attacks. If 'name' starts with a '/' or contains '../', it can escape the 'root' directory.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 12.9,
+     "tokens": 83,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"uploads.py\", \"line\": 10, \"category\": \"injection\", \"explanation\": \"The safe_join function uses posixpath.join and normpath, but does not prevent directory traversal attacks. If 'name' starts with a '/' or contains '../', it can escape the 'root' directory.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-safe_join-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "hard",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 1,
+   "verdict_ok": true,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"static_files.py\", \"line\": 11, \"category\": \"inverted_condition\", \"explanation\": \"The condition `full != root and not full.startswith(root)` is logically flawed for preventing path traversal. If `full` is a subdirectory of `root` (e.g., `root='/app'`, `full='/app/data'`), `full.startswith(root)` is true, so the condition evaluates to false and no error is raised. However, if `root` is `/app` and `full` is `/app_secret`, `full.startswith(root)` is true, but this is a different directory. More importantly, the check fails to catch cases where `full` is exactly `root` but the logic implies it should be allowed, and the `not` logic is applied to the wrong side of the equality check. The standard way to prevent traversal is `not full.startswith(os.path.join(root, ''))` or ensuring `full` starts with `root` and checking for the separator.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 13.8,
+     "tokens": 237,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"static_files.py\", \"line\": 11, \"category\": \"inverted_condition\", \"explanation\": \"The condition `full != root and not full.startswith(root)` is logically flawed for preventing path traversal. If `full` is a subdirectory of `root` (e.g., `root='/app'`, `full='/app/data'`), `full.startswith(root)` is true, so the condition evaluates to false and no error is raised. However, if `root` is `/app` and `full` is `/app_secret`, `full.startswith(root)` is true, but this is a different directory. More importantly, the check fails to catch cases where `full` is exactly `root` but the logic implies it should be allowed, and the `not` logic is applied to the wrong side of the equality check. The standard way to prevent traversal is `not full.startswith(os.path.join(root, ''))` or ensuring `full` starts with `root` and checking for the separator.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-save_record-v2-clean",
+   "kind": "clean",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 1.3,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-should_retry-v1-clean",
+   "kind": "clean",
+   "difficulty": "medium",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 0,
+   "verdict_ok": false,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"retry_policy.py\", \"line\": 6, \"category\": \"off_by_one\", \"explanation\": \"The condition 'attempt >= MAX_ATTEMPTS' prevents the final allowed attempt from executing. If MAX_ATTEMPTS is 3, and the current attempt is 3, it returns False, meaning only 2 attempts are actually performed. It should be 'attempt >= MAX_ATTEMPTS' only if 'attempt' represents the number of completed attempts, but since the default is 1, the 3rd attempt will be blocked.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": false,
+      "tp": 0,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 7.1,
+     "tokens": 135,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"retry_policy.py\", \"line\": 6, \"category\": \"off_by_one\", \"explanation\": \"The condition 'attempt >= MAX_ATTEMPTS' prevents the final allowed attempt from executing. If MAX_ATTEMPTS is 3, and the current attempt is 3, it returns False, meaning only 2 attempts are actually performed. It should be 'attempt >= MAX_ATTEMPTS' only if 'attempt' represents the number of completed attempts, but since the default is 1, the 3rd attempt will be blocked.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-summarize-v2-clean",
+   "kind": "clean",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 12.3,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-top_n-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"ranking.py\", \"line\": 5, \"category\": \"state_update\", \"explanation\": \"The function now performs an in-place sort on the input list 'items', which modifies the caller's original list. This is a side effect not present in the original implementation.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 3.2,
+     "tokens": 77,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"ranking.py\", \"line\": 5, \"category\": \"state_update\", \"explanation\": \"The function now performs an in-place sort on the input list 'items', which modifies the caller's original list. This is a side effect not present in the original implementation.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-transfer-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "medium",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"wallets.py\", \"line\": 11, \"category\": \"state_update\", \"explanation\": \"The move_funds function increases the destination balance but fails to decrease the source balance, resulting in the creation of money out of thin air.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 4.1,
+     "tokens": 70,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"wallets.py\", \"line\": 11, \"category\": \"state_update\", \"explanation\": \"The move_funds function increases the destination balance but fails to decrease the source balance, resulting in the creation of money out of thin air.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-truncate-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 1,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"textutil.py\", \"line\": 2, \"category\": \"off_by_one\", \"explanation\": \"If len(text) == limit, the function returns the original text, but if the intention is to ensure the result (including ellipsis) never exceeds the limit, the logic fails to handle the case where the text is exactly the limit but could be truncated to include an ellipsis. More critically, if len(text) == limit, it skips the truncation logic entirely, which is fine, but if len(text) > limit, the new logic is applied. However, the condition 'if len(text) < limit' allows 'len(text) == limit' to pass through without truncation, which is correct, but the logic for 'len(text) > limit' is only reached if len(text) >= limit. The real bug is that if len(text) == limit, it returns text, but if the user wanted to ensure a specific format, this is inconsistent. More importantly, if limit is 5 and text is '12345', it returns '12345'. If text is '123456', it returns '12...'. This is actually correct behavior for a truncate function, but the condition 'if len(text) < limit' should be 'if len(text) <= limit' to be consistent with the previous implementation's behavior for the boundary case.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 23.6,
+     "tokens": 316,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"textutil.py\", \"line\": 2, \"category\": \"off_by_one\", \"explanation\": \"If len(text) == limit, the function returns the original text, but if the intention is to ensure the result (including ellipsis) never exceeds the limit, the logic fails to handle the case where the text is exactly the limit but could be truncated to include an ellipsis. More critically, if len(text) == limit, it skips the truncation logic entirely, which is fine, but if len(text) > limit, the new logic is applied. However, the condition 'if len(text) < limit' allows 'len(text) == limit' to pass through without truncation, which is correct, but the logic for 'len(text) > limit' is only reached if len(text) >= limit. The real bug is that if len(text) == limit, it returns text, but if the user wanted to ensure a specific format, this is inconsistent. More importantly, if limit is 5 and text is '12345', it returns '12345'. If text is '123456', it returns '12...'. This is actually correct behavior for a truncate function, but the condition 'if len(text) < limit' should be 'if len(text) <= limit' to be consistent with the previous implementation's behavior for the boundary case.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-truncate-v1-clean",
+   "kind": "clean",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 3.9,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-truncate-v2-clean",
+   "kind": "clean",
+   "difficulty": "easy",
+   "passed": true,
+   "strict_passed": true,
+   "unparsed": false,
+   "f1": 1.0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "verdict_ok": true,
+   "error": "",
+   "answer": "{\"verdict\": \"approve\", \"findings\": []}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "strict_passed": true,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "passed": true,
+      "error": ""
+     },
+     "secs": 5.3,
+     "tokens": 13,
+     "answer": "{\"verdict\": \"approve\", \"findings\": []}"
+    }
+   ]
+  },
+  {
+   "id": "rev-with_conn-v1-buggy",
+   "kind": "buggy",
+   "difficulty": "medium",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 1,
+   "verdict_ok": true,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"dbutil.py\", \"line\": 6, \"category\": \"exception_handling\", \"explanation\": \"If the callback 'fn' raises an exception, 'conn.close()' will never be called, leading to a connection leak.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 8.5,
+     "tokens": 67,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"dbutil.py\", \"line\": 6, \"category\": \"exception_handling\", \"explanation\": \"If the callback 'fn' raises an exception, 'conn.close()' will never be called, leading to a connection leak.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "rev-with_conn-v2-buggy",
+   "kind": "buggy",
+   "difficulty": "medium",
+   "passed": false,
+   "strict_passed": false,
+   "unparsed": false,
+   "f1": 0.0,
+   "tp": 0,
+   "fp": 1,
+   "fn": 1,
+   "verdict_ok": true,
+   "error": "",
+   "answer": null,
+   "first_try_text": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"storage_helpers.py\", \"line\": 7, \"category\": \"exception_handling\", \"explanation\": \"If the callback 'fn' raises an exception, 'conn.close()' will never be called, leading to a connection leak.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "strict_passed": false,
+     "unparsed": false,
+     "score": {
+      "valid": true,
+      "verdict_ok": true,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "passed": false,
+      "error": ""
+     },
+     "secs": 20.6,
+     "tokens": 68,
+     "answer": "{\"verdict\": \"request_changes\", \"findings\": [{\"file\": \"storage_helpers.py\", \"line\": 7, \"category\": \"exception_handling\", \"explanation\": \"If the callback 'fn' raises an exception, 'conn.close()' will never be called, leading to a connection leak.\"}]}"
+    }
+   ]
+  }
+ ]
+}

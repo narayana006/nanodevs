@@ -1,0 +1,2818 @@
+{
+ "summary": {
+  "model": "planner-base-heldout",
+  "k": 1,
+  "n": 60,
+  "first_try_pass": 12,
+  "pass_definition": "grader.passed (score>=0.80 and recall/order/precision/count/acceptance all perfect, specialist>=0.8, parallel ok)",
+  "mean_score": 0.6653,
+  "unparsed": 0,
+  "gates_failed": 7,
+  "fenced_replies": 0,
+  "kind:bug": "0/10",
+  "kind:feature": "12/50",
+  "difficulty:easy": "12/28",
+  "difficulty:hard": "0/15",
+  "difficulty:medium": "0/17"
+ },
+ "chosen_ids": [
+  "planner-0002",
+  "planner-0009",
+  "planner-0014",
+  "planner-0018",
+  "planner-0022",
+  "planner-0029",
+  "planner-0037",
+  "planner-0042",
+  "planner-0045",
+  "planner-0046",
+  "planner-0049",
+  "planner-0055",
+  "planner-0056",
+  "planner-0057",
+  "planner-0059",
+  "planner-0060",
+  "planner-0061",
+  "planner-0067",
+  "planner-0069",
+  "planner-0074",
+  "planner-0079",
+  "planner-0087",
+  "planner-0092",
+  "planner-0099",
+  "planner-0104",
+  "planner-0108",
+  "planner-0118",
+  "planner-0119",
+  "planner-0124",
+  "planner-0125",
+  "planner-0128",
+  "planner-0132",
+  "planner-0133",
+  "planner-0136",
+  "planner-0140",
+  "planner-0141",
+  "planner-0142",
+  "planner-0152",
+  "planner-0156",
+  "planner-0159",
+  "planner-0160",
+  "planner-0161",
+  "planner-0163",
+  "planner-0164",
+  "planner-0165",
+  "planner-0168",
+  "planner-0169",
+  "planner-0172",
+  "planner-0173",
+  "planner-0176",
+  "planner-0187",
+  "planner-0189",
+  "planner-0193",
+  "planner-0194",
+  "planner-0196",
+  "planner-0197",
+  "planner-0198",
+  "planner-0199",
+  "planner-0200",
+  "planner-0202"
+ ],
+ "results": [
+  {
+   "id": "planner-0002",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "etl_late",
+   "passed": false,
+   "score": 0.0,
+   "gates_ok": false,
+   "fenced": false,
+   "unparsed": false,
+   "components": {},
+   "errors": [
+    "step 3: keys must be exactly ['acceptance_check', 'depends_on', 'files_to_touch', 'goal', 'id', 'specialist']"
+   ],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/config.py\"\n      ],\n      \"goal\": \"Increase the lookback window in the pipeline configuration to capture late-arriving events.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"Verify pipelines/config.py contains a larger lookback_window_days value.\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/review_daily.sql\"\n      ],\n      \"goal\": \"Update the review_daily SQL model to ensure it correctly aggregates data from the expanded lookback period.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"sqlfluff lint sql/models/review_daily.sql passes.\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/transform_review.py\"\n      ],\n      \"goal\": \"Update the transform logic to handle reprocessing of historical dates based on the new lookback window.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_transform_review.py passes.\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"airflow\",\n      \"files_to_touch\": [\n        \"airflow/dags/review_dag.py\"\n      ],\n      \"specialist_ref\": \"python\",\n      \"goal\": \"Update the review DAG to trigger reprocessing of the lookback window period.\",\n      \"depends_on\": [\n        \"s3\"\n      ],\n      \"acceptance_check\": \"DAG parses without errors and contains logic ",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.0,
+     "gates_ok": false,
+     "fenced": false,
+     "unparsed": false,
+     "components": {},
+     "errors": [
+      "step 3: keys must be exactly ['acceptance_check', 'depends_on', 'files_to_touch', 'goal', 'id', 'specialist']"
+     ],
+     "flags": [],
+     "secs": 31.0,
+     "tokens": 857,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/config.py\"\n      ],\n      \"goal\": \"Increase the lookback window in the pipeline configuration to capture late-arriving events.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"Verify pipelines/config.py contains a larger lookback_window_days value.\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/review_daily.sql\"\n      ],\n      \"goal\": \"Update the review_daily SQL model to ensure it correctly aggregates data from the expanded lookback period.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"sqlfluff lint sql/models/review_daily.sql passes.\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/transform_review.py\"\n      ],\n      \"goal\": \"Update the transform logic to handle reprocessing of historical dates based on the new lookback window.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_transform_review.py passes.\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"airflow\",\n      \"files_to_touch\": [\n        \"airflow/dags/review_dag.py\"\n      ],\n      \"specialist_ref\": \"python\",\n      \"goal\": \"Update the review DAG to trigger reprocessing of the lookback window period.\",\n      \"depends_on\": [\n        \"s3\"\n      ],\n      \"acceptance_check\": \"DAG parses without errors and contains logic "
+    }
+   ]
+  },
+  {
+   "id": "planner-0009",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": true,
+   "score": 1.0,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 1.0
+   },
+   "errors": [],
+   "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"python\", \"files_to_touch\": [\"app/config.py\"], \"goal\": \"Update the default page size setting from 20 to 50.\", \"depends_on\": [], \"acceptance_check\": \"Verify app/config.py contains the updated page size value.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "score": 1.0,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 1.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 5.0,
+     "tokens": 77,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"python\", \"files_to_touch\": [\"app/config.py\"], \"goal\": \"Update the default page size setting from 20 to 50.\", \"depends_on\": [], \"acceptance_check\": \"Verify app/config.py contains the updated page size value.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0014",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": true,
+   "score": 1.0,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 1.0
+   },
+   "errors": [],
+   "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"python\", \"files_to_touch\": [\"app/services/booking_service.py\"], \"goal\": \"Add an info log line containing the booking ID and actor during the deletion process.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_booking_api.py passes and logs can be verified via stdout\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "score": 1.0,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 1.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 5.6,
+     "tokens": 88,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"python\", \"files_to_touch\": [\"app/services/booking_service.py\"], \"goal\": \"Add an info log line containing the booking ID and actor during the deletion process.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_booking_api.py passes and logs can be verified via stdout\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0018",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "mixed_obs",
+   "passed": false,
+   "score": 0.5865,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.8889,
+    "precision": 1.0,
+    "specialist": 0.7333,
+    "order": 0.4615,
+    "parallel": 0.1538,
+    "count": 0.0,
+    "acceptance": 0.8
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/review/ReviewController.java\", \"services/api/src/test/java/com/acme/review/ReviewControllerTest.java\"], \"goal\": \"Implement Micrometer metrics for request count and latency in the ReviewController.\", \"depends_on\": [], \"acceptance_check\": \"mvn test passes and Micrometer metrics are visible in actuator endpoint\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/review_worker/handler.py\", \"workers/review_worker/tests/test_handler.py\"], \"goal\": \"Add Prometheus counters for processed and failed review events in the worker handler.\", \"depends_on\": [], \"acceptance_check\": \"pytest passes and counters increment on success/failure\"}, {\"id\": \"s3\", \"specialist\": \"devops\", \"files_to_touch\": [\"deploy/k8s/api.yaml\", \"deploy/k8s/worker.yaml\"], \"goal\": \"Add prometheus.io/scrape annotations to API and Worker deployments.\", \"depends_on\": [\"s1\", \"s2\"], \"acceptance_check\": \"kubectl get deployment api -o yaml shows scrape annotations\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/alerts/review.yaml\", \"ops/dashboards/review.json\"], \"goal\": \"Define alert rules for high error rates and update Grafana dashboard with new metrics.\", \"depends_on\": [\"s3\"], \"acceptance_check\": \"Alert rules are valid and dashboard JSON contains new metric queries\"}, {\"id\": \"s5\", \"specialist\": \"reviewer\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/review/ReviewController.java\", \"wor",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.5865,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.8889,
+      "precision": 1.0,
+      "specialist": 0.7333,
+      "order": 0.4615,
+      "parallel": 0.1538,
+      "count": 0.0,
+      "acceptance": 0.8
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 21.4,
+     "tokens": 484,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/review/ReviewController.java\", \"services/api/src/test/java/com/acme/review/ReviewControllerTest.java\"], \"goal\": \"Implement Micrometer metrics for request count and latency in the ReviewController.\", \"depends_on\": [], \"acceptance_check\": \"mvn test passes and Micrometer metrics are visible in actuator endpoint\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/review_worker/handler.py\", \"workers/review_worker/tests/test_handler.py\"], \"goal\": \"Add Prometheus counters for processed and failed review events in the worker handler.\", \"depends_on\": [], \"acceptance_check\": \"pytest passes and counters increment on success/failure\"}, {\"id\": \"s3\", \"specialist\": \"devops\", \"files_to_touch\": [\"deploy/k8s/api.yaml\", \"deploy/k8s/worker.yaml\"], \"goal\": \"Add prometheus.io/scrape annotations to API and Worker deployments.\", \"depends_on\": [\"s1\", \"s2\"], \"acceptance_check\": \"kubectl get deployment api -o yaml shows scrape annotations\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/alerts/review.yaml\", \"ops/dashboards/review.json\"], \"goal\": \"Define alert rules for high error rates and update Grafana dashboard with new metrics.\", \"depends_on\": [\"s3\"], \"acceptance_check\": \"Alert rules are valid and dashboard JSON contains new metric queries\"}, {\"id\": \"s5\", \"specialist\": \"reviewer\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/review/ReviewController.java\", \"wor"
+    }
+   ]
+  },
+  {
+   "id": "planner-0022",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "etl_late",
+   "passed": false,
+   "score": 0.6081,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.8,
+    "precision": 1.0,
+    "specialist": 0.8667,
+    "order": 0.4545,
+    "parallel": 0.375,
+    "count": 0.5,
+    "acceptance": 0.4286
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/config.py\"\n      ],\n      \"goal\": \"Add a configurable lookback_window_days parameter to the pipeline settings.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"Verify pipelines.config.LOOKBACK_WINDOW_DAYS is accessible in python shell\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_playlist.py\",\n        \"pipelines/transform_playlist.py\"\n      ],\n      \"goal\": \"Update ingest and transform logic to use the lookback window for data filtering/reprocessing.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_playlist.py and tests/test_transform_playlist.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/playlist_daily.sql\"\n      ],\n      \"goal\": \"Update the playlist_daily model to ensure it handles re-processing of historical days correctly (idempotency).\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"sqlfluff lint sql/models/playlist_daily.sql\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"airflow/dags/playlist_dag.py\"\n      ],\n      \"goal\": \"Update the Airflow DAG to pass the lookback window parameter to the python operators.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"airflow dags list\"\n    }",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.6081,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.8,
+      "precision": 1.0,
+      "specialist": 0.8667,
+      "order": 0.4545,
+      "parallel": 0.375,
+      "count": 0.5,
+      "acceptance": 0.4286
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 71.3,
+     "tokens": 843,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/config.py\"\n      ],\n      \"goal\": \"Add a configurable lookback_window_days parameter to the pipeline settings.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"Verify pipelines.config.LOOKBACK_WINDOW_DAYS is accessible in python shell\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_playlist.py\",\n        \"pipelines/transform_playlist.py\"\n      ],\n      \"goal\": \"Update ingest and transform logic to use the lookback window for data filtering/reprocessing.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_playlist.py and tests/test_transform_playlist.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/playlist_daily.sql\"\n      ],\n      \"goal\": \"Update the playlist_daily model to ensure it handles re-processing of historical days correctly (idempotency).\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"sqlfluff lint sql/models/playlist_daily.sql\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"airflow/dags/playlist_dag.py\"\n      ],\n      \"goal\": \"Update the Airflow DAG to pass the lookback window parameter to the python operators.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"airflow dags list\"\n    }"
+    }
+   ]
+  },
+  {
+   "id": "planner-0029",
+   "kind": "feature",
+   "difficulty": "medium",
+   "family": "export",
+   "passed": false,
+   "score": 0.4995,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.6667,
+    "precision": 1.0,
+    "specialist": 0.7692,
+    "order": 0.0,
+    "parallel": 0.4286,
+    "count": 0.5,
+    "acceptance": 0.5
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"python\", \"files_to_touch\": [\"app/api/device_routes.py\", \"app/services/device_service.py\"], \"goal\": \"Implement GET /devices/export.csv endpoint and service logic to generate CSV content using existing export helpers.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_device_api.py passes and /devices/export.csv returns CSV content.\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/api/device.ts\", \"web/src/pages/DeviceList.tsx\"], \"goal\": \"Add export method to device API client and an Export button to the Device List page.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Clicking Export button in browser triggers a download of a CSV file.\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"tests/test_device_api.py\"], \"goal\": \"Add integration tests for the new CSV export endpoint including filter verification.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest tests/test_device_api.py passes.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a note to the runbook regarding potential timeouts or resource usage during large CSV exports.\", \"depends_on\": [], \"acceptance_check\": \"docs/runbook.md contains information about device export timeouts.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.4995,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.6667,
+      "precision": 1.0,
+      "specialist": 0.7692,
+      "order": 0.0,
+      "parallel": 0.4286,
+      "count": 0.5,
+      "acceptance": 0.5
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 69.3,
+     "tokens": 353,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"python\", \"files_to_touch\": [\"app/api/device_routes.py\", \"app/services/device_service.py\"], \"goal\": \"Implement GET /devices/export.csv endpoint and service logic to generate CSV content using existing export helpers.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_device_api.py passes and /devices/export.csv returns CSV content.\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/api/device.ts\", \"web/src/pages/DeviceList.tsx\"], \"goal\": \"Add export method to device API client and an Export button to the Device List page.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Clicking Export button in browser triggers a download of a CSV file.\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"tests/test_device_api.py\"], \"goal\": \"Add integration tests for the new CSV export endpoint including filter verification.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest tests/test_device_api.py passes.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a note to the runbook regarding potential timeouts or resource usage during large CSV exports.\", \"depends_on\": [], \"acceptance_check\": \"docs/runbook.md contains information about device export timeouts.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0037",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": true,
+   "score": 1.0,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 1.0
+   },
+   "errors": [],
+   "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/main/resources/application.yml\"], \"goal\": \"Update the default page size for subscriptions in the application configuration.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the subscription page size property in application.yml is set to 50.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "score": 1.0,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 1.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 29.5,
+     "tokens": 83,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/main/resources/application.yml\"], \"goal\": \"Update the default page size for subscriptions in the application configuration.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the subscription page size property in application.yml is set to 50.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0042",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "etl_add_column",
+   "passed": false,
+   "score": 0.6089,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 0.8571,
+    "parallel": 0.0,
+    "count": 0.0,
+    "acceptance": 0.25
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/schema/appointment_raw.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add reminder_sent column to raw_appointments schema and update documentation.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/schema/appointment_raw.sql\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_appointment.py\",\n        \"pipelines/transform_appointment.py\"\n      ],\n      \"goal\": \"Update ingestion and transformation logic to process the reminder_sent field.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_appointment.py tests/test_transform_appointment.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/appointment_daily.sql\"\n      ],\n      \"goal\": \"Update the daily rollup model to include counts of reminder_sent flags.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_appointment_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/test_ingest_appointment.py\",\n        \"tests/test_transform_appointment.py\",\n        \"tests/sql/test_appointment_daily.py\"\n      ],\n      \"goal\": \"Ensure end-to-end test coverage for the new field across all pipeline stages.\",\n      \"depends_on\": [\n        \"s3\"\n   ",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.6089,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 0.8571,
+      "parallel": 0.0,
+      "count": 0.0,
+      "acceptance": 0.25
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 112.1,
+     "tokens": 516,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/schema/appointment_raw.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add reminder_sent column to raw_appointments schema and update documentation.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/schema/appointment_raw.sql\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_appointment.py\",\n        \"pipelines/transform_appointment.py\"\n      ],\n      \"goal\": \"Update ingestion and transformation logic to process the reminder_sent field.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_appointment.py tests/test_transform_appointment.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/appointment_daily.sql\"\n      ],\n      \"goal\": \"Update the daily rollup model to include counts of reminder_sent flags.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_appointment_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/test_ingest_appointment.py\",\n        \"tests/test_transform_appointment.py\",\n        \"tests/sql/test_appointment_daily.py\"\n      ],\n      \"goal\": \"Ensure end-to-end test coverage for the new field across all pipeline stages.\",\n      \"depends_on\": [\n        \"s3\"\n   "
+    }
+   ]
+  },
+  {
+   "id": "planner-0045",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": true,
+   "score": 1.0,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 1.0
+   },
+   "errors": [],
+   "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/main/java/com/acme/app/listing/ListingService.java\"], \"goal\": \"Add an info log line containing the listing ID and actor when a listing is deleted.\", \"depends_on\": [], \"acceptance_check\": \"Run unit tests and verify log output contains the deletion event with ID and actor.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "score": 1.0,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 1.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 25.4,
+     "tokens": 96,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/main/java/com/acme/app/listing/ListingService.java\"], \"goal\": \"Add an info log line containing the listing ID and actor when a listing is deleted.\", \"depends_on\": [], \"acceptance_check\": \"Run unit tests and verify log output contains the deletion event with ID and actor.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0046",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "etl_late",
+   "passed": false,
+   "score": 0.6833,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.9,
+    "precision": 1.0,
+    "specialist": 0.9333,
+    "order": 0.9091,
+    "parallel": 0.1875,
+    "count": 0.0,
+    "acceptance": 0.6667
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/config.py\"\n      ],\n      \"goal\": \"Add a configurable lookback_window_days parameter to the pipeline configuration.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"Verify pipelines/config.py contains a new integer variable for lookback_window_days.\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_expense.py\",\n        \"pipelines/transform_expense.py\",\n        \"airflow/dags/expense_dag.py\"\n      ],\n      \"goal\": \"Update ingest and transform logic to use the lookback window and update the DAG to pass this parameter.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"Verify ingest_expense.py and transform_expense.py use the config value to filter/reprocess data and DAG passes it via params.\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/expense_daily.sql\"\n      ],\n      \"goal\": \"Ensure the expense_daily model correctly restates/overwrites data for the lookback period.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"Verify SQL model uses a pattern (e.g., delete/insert or merge) that handles re-processing of historical days.\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/test_ingest_expense.py\",\n        \"tests/test_transform_expense.py\"\n      ],\n",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.6833,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.9,
+      "precision": 1.0,
+      "specialist": 0.9333,
+      "order": 0.9091,
+      "parallel": 0.1875,
+      "count": 0.0,
+      "acceptance": 0.6667
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 115.1,
+     "tokens": 809,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/config.py\"\n      ],\n      \"goal\": \"Add a configurable lookback_window_days parameter to the pipeline configuration.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"Verify pipelines/config.py contains a new integer variable for lookback_window_days.\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_expense.py\",\n        \"pipelines/transform_expense.py\",\n        \"airflow/dags/expense_dag.py\"\n      ],\n      \"goal\": \"Update ingest and transform logic to use the lookback window and update the DAG to pass this parameter.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"Verify ingest_expense.py and transform_expense.py use the config value to filter/reprocess data and DAG passes it via params.\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/expense_daily.sql\"\n      ],\n      \"goal\": \"Ensure the expense_daily model correctly restates/overwrites data for the lookback period.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"Verify SQL model uses a pattern (e.g., delete/insert or merge) that handles re-processing of historical days.\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/test_ingest_expense.py\",\n        \"tests/test_transform_expense.py\"\n      ],\n"
+    }
+   ]
+  },
+  {
+   "id": "planner-0049",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.75,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 0.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/test/java/com/acme/app/booking/BookingServiceTest.java\"], \"goal\": \"Add a unit test case to BookingServiceTest that verifies an exception is thrown when creating a booking with an empty title.\", \"depends_on\": [], \"acceptance_check\": \"mvn test -Dtest=BookingServiceTest\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.75,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 0.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 27.1,
+     "tokens": 98,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/test/java/com/acme/app/booking/BookingServiceTest.java\"], \"goal\": \"Add a unit test case to BookingServiceTest that verifies an exception is thrown when creating a booking with an empty title.\", \"depends_on\": [], \"acceptance_check\": \"mvn test -Dtest=BookingServiceTest\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0055",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "etl_add_column",
+   "passed": false,
+   "score": 0.4461,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.75,
+    "precision": 1.0,
+    "specialist": 0.8182,
+    "order": 0.5714,
+    "parallel": 0.0,
+    "count": 0.0,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/schema/device_raw.sql\",\n        \"sql/models/device_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add location column to raw, daily, and documentation schemas.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/models/device_daily.sql\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_device.py\",\n        \"pipelines/transform_device.py\"\n      ],\n      \"goal\": \"Update ingestion and transformation logic to process the location field.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_device.py tests/test_transform_device.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_device_daily.py\"\n      ],\n      \"goal\": \"Extend SQL integration tests to verify location data flows through to device_daily.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_device_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"reviewer\",\n      \"files_to_touch\": [\n        \"sql/schema/device_raw.sql\",\n        \"sql/models/device_daily.sql\",\n        \"pipelines/ingest_device.py\",\n        \"pipelines/transform_device.py\",\n        \"docs/data_dictionary.md\",\n        \"tests/sql/test_device_daily.py\"\n      ],\n      \"goal\": \"Review the end-to-end imp",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.4461,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.75,
+      "precision": 1.0,
+      "specialist": 0.8182,
+      "order": 0.5714,
+      "parallel": 0.0,
+      "count": 0.0,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 120.7,
+     "tokens": 529,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/schema/device_raw.sql\",\n        \"sql/models/device_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add location column to raw, daily, and documentation schemas.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/models/device_daily.sql\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_device.py\",\n        \"pipelines/transform_device.py\"\n      ],\n      \"goal\": \"Update ingestion and transformation logic to process the location field.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_device.py tests/test_transform_device.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_device_daily.py\"\n      ],\n      \"goal\": \"Extend SQL integration tests to verify location data flows through to device_daily.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_device_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"reviewer\",\n      \"files_to_touch\": [\n        \"sql/schema/device_raw.sql\",\n        \"sql/models/device_daily.sql\",\n        \"pipelines/ingest_device.py\",\n        \"pipelines/transform_device.py\",\n        \"docs/data_dictionary.md\",\n        \"tests/sql/test_device_daily.py\"\n      ],\n      \"goal\": \"Review the end-to-end imp"
+    }
+   ]
+  },
+  {
+   "id": "planner-0056",
+   "kind": "feature",
+   "difficulty": "medium",
+   "family": "export",
+   "passed": false,
+   "score": 0.4643,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.5556,
+    "precision": 1.0,
+    "specialist": 0.6923,
+    "order": 0.0,
+    "parallel": 0.1429,
+    "count": 0.5,
+    "acceptance": 0.75
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/main/java/com/acme/app/expense/ExpenseController.java\", \"src/main/java/com/acme/app/expense/ExpenseService.java\"], \"goal\": \"Implement GET /expenses/export.csv endpoint that uses CsvExporter to stream expense data.\", \"depends_on\": [], \"acceptance_check\": \"curl -I http://localhost:8080/expenses/export.csv returns HTTP 200 and Content-Type application/csv\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/ExpenseList.tsx\", \"web/src/styles/app.css\"], \"goal\": \"Add an 'Export CSV' button to the ExpenseList page that triggers the download.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Clicking the Export button in the browser initiates a file download of a .csv file\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"src/test/java/com/acme/app/expense/ExpenseControllerTest.java\"], \"goal\": \"Add integration tests to verify the CSV export endpoint returns correct data.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"mvn test passes for ExpenseControllerTest\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a note to the runbook regarding potential timeouts for large CSV exports.\", \"depends_on\": [], \"acceptance_check\": \"docs/runbook.md contains a section on handling large export timeouts\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.4643,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.5556,
+      "precision": 1.0,
+      "specialist": 0.6923,
+      "order": 0.0,
+      "parallel": 0.1429,
+      "count": 0.5,
+      "acceptance": 0.75
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 92.8,
+     "tokens": 390,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/main/java/com/acme/app/expense/ExpenseController.java\", \"src/main/java/com/acme/app/expense/ExpenseService.java\"], \"goal\": \"Implement GET /expenses/export.csv endpoint that uses CsvExporter to stream expense data.\", \"depends_on\": [], \"acceptance_check\": \"curl -I http://localhost:8080/expenses/export.csv returns HTTP 200 and Content-Type application/csv\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/ExpenseList.tsx\", \"web/src/styles/app.css\"], \"goal\": \"Add an 'Export CSV' button to the ExpenseList page that triggers the download.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Clicking the Export button in the browser initiates a file download of a .csv file\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"src/test/java/com/acme/app/expense/ExpenseControllerTest.java\"], \"goal\": \"Add integration tests to verify the CSV export endpoint returns correct data.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"mvn test passes for ExpenseControllerTest\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a note to the runbook regarding potential timeouts for large CSV exports.\", \"depends_on\": [], \"acceptance_check\": \"docs/runbook.md contains a section on handling large export timeouts\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0057",
+   "kind": "bug",
+   "difficulty": "medium",
+   "family": "mixed_bug",
+   "passed": false,
+   "score": 0.6957,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.8,
+    "precision": 1.0,
+    "specialist": 0.8571,
+    "order": 0.5,
+    "parallel": 0.0,
+    "count": 1.0,
+    "acceptance": 1.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/shipment/Shipment.java\"], \"goal\": \"Ensure amount field has a default value of zero in the JPA entity.\", \"depends_on\": [], \"acceptance_check\": \"Unit tests pass and Shipment entity shows 0.0 for new instances.\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/shipment_worker/handler.py\"], \"goal\": \"Add null check or default value handling for the amount field in the event consumer.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest workers/shipment_worker/tests/test_handler.py passes with null amount payloads.\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"services/api/src/test/java/com/acme/shipment/ShipmentServiceTest.java\", \"workers/shipment_worker/tests/test_handler.py\"], \"goal\": \"Verify the fix by simulating a shipment creation with a null/default amount and checking worker processing.\", \"depends_on\": [\"s2\"], \"acceptance_check\": \"End-to-end integration test simulation passes.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/runbooks/shipment.md\"], \"goal\": \"Update the runbook to include instructions for replaying failed shipment events that were rejected due to the amount bug.\", \"depends_on\": [\"s3\"], \"acceptance_check\": \"Runbook contains a section on replaying events from DLQ for this specific failure case.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.6957,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.8,
+      "precision": 1.0,
+      "specialist": 0.8571,
+      "order": 0.5,
+      "parallel": 0.0,
+      "count": 1.0,
+      "acceptance": 1.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 60.3,
+     "tokens": 386,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/shipment/Shipment.java\"], \"goal\": \"Ensure amount field has a default value of zero in the JPA entity.\", \"depends_on\": [], \"acceptance_check\": \"Unit tests pass and Shipment entity shows 0.0 for new instances.\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/shipment_worker/handler.py\"], \"goal\": \"Add null check or default value handling for the amount field in the event consumer.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest workers/shipment_worker/tests/test_handler.py passes with null amount payloads.\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"services/api/src/test/java/com/acme/shipment/ShipmentServiceTest.java\", \"workers/shipment_worker/tests/test_handler.py\"], \"goal\": \"Verify the fix by simulating a shipment creation with a null/default amount and checking worker processing.\", \"depends_on\": [\"s2\"], \"acceptance_check\": \"End-to-end integration test simulation passes.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/runbooks/shipment.md\"], \"goal\": \"Update the runbook to include instructions for replaying failed shipment events that were rejected due to the amount bug.\", \"depends_on\": [\"s3\"], \"acceptance_check\": \"Runbook contains a section on replaying events from DLQ for this specific failure case.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0059",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.85,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/BookingList.tsx\", \"web/src/styles/app.css\"], \"goal\": \"Apply CSS class to the amount column in the booking table to right-align the text.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the amount column in the BookingList table is visually right-aligned in the browser.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.85,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 25.8,
+     "tokens": 102,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/BookingList.tsx\", \"web/src/styles/app.css\"], \"goal\": \"Apply CSS class to the amount column in the booking table to right-align the text.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the amount column in the BookingList table is visually right-aligned in the browser.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0060",
+   "kind": "feature",
+   "difficulty": "medium",
+   "family": "etl_new_metric",
+   "passed": false,
+   "score": 0.97,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 0.8
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"data\", \"files_to_touch\": [\"sql/models/task_daily.sql\"], \"goal\": \"Add a window function to calculate the 7-day rolling sum of tasks in the task_daily model.\", \"depends_on\": [], \"acceptance_check\": \"sqlfluff lint sql/models/task_daily.sql passes and SQL syntax is valid.\"}, {\"id\": \"s2\", \"specialist\": \"qa\", \"files_to_touch\": [\"tests/sql/test_task_daily.py\"], \"goal\": \"Extend the SQL test suite to assert the correctness of the new 7-day rolling total column.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest tests/sql/test_task_daily.py passes.\"}, {\"id\": \"s3\", \"specialist\": \"ui\", \"files_to_touch\": [\"dashboards/task.json\"], \"goal\": \"Add a new tile to the task dashboard to visualize the 7-day rolling task total.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"The dashboard JSON is valid and contains the new query/tile definition.\"}, {\"id\": \"s4\", \"specialist\": \"data\", \"files_to_touch\": [\"docs/data_dictionary.md\"], \"goal\": \"Update the data dictionary to include the definition of the new rolling 7-day total column.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"The new column is documented in docs/data_dictionary.md.\"}, {\"id\": \"s5\", \"specialist\": \"python\", \"files_to_touch\": [\"airflow/dags/task_dag.py\"], \"goal\": \"Ensure the task_dag includes the updated task_daily model in its execution flow (if not already covered by existing dependencies).\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"airflow dags list-import-errors shows no errors for task_dag.py.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.97,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 0.8
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 59.7,
+     "tokens": 441,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"data\", \"files_to_touch\": [\"sql/models/task_daily.sql\"], \"goal\": \"Add a window function to calculate the 7-day rolling sum of tasks in the task_daily model.\", \"depends_on\": [], \"acceptance_check\": \"sqlfluff lint sql/models/task_daily.sql passes and SQL syntax is valid.\"}, {\"id\": \"s2\", \"specialist\": \"qa\", \"files_to_touch\": [\"tests/sql/test_task_daily.py\"], \"goal\": \"Extend the SQL test suite to assert the correctness of the new 7-day rolling total column.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest tests/sql/test_task_daily.py passes.\"}, {\"id\": \"s3\", \"specialist\": \"ui\", \"files_to_touch\": [\"dashboards/task.json\"], \"goal\": \"Add a new tile to the task dashboard to visualize the 7-day rolling task total.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"The dashboard JSON is valid and contains the new query/tile definition.\"}, {\"id\": \"s4\", \"specialist\": \"data\", \"files_to_touch\": [\"docs/data_dictionary.md\"], \"goal\": \"Update the data dictionary to include the definition of the new rolling 7-day total column.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"The new column is documented in docs/data_dictionary.md.\"}, {\"id\": \"s5\", \"specialist\": \"python\", \"files_to_touch\": [\"airflow/dags/task_dag.py\"], \"goal\": \"Ensure the task_dag includes the updated task_daily model in its execution flow (if not already covered by existing dependencies).\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"airflow dags list-import-errors shows no errors for task_dag.py.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0061",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.85,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"qa\", \"files_to_touch\": [\"tests/test_course_service.py\"], \"goal\": \"Add a test case to verify that the course service rejects a course with an empty title.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_course_service.py\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.85,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 28.2,
+     "tokens": 82,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"qa\", \"files_to_touch\": [\"tests/test_course_service.py\"], \"goal\": \"Add a test case to verify that the course service rejects a course with an empty title.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_course_service.py\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0067",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": true,
+   "score": 1.0,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 1.0
+   },
+   "errors": [],
+   "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/ProductForm.tsx\"], \"goal\": \"Update the label text from 'Title' to 'Name' in the product form.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the input label in the ProductForm component displays 'Name' instead of 'Title' in the browser.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "score": 1.0,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 1.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 23.1,
+     "tokens": 94,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/ProductForm.tsx\"], \"goal\": \"Update the label text from 'Title' to 'Name' in the product form.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the input label in the ProductForm component displays 'Name' instead of 'Title' in the browser.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0069",
+   "kind": "feature",
+   "difficulty": "medium",
+   "family": "export",
+   "passed": false,
+   "score": 0.4643,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.5556,
+    "precision": 1.0,
+    "specialist": 0.6923,
+    "order": 0.0,
+    "parallel": 0.1429,
+    "count": 0.5,
+    "acceptance": 0.75
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/main/java/com/acme/app/donation/DonationController.java\", \"src/main/java/com/acme/app/donation/DonationService.java\"], \"goal\": \"Implement the CSV export endpoint and business logic to stream donation data as CSV.\", \"depends_on\": [], \"acceptance_check\": \"GET /donations/export.csv returns a valid CSV string via integration test.\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/DonationList.tsx\", \"web/src/styles/app.css\"], \"goal\": \"Add an 'Export CSV' button to the Donation List page.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"The Export button is visible and triggers a browser download of a CSV file.\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"src/test/java/com/acme/app/donation/DonationControllerTest.java\"], \"goal\": \"Add integration tests to verify the CSV export endpoint works with various filters.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"mvn test passes for the new export test cases.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a note to the runbook regarding potential timeouts during large CSV exports.\", \"depends_on\": [], \"acceptance_check\": \"The runbook contains a section on monitoring and handling long-running export requests.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.4643,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.5556,
+      "precision": 1.0,
+      "specialist": 0.6923,
+      "order": 0.0,
+      "parallel": 0.1429,
+      "count": 0.5,
+      "acceptance": 0.75
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 74.2,
+     "tokens": 373,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/main/java/com/acme/app/donation/DonationController.java\", \"src/main/java/com/acme/app/donation/DonationService.java\"], \"goal\": \"Implement the CSV export endpoint and business logic to stream donation data as CSV.\", \"depends_on\": [], \"acceptance_check\": \"GET /donations/export.csv returns a valid CSV string via integration test.\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/DonationList.tsx\", \"web/src/styles/app.css\"], \"goal\": \"Add an 'Export CSV' button to the Donation List page.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"The Export button is visible and triggers a browser download of a CSV file.\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"src/test/java/com/acme/app/donation/DonationControllerTest.java\"], \"goal\": \"Add integration tests to verify the CSV export endpoint works with various filters.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"mvn test passes for the new export test cases.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a note to the runbook regarding potential timeouts during large CSV exports.\", \"depends_on\": [], \"acceptance_check\": \"The runbook contains a section on monitoring and handling long-running export requests.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0074",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": true,
+   "score": 1.0,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 1.0
+   },
+   "errors": [],
+   "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"data\", \"files_to_touch\": [\"src/main/resources/db/migration/V2__add_index_to_bookings_created_at.sql\"], \"goal\": \"Create a new Flyway migration script to add an index on the created_at column of the bookings table.\", \"depends_on\": [], \"acceptance_check\": \"Verify the SQL file contains 'CREATE INDEX idx_bookings_created_at ON bookings(created_at);'\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "score": 1.0,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 1.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 21.3,
+     "tokens": 115,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"data\", \"files_to_touch\": [\"src/main/resources/db/migration/V2__add_index_to_bookings_created_at.sql\"], \"goal\": \"Create a new Flyway migration script to add an index on the created_at column of the bookings table.\", \"depends_on\": [], \"acceptance_check\": \"Verify the SQL file contains 'CREATE INDEX idx_bookings_created_at ON bookings(created_at);'\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0079",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.85,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/TaskList.tsx\", \"web/src/styles/app.css\"], \"goal\": \"Apply right-alignment CSS class to the amount column in the Task table.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the amount column in the TaskList table is visually right-aligned in the browser.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.85,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 25.4,
+     "tokens": 98,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/TaskList.tsx\", \"web/src/styles/app.css\"], \"goal\": \"Apply right-alignment CSS class to the amount column in the Task table.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the amount column in the TaskList table is visually right-aligned in the browser.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0087",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": true,
+   "score": 1.0,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 1.0
+   },
+   "errors": [],
+   "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/TicketForm.tsx\"], \"goal\": \"Update the label text from 'Title' to 'Name' in the TicketForm component.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the input label in the TicketForm component displays 'Name' instead of 'Title' in the browser.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "score": 1.0,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 1.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 20.1,
+     "tokens": 95,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/TicketForm.tsx\"], \"goal\": \"Update the label text from 'Title' to 'Name' in the TicketForm component.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the input label in the TicketForm component displays 'Name' instead of 'Title' in the browser.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0092",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "etl_add_column",
+   "passed": false,
+   "score": 0.4836,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.75,
+    "precision": 1.0,
+    "specialist": 0.8182,
+    "order": 0.5714,
+    "parallel": 0.0,
+    "count": 0.0,
+    "acceptance": 0.25
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/schema/review_raw.sql\",\n        \"sql/models/review_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add spoiler_flag column to raw table, daily model, and update data dictionary.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/models/review_daily.sql && grep 'spoiler_flag' docs/data_dictionary.md\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_review.py\",\n        \"pipelines/transform_review.py\"\n      ],\n      \"goal\": \"Update ingestion and transformation logic to handle the new spoiler_flag field.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_review.py tests/test_transform_review.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_review_daily.py\"\n      ],\n      \"goal\": \"Extend SQL tests to verify spoiler_flag aggregation in review_daily.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_review_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"reviewer\",\n      \"files_to_touch\": [\n        \"sql/schema/review_raw.sql\",\n        \"sql/models/review_daily.sql\",\n        \"pipelines/ingest_review.py\",\n        \"pipelines/transform_review.py\",\n        \"docs/data_dictionary.md\",\n        \"tests/sql/test_review_dai",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.4836,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.75,
+      "precision": 1.0,
+      "specialist": 0.8182,
+      "order": 0.5714,
+      "parallel": 0.0,
+      "count": 0.0,
+      "acceptance": 0.25
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 64.1,
+     "tokens": 553,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/schema/review_raw.sql\",\n        \"sql/models/review_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add spoiler_flag column to raw table, daily model, and update data dictionary.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/models/review_daily.sql && grep 'spoiler_flag' docs/data_dictionary.md\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_review.py\",\n        \"pipelines/transform_review.py\"\n      ],\n      \"goal\": \"Update ingestion and transformation logic to handle the new spoiler_flag field.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_review.py tests/test_transform_review.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_review_daily.py\"\n      ],\n      \"goal\": \"Extend SQL tests to verify spoiler_flag aggregation in review_daily.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_review_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"reviewer\",\n      \"files_to_touch\": [\n        \"sql/schema/review_raw.sql\",\n        \"sql/models/review_daily.sql\",\n        \"pipelines/ingest_review.py\",\n        \"pipelines/transform_review.py\",\n        \"docs/data_dictionary.md\",\n        \"tests/sql/test_review_dai"
+    }
+   ]
+  },
+  {
+   "id": "planner-0099",
+   "kind": "feature",
+   "difficulty": "medium",
+   "family": "etl_new_metric",
+   "passed": false,
+   "score": 0.85,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 0.5,
+    "count": 1.0,
+    "acceptance": 0.5
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/member_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add 7-day rolling count logic to member_daily SQL and update the data dictionary.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/models/member_daily.sql && grep 'rolling_7d_count' docs/data_dictionary.md\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"ui\",\n      \"files_to_touch\": [\n        \"dashboards/member.json\"\n      ],\n      \"goal\": \"Add the new 7-day rolling count metric to the member dashboard.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"grep 'rolling_7d_count' dashboards/member.json\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_member_daily.py\"\n      ],\n      \"goal\": \"Extend SQL tests to assert the correctness of the new 7-day rolling metric.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_member_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"airflow/dags/member_dag.py\"\n      ],\n      \"goal\": \"Ensure the member_dag triggers the refresh of the updated model.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"python -m pytest airflow/dags/member_dag.py\"\n    }\n  ]\n}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.85,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 0.5,
+      "count": 1.0,
+      "acceptance": 0.5
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 68.9,
+     "tokens": 477,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/member_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add 7-day rolling count logic to member_daily SQL and update the data dictionary.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/models/member_daily.sql && grep 'rolling_7d_count' docs/data_dictionary.md\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"ui\",\n      \"files_to_touch\": [\n        \"dashboards/member.json\"\n      ],\n      \"goal\": \"Add the new 7-day rolling count metric to the member dashboard.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"grep 'rolling_7d_count' dashboards/member.json\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_member_daily.py\"\n      ],\n      \"goal\": \"Extend SQL tests to assert the correctness of the new 7-day rolling metric.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_member_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"airflow/dags/member_dag.py\"\n      ],\n      \"goal\": \"Ensure the member_dag triggers the refresh of the updated model.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"python -m pytest airflow/dags/member_dag.py\"\n    }\n  ]\n}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0104",
+   "kind": "feature",
+   "difficulty": "medium",
+   "family": "export",
+   "passed": false,
+   "score": 0.442,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.375,
+    "precision": 1.0,
+    "specialist": 0.5455,
+    "order": 0.0,
+    "parallel": 0.0,
+    "count": 1.0,
+    "acceptance": 0.75
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/main/java/com/acme/app/recipe/RecipeController.java\"], \"goal\": \"Add a GET endpoint to export recipes as CSV using CsvExporter.\", \"depends_on\": [], \"acceptance_check\": \"curl -I http://localhost:8080/recipes/export/csv returns 200 OK\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/RecipeList.tsx\"], \"goal\": \"Add an 'Export CSV' button to the Recipe List page that triggers the download.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Clicking the Export button initiates a file download in the browser\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"src/test/java/com/acme/app/recipe/RecipeControllerTest.java\"], \"goal\": \"Add integration tests to verify the CSV export endpoint returns valid CSV content.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"mvn test passes for RecipeControllerTest\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Document the CSV export endpoint and any known performance/size limits.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"runbook.md contains a section on recipe CSV export limits\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.442,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.375,
+      "precision": 1.0,
+      "specialist": 0.5455,
+      "order": 0.0,
+      "parallel": 0.0,
+      "count": 1.0,
+      "acceptance": 0.75
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 73.8,
+     "tokens": 341,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/main/java/com/acme/app/recipe/RecipeController.java\"], \"goal\": \"Add a GET endpoint to export recipes as CSV using CsvExporter.\", \"depends_on\": [], \"acceptance_check\": \"curl -I http://localhost:8080/recipes/export/csv returns 200 OK\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/RecipeList.tsx\"], \"goal\": \"Add an 'Export CSV' button to the Recipe List page that triggers the download.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Clicking the Export button initiates a file download in the browser\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"src/test/java/com/acme/app/recipe/RecipeControllerTest.java\"], \"goal\": \"Add integration tests to verify the CSV export endpoint returns valid CSV content.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"mvn test passes for RecipeControllerTest\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Document the CSV export endpoint and any known performance/size limits.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"runbook.md contains a section on recipe CSV export limits\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0108",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": true,
+   "score": 1.0,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 1.0
+   },
+   "errors": [],
+   "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"devops\", \"files_to_touch\": [\"Dockerfile\"], \"goal\": \"Modify Dockerfile to create and use a non-root user for the application process.\", \"depends_on\": [], \"acceptance_check\": \"docker run --rm <image_id> whoami returns a non-root user name\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "score": 1.0,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 1.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 26.2,
+     "tokens": 82,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"devops\", \"files_to_touch\": [\"Dockerfile\"], \"goal\": \"Modify Dockerfile to create and use a non-root user for the application process.\", \"depends_on\": [], \"acceptance_check\": \"docker run --rm <image_id> whoami returns a non-root user name\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0118",
+   "kind": "feature",
+   "difficulty": "medium",
+   "family": "etl_new_metric",
+   "passed": false,
+   "score": 0.835,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 0.5,
+    "count": 1.0,
+    "acceptance": 0.4
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/subscription_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add a 7-day rolling count column to the subscription_daily SQL model and update the data dictionary.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/models/subscription_daily.sql && grep 'subscription_7d_rolling_count' docs/data_dictionary.md\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"ui\",\n      \"files_to_touch\": [\n        \"dashboards/subscription.json\"\n      ],\n      \"goal\": \"Add a new tile to the dashboard to visualize the 7-day rolling subscription count.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"Verify subscription_7d_rolling_count exists in dashboard queries\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_subscription_daily.py\"\n      ],\n      \"goal\": \"Extend the SQL test suite to assert the correctness of the new 7-day rolling metric.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_subscription_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"airflow/dags/subscription_dag.py\"\n      ],\n      \"goal\": \"Ensure the DAG execution flow correctly handles the updated model dependencies.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"airfl",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.835,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 0.5,
+      "count": 1.0,
+      "acceptance": 0.4
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 149.0,
+     "tokens": 646,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/subscription_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add a 7-day rolling count column to the subscription_daily SQL model and update the data dictionary.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/models/subscription_daily.sql && grep 'subscription_7d_rolling_count' docs/data_dictionary.md\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"ui\",\n      \"files_to_touch\": [\n        \"dashboards/subscription.json\"\n      ],\n      \"goal\": \"Add a new tile to the dashboard to visualize the 7-day rolling subscription count.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"Verify subscription_7d_rolling_count exists in dashboard queries\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_subscription_daily.py\"\n      ],\n      \"goal\": \"Extend the SQL test suite to assert the correctness of the new 7-day rolling metric.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_subscription_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"airflow/dags/subscription_dag.py\"\n      ],\n      \"goal\": \"Ensure the DAG execution flow correctly handles the updated model dependencies.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"airfl"
+    }
+   ]
+  },
+  {
+   "id": "planner-0119",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.875,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 0.5,
+    "acceptance": 0.5
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"data\", \"files_to_touch\": [\"migrations/0002_add_index_bookings_created_at.sql\"], \"goal\": \"Create a new migration file to add an index on the created_at column of the bookings table.\", \"depends_on\": [], \"acceptance_check\": \"File exists and contains 'CREATE INDEX idx_bookings_created_at ON bookings(created_at);'\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"app/db.py\"], \"goal\": \"Ensure the migration runner picks up the new migration file.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"The application starts without errors and applies the new migration script.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.875,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 0.5,
+      "acceptance": 0.5
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 47.2,
+     "tokens": 175,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"data\", \"files_to_touch\": [\"migrations/0002_add_index_bookings_created_at.sql\"], \"goal\": \"Create a new migration file to add an index on the created_at column of the bookings table.\", \"depends_on\": [], \"acceptance_check\": \"File exists and contains 'CREATE INDEX idx_bookings_created_at ON bookings(created_at);'\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"app/db.py\"], \"goal\": \"Ensure the migration runner picks up the new migration file.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"The application starts without errors and applies the new migration script.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0124",
+   "kind": "feature",
+   "difficulty": "medium",
+   "family": "export",
+   "passed": false,
+   "score": 0.4268,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.5556,
+    "precision": 1.0,
+    "specialist": 0.6923,
+    "order": 0.0,
+    "parallel": 0.1429,
+    "count": 0.5,
+    "acceptance": 0.5
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"python\", \"files_to_touch\": [\"app/api/course_routes.py\", \"app/services/course_service.py\"], \"goal\": \"Implement the CSV export endpoint in the course routes and service.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_course_api.py passes with new export endpoint logic.\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/CourseList.tsx\"], \"goal\": \"Add a 'Download CSV' button to the Course List page.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Button is visible in CourseList and triggers a file download.\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"tests/test_course_api.py\"], \"goal\": \"Add integration tests for the new CSV export endpoint.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest tests/test_course_api.py passes.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Document the CSV export endpoint and any known performance/size limits.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"runbook.md contains notes on CSV export limits.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.4268,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.5556,
+      "precision": 1.0,
+      "specialist": 0.6923,
+      "order": 0.0,
+      "parallel": 0.1429,
+      "count": 0.5,
+      "acceptance": 0.5
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 70.1,
+     "tokens": 315,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"python\", \"files_to_touch\": [\"app/api/course_routes.py\", \"app/services/course_service.py\"], \"goal\": \"Implement the CSV export endpoint in the course routes and service.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_course_api.py passes with new export endpoint logic.\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/CourseList.tsx\"], \"goal\": \"Add a 'Download CSV' button to the Course List page.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Button is visible in CourseList and triggers a file download.\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"tests/test_course_api.py\"], \"goal\": \"Add integration tests for the new CSV export endpoint.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest tests/test_course_api.py passes.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Document the CSV export endpoint and any known performance/size limits.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"runbook.md contains notes on CSV export limits.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0125",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "mixed_obs",
+   "passed": false,
+   "score": 0.0,
+   "gates_ok": false,
+   "fenced": false,
+   "unparsed": false,
+   "components": {},
+   "errors": [
+    "step 5: files_to_touch must be a non-empty list of strings"
+   ],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/invoice/InvoiceService.java\", \"services/api/src/test/java/com/acme/invoice/InvoiceServiceTest.java\"], \"goal\": \"Add Micrometer counters/timers for invoice creation and processing in the API service.\", \"depends_on\": [], \"acceptance_check\": \"mvn test\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/invoice_worker/handler.py\", \"workers/invoice_worker/tests/test_handler.py\"], \"goal\": \"Add Prometheus metrics for invoice processing success/failure and latency in the worker.\", \"depends_on\": [], \"acceptance_check\": \"pytest\"}, {\"id\": \"s3\", \"specialist\": \"devops\", \"files_to_touch\": [\"deploy/k8s/api.yaml\", \"deploy/k8s/worker.yaml\"], \"goal\": \"Add Prometheus scrape annotations to the API and Worker deployments.\", \"depends_on\": [\"s1\", \"s2\"], \"acceptance_check\": \"kubectl get deployment api -o yaml | grep prometheus.io/scrape\"}, {\"id\": \"s4\", \"specialist\": \"data\", \"files_to_touch\": [\"ops/alerts/invoice.yaml\"], \"goal\": \"Define Prometheus alert rules for high invoice failure rates and processing lag.\", \"depends_on\": [\"s1\", \"s2\"], \"acceptance_check\": \"terraform validate\"}, {\"id\": \"s5\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/dashboards/invoice.json\"], \"goal\": \"Update Grafana dashboard to include new invoice throughput and error rate panels.\", \"depends_on\": [\"s1\", \"s2\", \"s4\"], \"acceptance_check\": \"Dashboard JSON is valid and contains new panel queries\"}, {\"id\": \"s6\", \"speci",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.0,
+     "gates_ok": false,
+     "fenced": false,
+     "unparsed": false,
+     "components": {},
+     "errors": [
+      "step 5: files_to_touch must be a non-empty list of strings"
+     ],
+     "flags": [],
+     "secs": 97.6,
+     "tokens": 640,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/invoice/InvoiceService.java\", \"services/api/src/test/java/com/acme/invoice/InvoiceServiceTest.java\"], \"goal\": \"Add Micrometer counters/timers for invoice creation and processing in the API service.\", \"depends_on\": [], \"acceptance_check\": \"mvn test\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/invoice_worker/handler.py\", \"workers/invoice_worker/tests/test_handler.py\"], \"goal\": \"Add Prometheus metrics for invoice processing success/failure and latency in the worker.\", \"depends_on\": [], \"acceptance_check\": \"pytest\"}, {\"id\": \"s3\", \"specialist\": \"devops\", \"files_to_touch\": [\"deploy/k8s/api.yaml\", \"deploy/k8s/worker.yaml\"], \"goal\": \"Add Prometheus scrape annotations to the API and Worker deployments.\", \"depends_on\": [\"s1\", \"s2\"], \"acceptance_check\": \"kubectl get deployment api -o yaml | grep prometheus.io/scrape\"}, {\"id\": \"s4\", \"specialist\": \"data\", \"files_to_touch\": [\"ops/alerts/invoice.yaml\"], \"goal\": \"Define Prometheus alert rules for high invoice failure rates and processing lag.\", \"depends_on\": [\"s1\", \"s2\"], \"acceptance_check\": \"terraform validate\"}, {\"id\": \"s5\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/dashboards/invoice.json\"], \"goal\": \"Update Grafana dashboard to include new invoice throughput and error rate panels.\", \"depends_on\": [\"s1\", \"s2\", \"s4\"], \"acceptance_check\": \"Dashboard JSON is valid and contains new panel queries\"}, {\"id\": \"s6\", \"speci"
+    }
+   ]
+  },
+  {
+   "id": "planner-0128",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": true,
+   "score": 1.0,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 1.0
+   },
+   "errors": [],
+   "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"devops\", \"files_to_touch\": [\"Dockerfile\"], \"goal\": \"Modify Dockerfile to create and use a non-root user for the application process.\", \"depends_on\": [], \"acceptance_check\": \"docker build -t tickets-service . && docker run --rm tickets-service whoami | grep -v root\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "score": 1.0,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 1.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 22.8,
+     "tokens": 87,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"devops\", \"files_to_touch\": [\"Dockerfile\"], \"goal\": \"Modify Dockerfile to create and use a non-root user for the application process.\", \"depends_on\": [], \"acceptance_check\": \"docker build -t tickets-service . && docker run --rm tickets-service whoami | grep -v root\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0132",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "etl_late",
+   "passed": false,
+   "score": 0.0,
+   "gates_ok": false,
+   "fenced": false,
+   "unparsed": false,
+   "components": {},
+   "errors": [
+    "step s3: unknown specialist 'airflow'"
+   ],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/config.py\"\n      ],\n      \"goal\": \"Add a configurable lookback_window_days parameter to the pipeline configuration.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"Verify pipelines.config.LOOKBACK_WINDOW_DAYS is accessible in python shell\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_course.py\",\n        \"pipelines/transform_course.py\"\n      ],\n      \"goal\": \"Update ingest and transform logic to use the lookback window for filtering/reprocessing data.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_course.py and tests/test_transform_course.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"airflow\",\n      \"files_to_touch\": [\n        \"airflow/dags/course_dag.py\"\n      ],\n      \"goal\": \"Update the course DAG to pass the lookback window parameter to the ingest and transform tasks.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"Verify DAG structure and task arguments in airflow dag parsing\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/course_daily.sql\"\n      ],\n      \"goal\": \"Update the course_daily SQL model to ensure it correctly restates/overwrites affected days based on the window.\",\n      \"depends_on\": [\n        \"s3\"\n      ],\n      \"acceptance_check\": \"s",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.0,
+     "gates_ok": false,
+     "fenced": false,
+     "unparsed": false,
+     "components": {},
+     "errors": [
+      "step s3: unknown specialist 'airflow'"
+     ],
+     "flags": [],
+     "secs": 149.8,
+     "tokens": 731,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/config.py\"\n      ],\n      \"goal\": \"Add a configurable lookback_window_days parameter to the pipeline configuration.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"Verify pipelines.config.LOOKBACK_WINDOW_DAYS is accessible in python shell\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_course.py\",\n        \"pipelines/transform_course.py\"\n      ],\n      \"goal\": \"Update ingest and transform logic to use the lookback window for filtering/reprocessing data.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_course.py and tests/test_transform_course.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"airflow\",\n      \"files_to_touch\": [\n        \"airflow/dags/course_dag.py\"\n      ],\n      \"goal\": \"Update the course DAG to pass the lookback window parameter to the ingest and transform tasks.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"Verify DAG structure and task arguments in airflow dag parsing\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/course_daily.sql\"\n      ],\n      \"goal\": \"Update the course_daily SQL model to ensure it correctly restates/overwrites affected days based on the window.\",\n      \"depends_on\": [\n        \"s3\"\n      ],\n      \"acceptance_check\": \"s"
+    }
+   ]
+  },
+  {
+   "id": "planner-0133",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "etl_add_column",
+   "passed": false,
+   "score": 0.5211,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.75,
+    "precision": 1.0,
+    "specialist": 0.8182,
+    "order": 0.5714,
+    "parallel": 0.0,
+    "count": 0.0,
+    "acceptance": 0.5
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/schema/member_raw.sql\",\n        \"sql/models/member_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add tier column to raw and daily member tables and update documentation.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/models/member_daily.sql && grep 'tier' docs/data_dictionary.md\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_member.py\",\n        \"pipelines/transform_member.py\"\n      ],\n      \"goal\": \"Update ingestion and transformation logic to process the tier column.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_member.py && pytest tests/test_transform_member.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_member_daily.py\"\n      ],\n      \"goal\": \"Extend SQL integration tests to assert tier values are correctly propagated to member_daily.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_member_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"reviewer\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_member.py\",\n        \"pipelines/transform_member.py\",\n        \"sql/models/member_daily.sql\",\n        \"sql/schema/member_raw.sql\"\n      ],\n      \"goal\": \"Review the end-to-end changes for da",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.5211,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.75,
+      "precision": 1.0,
+      "specialist": 0.8182,
+      "order": 0.5714,
+      "parallel": 0.0,
+      "count": 0.0,
+      "acceptance": 0.5
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 107.1,
+     "tokens": 521,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/schema/member_raw.sql\",\n        \"sql/models/member_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add tier column to raw and daily member tables and update documentation.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/models/member_daily.sql && grep 'tier' docs/data_dictionary.md\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_member.py\",\n        \"pipelines/transform_member.py\"\n      ],\n      \"goal\": \"Update ingestion and transformation logic to process the tier column.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_member.py && pytest tests/test_transform_member.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_member_daily.py\"\n      ],\n      \"goal\": \"Extend SQL integration tests to assert tier values are correctly propagated to member_daily.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_member_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"reviewer\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_member.py\",\n        \"pipelines/transform_member.py\",\n        \"sql/models/member_daily.sql\",\n        \"sql/schema/member_raw.sql\"\n      ],\n      \"goal\": \"Review the end-to-end changes for da"
+    }
+   ]
+  },
+  {
+   "id": "planner-0136",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "etl_add_column",
+   "passed": false,
+   "score": 0.5851,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 0.6364,
+    "order": 0.8571,
+    "parallel": 0.0,
+    "count": 0.5,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/schema/donation_raw.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add matched_cents column to raw_donations schema and update the data dictionary.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/schema/donation_raw.sql\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_donation.py\",\n        \"tests/test_ingest_donation.py\"\n      ],\n      \"goal\": \"Update ingestion logic to parse and load matched_cents and add a test case for it.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_donation.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/transform_donation.py\",\n        \"tests/test_transform_donation.py\"\n      ],\n      \"goal\": \"Update transformation logic to pass matched_cents through to staging and add a test case.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_transform_donation.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/donation_daily.sql\",\n        \"tests/sql/test_donation_daily.py\"\n      ],\n      \"goal\": \"Update the daily rollup model to include sum of matched_cents and update SQL tests.\",\n      \"depends_on\": [\n        \"s3\"\n      ],\n      \"acceptance_check\"",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.5851,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 0.6364,
+      "order": 0.8571,
+      "parallel": 0.0,
+      "count": 0.5,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 90.9,
+     "tokens": 644,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/schema/donation_raw.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add matched_cents column to raw_donations schema and update the data dictionary.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/schema/donation_raw.sql\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_donation.py\",\n        \"tests/test_ingest_donation.py\"\n      ],\n      \"goal\": \"Update ingestion logic to parse and load matched_cents and add a test case for it.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_donation.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/transform_donation.py\",\n        \"tests/test_transform_donation.py\"\n      ],\n      \"goal\": \"Update transformation logic to pass matched_cents through to staging and add a test case.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_transform_donation.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/donation_daily.sql\",\n        \"tests/sql/test_donation_daily.py\"\n      ],\n      \"goal\": \"Update the daily rollup model to include sum of matched_cents and update SQL tests.\",\n      \"depends_on\": [\n        \"s3\"\n      ],\n      \"acceptance_check\""
+    }
+   ]
+  },
+  {
+   "id": "planner-0140",
+   "kind": "bug",
+   "difficulty": "medium",
+   "family": "mixed_bug",
+   "passed": false,
+   "score": 0.5529,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.8,
+    "precision": 1.0,
+    "specialist": 0.4286,
+    "order": 0.25,
+    "parallel": 0.6667,
+    "count": 0.5,
+    "acceptance": 0.3333
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/appointment/AppointmentDto.java\", \"services/api/src/test/java/com/acme/appointment/AppointmentServiceTest.java\"], \"goal\": \"Ensure amount has a default value in DTO to prevent nulls being sent to the queue.\", \"depends_on\": [], \"acceptance_check\": \"mvn test\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/appointment_worker/handler.py\", \"workers/appointment_worker/tests/test_handler.py\"], \"goal\": \"Add null-safety check for 'amount' field in the worker handler and add a regression test case.\", \"depends_on\": [], \"acceptance_check\": \"pytest\"}, {\"id\": \"s3\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/runbooks/appointment.md\"], \"goal\": \"Add instructions for replaying messages from the DLQ to the main queue.\", \"depends_on\": [], \"acceptance_check\": \"Verify documentation contains DLQ replay steps\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.5529,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.8,
+      "precision": 1.0,
+      "specialist": 0.4286,
+      "order": 0.25,
+      "parallel": 0.6667,
+      "count": 0.5,
+      "acceptance": 0.3333
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 33.0,
+     "tokens": 267,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/appointment/AppointmentDto.java\", \"services/api/src/test/java/com/acme/appointment/AppointmentServiceTest.java\"], \"goal\": \"Ensure amount has a default value in DTO to prevent nulls being sent to the queue.\", \"depends_on\": [], \"acceptance_check\": \"mvn test\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/appointment_worker/handler.py\", \"workers/appointment_worker/tests/test_handler.py\"], \"goal\": \"Add null-safety check for 'amount' field in the worker handler and add a regression test case.\", \"depends_on\": [], \"acceptance_check\": \"pytest\"}, {\"id\": \"s3\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/runbooks/appointment.md\"], \"goal\": \"Add instructions for replaying messages from the DLQ to the main queue.\", \"depends_on\": [], \"acceptance_check\": \"Verify documentation contains DLQ replay steps\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0141",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": true,
+   "score": 1.0,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 1.0
+   },
+   "errors": [],
+   "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"devops\", \"files_to_touch\": [\".github/workflows/ci.yml\"], \"goal\": \"Add caching for npm/yarn dependencies in the CI pipeline to speed up builds.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the CI workflow logs show a cache hit/restore for the dependency directory.\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "score": 1.0,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 1.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 22.4,
+     "tokens": 86,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"devops\", \"files_to_touch\": [\".github/workflows/ci.yml\"], \"goal\": \"Add caching for npm/yarn dependencies in the CI pipeline to speed up builds.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the CI workflow logs show a cache hit/restore for the dependency directory.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0142",
+   "kind": "bug",
+   "difficulty": "medium",
+   "family": "mixed_bug",
+   "passed": false,
+   "score": 0.5029,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.8,
+    "precision": 1.0,
+    "specialist": 0.4286,
+    "order": 0.5,
+    "parallel": 0.0,
+    "count": 0.5,
+    "acceptance": 0.3333
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/playlist/PlaylistDto.java\", \"services/api/src/test/java/com/acme/playlist/PlaylistServiceTest.java\"], \"goal\": \"Ensure amount defaults to zero in DTO to prevent null values in events.\", \"depends_on\": [], \"acceptance_check\": \"mvn test -Dtest=PlaylistServiceTest\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/playlist_worker/handler.py\", \"workers/playlist_worker/tests/test_handler.py\"], \"goal\": \"Add null-safety check for amount in the worker handler and add a regression test case.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest workers/playlist_worker/tests/test_handler.py\"}, {\"id\": \"s3\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/runbooks/playlist.md\"], \"goal\": \"Document the procedure for replaying messages from the DLQ.\", \"depends_on\": [\"s2\"], \"acceptance_check\": \"Verify DLQ replay steps exist in ops/runbooks/playlist.md\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.5029,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.8,
+      "precision": 1.0,
+      "specialist": 0.4286,
+      "order": 0.5,
+      "parallel": 0.0,
+      "count": 0.5,
+      "acceptance": 0.3333
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 41.4,
+     "tokens": 291,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/playlist/PlaylistDto.java\", \"services/api/src/test/java/com/acme/playlist/PlaylistServiceTest.java\"], \"goal\": \"Ensure amount defaults to zero in DTO to prevent null values in events.\", \"depends_on\": [], \"acceptance_check\": \"mvn test -Dtest=PlaylistServiceTest\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/playlist_worker/handler.py\", \"workers/playlist_worker/tests/test_handler.py\"], \"goal\": \"Add null-safety check for amount in the worker handler and add a regression test case.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest workers/playlist_worker/tests/test_handler.py\"}, {\"id\": \"s3\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/runbooks/playlist.md\"], \"goal\": \"Document the procedure for replaying messages from the DLQ.\", \"depends_on\": [\"s2\"], \"acceptance_check\": \"Verify DLQ replay steps exist in ops/runbooks/playlist.md\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0152",
+   "kind": "feature",
+   "difficulty": "medium",
+   "family": "export",
+   "passed": false,
+   "score": 0.4761,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.5,
+    "precision": 1.0,
+    "specialist": 0.6364,
+    "order": 0.0,
+    "parallel": 0.0,
+    "count": 1.0,
+    "acceptance": 0.75
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"python\", \"files_to_touch\": [\"app/api/review_routes.py\", \"app/services/review_service.py\"], \"goal\": \"Implement GET /reviews/export.csv endpoint that uses existing export helpers to return CSV data.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_review_api.py passes and /reviews/export.csv returns CSV content.\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/ReviewList.tsx\"], \"goal\": \"Add an 'Export CSV' button to the ReviewList page that triggers a browser download of the export endpoint.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Clicking the Export button in the browser initiates a CSV file download.\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"tests/test_review_api.py\"], \"goal\": \"Add integration tests for the new CSV export endpoint including filter parameter verification.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest tests/test_review_api.py passes with new export test cases.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a note to the runbook regarding potential timeouts or resource usage during large CSV exports.\", \"depends_on\": [], \"acceptance_check\": \"docs/runbook.md contains a section on monitoring/handling large export timeouts.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.4761,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.5,
+      "precision": 1.0,
+      "specialist": 0.6364,
+      "order": 0.0,
+      "parallel": 0.0,
+      "count": 1.0,
+      "acceptance": 0.75
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 63.5,
+     "tokens": 355,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"python\", \"files_to_touch\": [\"app/api/review_routes.py\", \"app/services/review_service.py\"], \"goal\": \"Implement GET /reviews/export.csv endpoint that uses existing export helpers to return CSV data.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_review_api.py passes and /reviews/export.csv returns CSV content.\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/ReviewList.tsx\"], \"goal\": \"Add an 'Export CSV' button to the ReviewList page that triggers a browser download of the export endpoint.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Clicking the Export button in the browser initiates a CSV file download.\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"tests/test_review_api.py\"], \"goal\": \"Add integration tests for the new CSV export endpoint including filter parameter verification.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest tests/test_review_api.py passes with new export test cases.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a note to the runbook regarding potential timeouts or resource usage during large CSV exports.\", \"depends_on\": [], \"acceptance_check\": \"docs/runbook.md contains a section on monitoring/handling large export timeouts.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0156",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.85,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"devops\", \"files_to_touch\": [\".github/workflows/ci.yml\"], \"goal\": \"Add caching for pip dependencies in the GitHub Actions workflow.\", \"depends_on\": [], \"acceptance_check\": \"Verify via GitHub Actions logs that 'Cache hit' or 'Cache restored' appears during the dependency installation step.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.85,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 26.0,
+     "tokens": 86,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"devops\", \"files_to_touch\": [\".github/workflows/ci.yml\"], \"goal\": \"Add caching for pip dependencies in the GitHub Actions workflow.\", \"depends_on\": [], \"acceptance_check\": \"Verify via GitHub Actions logs that 'Cache hit' or 'Cache restored' appears during the dependency installation step.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0159",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": true,
+   "score": 1.0,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 1.0
+   },
+   "errors": [],
+   "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a new section to the runbook explaining the procedure for draining and replaying stuck jobs.\", \"depends_on\": [], \"acceptance_check\": \"Verify 'Draining and Replaying Stuck Jobs' section exists in docs/runbook.md\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "score": 1.0,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 1.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 22.4,
+     "tokens": 89,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a new section to the runbook explaining the procedure for draining and replaying stuck jobs.\", \"depends_on\": [], \"acceptance_check\": \"Verify 'Draining and Replaying Stuck Jobs' section exists in docs/runbook.md\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0160",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.85,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/alerts.yaml\"], \"goal\": \"Update the p95 latency alert threshold from 500ms to 800ms.\", \"depends_on\": [], \"acceptance_check\": \"grep '800ms' ops/alerts.yaml\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.85,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 23.2,
+     "tokens": 83,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/alerts.yaml\"], \"goal\": \"Update the p95 latency alert threshold from 500ms to 800ms.\", \"depends_on\": [], \"acceptance_check\": \"grep '800ms' ops/alerts.yaml\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0161",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": true,
+   "score": 1.0,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 1.0
+   },
+   "errors": [],
+   "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a new section to the runbook detailing the procedure for draining and replaying stuck jobs.\", \"depends_on\": [], \"acceptance_check\": \"Verify 'Draining and Replaying Stuck Jobs' section exists in docs/runbook.md\"}]}",
+   "first_try_text": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "score": 1.0,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 1.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 29.1,
+     "tokens": 89,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a new section to the runbook detailing the procedure for draining and replaying stuck jobs.\", \"depends_on\": [], \"acceptance_check\": \"Verify 'Draining and Replaying Stuck Jobs' section exists in docs/runbook.md\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0163",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "etl_add_column",
+   "passed": false,
+   "score": 0.5211,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.75,
+    "precision": 1.0,
+    "specialist": 0.8182,
+    "order": 0.5714,
+    "parallel": 0.0,
+    "count": 0.0,
+    "acceptance": 0.5
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/schema/listing_raw.sql\",\n        \"sql/models/listing_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add virtual_tour_url column to raw schema, daily model, and documentation.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/models/listing_daily.sql && grep 'virtual_tour_url' docs/data_dictionary.md\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_listing.py\",\n        \"pipelines/transform_listing.py\"\n      ],\n      \"goal\": \"Update ingestion and transformation logic to process the new virtual_tour_url field.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_listing.py && pytest tests/test_transform_listing.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_listing_daily.py\"\n      ],\n      \"goal\": \"Extend SQL integration tests to verify virtual_tour_url propagates to the final model.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_listing_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"reviewer\",\n      \"files_to_touch\": [\n        \"sql/schema/listing_raw.sql\",\n        \"sql/models/listing_daily.sql\",\n        \"pipelines/ingest_listing.py\",\n        \"pipelines/transform_listing.py\",\n        \"docs/data_dict",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.5211,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.75,
+      "precision": 1.0,
+      "specialist": 0.8182,
+      "order": 0.5714,
+      "parallel": 0.0,
+      "count": 0.0,
+      "acceptance": 0.5
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 97.9,
+     "tokens": 547,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/schema/listing_raw.sql\",\n        \"sql/models/listing_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add virtual_tour_url column to raw schema, daily model, and documentation.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sqlfluff lint sql/models/listing_daily.sql && grep 'virtual_tour_url' docs/data_dictionary.md\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_listing.py\",\n        \"pipelines/transform_listing.py\"\n      ],\n      \"goal\": \"Update ingestion and transformation logic to process the new virtual_tour_url field.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/test_ingest_listing.py && pytest tests/test_transform_listing.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_listing_daily.py\"\n      ],\n      \"goal\": \"Extend SQL integration tests to verify virtual_tour_url propagates to the final model.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_listing_daily.py\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"reviewer\",\n      \"files_to_touch\": [\n        \"sql/schema/listing_raw.sql\",\n        \"sql/models/listing_daily.sql\",\n        \"pipelines/ingest_listing.py\",\n        \"pipelines/transform_listing.py\",\n        \"docs/data_dict"
+    }
+   ]
+  },
+  {
+   "id": "planner-0164",
+   "kind": "feature",
+   "difficulty": "medium",
+   "family": "etl_new_metric",
+   "passed": false,
+   "score": 0.8875,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 0.5,
+    "count": 1.0,
+    "acceptance": 0.75
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/recipe_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add rolling 7-day total column to recipe_daily SQL model and update data dictionary.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sql/models/recipe_daily.sql contains a window function for 7-day rolling sum\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_recipe_daily.py\"\n      ],\n      \"goal\": \"Extend SQL tests to verify the accuracy of the new rolling 7-day total metric.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_recipe_daily.py passes\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"ui\",\n      \"files_to_touch\": [\n        \"dashboards/recipe.json\"\n      ],\n      \"goal\": \"Add a new tile to the recipe dashboard to visualize the 7-day rolling total.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"dashboards/recipe.json contains a new query/tile for rolling_7d_total\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"airflow/dags/recipe_dag.py\"\n      ],\n      \"goal\": \"Ensure the recipe_dag includes the updated model execution in its task flow.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"airflow/dags/recipe_dag.py executes the updated recipe_daily model\"\n    }\n  ]\n}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.8875,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 0.5,
+      "count": 1.0,
+      "acceptance": 0.75
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 108.0,
+     "tokens": 482,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/recipe_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add rolling 7-day total column to recipe_daily SQL model and update data dictionary.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sql/models/recipe_daily.sql contains a window function for 7-day rolling sum\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_recipe_daily.py\"\n      ],\n      \"goal\": \"Extend SQL tests to verify the accuracy of the new rolling 7-day total metric.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_recipe_daily.py passes\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"ui\",\n      \"files_to_touch\": [\n        \"dashboards/recipe.json\"\n      ],\n      \"goal\": \"Add a new tile to the recipe dashboard to visualize the 7-day rolling total.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"dashboards/recipe.json contains a new query/tile for rolling_7d_total\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"airflow/dags/recipe_dag.py\"\n      ],\n      \"goal\": \"Ensure the recipe_dag includes the updated model execution in its task flow.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"airflow/dags/recipe_dag.py executes the updated recipe_daily model\"\n    }\n  ]\n}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0165",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "etl_late",
+   "passed": false,
+   "score": 0.702,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.9,
+    "precision": 1.0,
+    "specialist": 0.9333,
+    "order": 0.9091,
+    "parallel": 0.3125,
+    "count": 0.0,
+    "acceptance": 0.6667
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/config.py\"\n      ],\n      \"goal\": \"Add a configurable lookback_window_days parameter to the pipeline configuration.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"Verify pipelines/config.py contains a new integer variable for lookback window.\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_listing.py\",\n        \"pipelines/transform_listing.py\",\n        \"airflow/dags/listing_dag.py\"\n      ],\n      \"goal\": \"Update ingest and transform logic to use the lookback window and pass it through the DAG.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"Verify ingest and transform scripts accept a lookback parameter and the DAG passes it.\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/listing_daily.sql\"\n      ],\n      \"goal\": \"Update the listing_daily model to ensure it correctly restates data for the lookback period.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"Verify SQL model logic handles re-processing of historical dates without duplication.\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/test_ingest_listing.py\",\n        \"tests/test_transform_listing.py\"\n      ],\n      \"goal\": \"Extend tests to validate that the lookback window correctly proce",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.702,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.9,
+      "precision": 1.0,
+      "specialist": 0.9333,
+      "order": 0.9091,
+      "parallel": 0.3125,
+      "count": 0.0,
+      "acceptance": 0.6667
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 127.7,
+     "tokens": 757,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/config.py\"\n      ],\n      \"goal\": \"Add a configurable lookback_window_days parameter to the pipeline configuration.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"Verify pipelines/config.py contains a new integer variable for lookback window.\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"pipelines/ingest_listing.py\",\n        \"pipelines/transform_listing.py\",\n        \"airflow/dags/listing_dag.py\"\n      ],\n      \"goal\": \"Update ingest and transform logic to use the lookback window and pass it through the DAG.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"Verify ingest and transform scripts accept a lookback parameter and the DAG passes it.\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/listing_daily.sql\"\n      ],\n      \"goal\": \"Update the listing_daily model to ensure it correctly restates data for the lookback period.\",\n      \"depends_on\": [\n        \"s2\"\n      ],\n      \"acceptance_check\": \"Verify SQL model logic handles re-processing of historical dates without duplication.\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/test_ingest_listing.py\",\n        \"tests/test_transform_listing.py\"\n      ],\n      \"goal\": \"Extend tests to validate that the lookback window correctly proce"
+    }
+   ]
+  },
+  {
+   "id": "planner-0168",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.85,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/alerts.yaml\"], \"goal\": \"Update the p95 latency alert threshold from 500ms to 800ms.\", \"depends_on\": [], \"acceptance_check\": \"grep '800ms' ops/alerts.yaml\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.85,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 19.3,
+     "tokens": 83,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/alerts.yaml\"], \"goal\": \"Update the p95 latency alert threshold from 500ms to 800ms.\", \"depends_on\": [], \"acceptance_check\": \"grep '800ms' ops/alerts.yaml\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0169",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.85,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"reviewer\", \"files_to_touch\": [\"app/services/booking_service.py\", \"app/repositories/booking_repo.py\"], \"goal\": \"Analyze BookingService for race conditions in status transitions and N+1 queries in the list/get endpoints.\", \"depends_on\": [], \"acceptance_check\": \"A report detailing identified race conditions and N+1 query patterns.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.85,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 17.7,
+     "tokens": 98,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"reviewer\", \"files_to_touch\": [\"app/services/booking_service.py\", \"app/repositories/booking_repo.py\"], \"goal\": \"Analyze BookingService for race conditions in status transitions and N+1 queries in the list/get endpoints.\", \"depends_on\": [], \"acceptance_check\": \"A report detailing identified race conditions and N+1 query patterns.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0172",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "mixed_obs",
+   "passed": false,
+   "score": 0.6865,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.8889,
+    "precision": 1.0,
+    "specialist": 0.9333,
+    "order": 0.8462,
+    "parallel": 0.3077,
+    "count": 0.5,
+    "acceptance": 0.3333
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/invoice/InvoiceService.java\", \"services/api/src/main/java/com/acme/invoice/InvoiceController.java\"], \"goal\": \"Add Micrometer counters and timers for invoice creation and retrieval in the API.\", \"depends_on\": [], \"acceptance_check\": \"Verify Micrometer metrics are being recorded in unit tests.\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/invoice_worker/handler.py\"], \"goal\": \"Add Prometheus client instrumentation to the worker to track processed invoice counts and failures.\", \"depends_on\": [], \"acceptance_check\": \"Verify worker processes messages and increments counters in local test environment.\"}, {\"id\": \"s3\", \"specialist\": \"devops\", \"files_to_touch\": [\"deploy/k8s/api.yaml\", \"deploy/k8s/worker.yaml\"], \"goal\": \"Add Prometheus scrape annotations to the API and worker deployments.\", \"depends_on\": [\"s1\", \"s2\"], \"acceptance_check\": \"Check k8s pod annotations for prometheus.io/scrape=true.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/alerts/invoice.yaml\", \"ops/dashboards/invoice.json\"], \"goal\": \"Create new alert rules for high error rates and update the Grafana dashboard with new invoice metrics.\", \"depends_on\": [\"s3\"], \"acceptance_check\": \"Dashboard displays invoice processing rates and error counts.\"}, {\"id\": \"s5\", \"specialist\": \"qa\", \"files_to_touch\": [\"services/api/src/test/java/com/acme/invoice/InvoiceServiceTest.java\", \"workers/invoice_wo",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.6865,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.8889,
+      "precision": 1.0,
+      "specialist": 0.9333,
+      "order": 0.8462,
+      "parallel": 0.3077,
+      "count": 0.5,
+      "acceptance": 0.3333
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 74.7,
+     "tokens": 607,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/invoice/InvoiceService.java\", \"services/api/src/main/java/com/acme/invoice/InvoiceController.java\"], \"goal\": \"Add Micrometer counters and timers for invoice creation and retrieval in the API.\", \"depends_on\": [], \"acceptance_check\": \"Verify Micrometer metrics are being recorded in unit tests.\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/invoice_worker/handler.py\"], \"goal\": \"Add Prometheus client instrumentation to the worker to track processed invoice counts and failures.\", \"depends_on\": [], \"acceptance_check\": \"Verify worker processes messages and increments counters in local test environment.\"}, {\"id\": \"s3\", \"specialist\": \"devops\", \"files_to_touch\": [\"deploy/k8s/api.yaml\", \"deploy/k8s/worker.yaml\"], \"goal\": \"Add Prometheus scrape annotations to the API and worker deployments.\", \"depends_on\": [\"s1\", \"s2\"], \"acceptance_check\": \"Check k8s pod annotations for prometheus.io/scrape=true.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"ops/alerts/invoice.yaml\", \"ops/dashboards/invoice.json\"], \"goal\": \"Create new alert rules for high error rates and update the Grafana dashboard with new invoice metrics.\", \"depends_on\": [\"s3\"], \"acceptance_check\": \"Dashboard displays invoice processing rates and error counts.\"}, {\"id\": \"s5\", \"specialist\": \"qa\", \"files_to_touch\": [\"services/api/src/test/java/com/acme/invoice/InvoiceServiceTest.java\", \"workers/invoice_wo"
+    }
+   ]
+  },
+  {
+   "id": "planner-0173",
+   "kind": "feature",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.85,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"reviewer\", \"files_to_touch\": [\"src/main/java/com/acme/app/shipment/ShipmentService.java\", \"src/main/java/com/acme/app/shipment/ShipmentRepository.java\"], \"goal\": \"Analyze ShipmentService for race conditions and N+1 query patterns in repository calls.\", \"depends_on\": [], \"acceptance_check\": \"A report detailing identified concurrency issues and inefficient database access patterns.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.85,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 30.3,
+     "tokens": 116,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"reviewer\", \"files_to_touch\": [\"src/main/java/com/acme/app/shipment/ShipmentService.java\", \"src/main/java/com/acme/app/shipment/ShipmentRepository.java\"], \"goal\": \"Analyze ShipmentService for race conditions and N+1 query patterns in repository calls.\", \"depends_on\": [], \"acceptance_check\": \"A report detailing identified concurrency issues and inefficient database access patterns.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0176",
+   "kind": "feature",
+   "difficulty": "medium",
+   "family": "etl_new_metric",
+   "passed": false,
+   "score": 0.0,
+   "gates_ok": false,
+   "fenced": false,
+   "unparsed": false,
+   "components": {},
+   "errors": [
+    "step s2: unknown specialist 'dashboards'"
+   ],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/expense_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add 7-day rolling count column to expense_daily SQL model and update data dictionary.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sql/models/expense_daily.sql contains a window function for 7-day rolling count and docs/data_dictionary.md describes the new column.\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"dashboards\",\n      \"files_to_touch\": [\n        \"dashboards/expense.json\"\n      ],\n      \"goal\": \"Add a new tile to the expense dashboard to visualize the 7-day rolling count.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"dashboards/expense.json contains a new query/tile referencing the new rolling count column.\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_expense_daily.py\"\n      ],\n      \"goal\": \"Extend SQL tests to assert the correctness of the new 7-day rolling count metric.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_expense_daily.py passes with the new metric included in the assertion logic.\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"airflow/dags/expense_dag.py\"\n      ],\n      \"goal\": \"Ensure the expense DAG correctly triggers the refresh of the updated expense_daily model.",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.0,
+     "gates_ok": false,
+     "fenced": false,
+     "unparsed": false,
+     "components": {},
+     "errors": [
+      "step s2: unknown specialist 'dashboards'"
+     ],
+     "flags": [],
+     "secs": 118.7,
+     "tokens": 675,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"data\",\n      \"files_to_touch\": [\n        \"sql/models/expense_daily.sql\",\n        \"docs/data_dictionary.md\"\n      ],\n      \"goal\": \"Add 7-day rolling count column to expense_daily SQL model and update data dictionary.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"sql/models/expense_daily.sql contains a window function for 7-day rolling count and docs/data_dictionary.md describes the new column.\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"dashboards\",\n      \"files_to_touch\": [\n        \"dashboards/expense.json\"\n      ],\n      \"goal\": \"Add a new tile to the expense dashboard to visualize the 7-day rolling count.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"dashboards/expense.json contains a new query/tile referencing the new rolling count column.\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"qa\",\n      \"files_to_touch\": [\n        \"tests/sql/test_expense_daily.py\"\n      ],\n      \"goal\": \"Extend SQL tests to assert the correctness of the new 7-day rolling count metric.\",\n      \"depends_on\": [\n        \"s1\"\n      ],\n      \"acceptance_check\": \"pytest tests/sql/test_expense_daily.py passes with the new metric included in the assertion logic.\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"airflow/dags/expense_dag.py\"\n      ],\n      \"goal\": \"Ensure the expense DAG correctly triggers the refresh of the updated expense_daily model."
+    }
+   ]
+  },
+  {
+   "id": "planner-0187",
+   "kind": "feature",
+   "difficulty": "medium",
+   "family": "export",
+   "passed": false,
+   "score": 0.4761,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.5,
+    "precision": 1.0,
+    "specialist": 0.6364,
+    "order": 0.0,
+    "parallel": 0.0,
+    "count": 1.0,
+    "acceptance": 0.75
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/main/java/com/acme/app/product/ProductController.java\", \"src/main/java/com/acme/app/product/ProductService.java\"], \"goal\": \"Add a new endpoint to ProductController and service to trigger CSV export using CsvExporter.\", \"depends_on\": [], \"acceptance_check\": \"GET /products/export returns a CSV file content via curl\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/ProductList.tsx\"], \"goal\": \"Add a 'Download CSV' button to the ProductList page that calls the new export endpoint.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Clicking the button in the browser triggers a file download\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"src/test/java/com/acme/app/product/ProductControllerTest.java\"], \"goal\": \"Add integration tests to verify the CSV export endpoint returns correct headers and data.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"mvn test passes for ProductControllerTest\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Document the CSV export endpoint and any known performance/size limits in the runbook.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"runbook.md contains a section on Product CSV export limits\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.4761,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.5,
+      "precision": 1.0,
+      "specialist": 0.6364,
+      "order": 0.0,
+      "parallel": 0.0,
+      "count": 1.0,
+      "acceptance": 0.75
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 76.2,
+     "tokens": 361,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"src/main/java/com/acme/app/product/ProductController.java\", \"src/main/java/com/acme/app/product/ProductService.java\"], \"goal\": \"Add a new endpoint to ProductController and service to trigger CSV export using CsvExporter.\", \"depends_on\": [], \"acceptance_check\": \"GET /products/export returns a CSV file content via curl\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/ProductList.tsx\"], \"goal\": \"Add a 'Download CSV' button to the ProductList page that calls the new export endpoint.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Clicking the button in the browser triggers a file download\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"src/test/java/com/acme/app/product/ProductControllerTest.java\"], \"goal\": \"Add integration tests to verify the CSV export endpoint returns correct headers and data.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"mvn test passes for ProductControllerTest\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Document the CSV export endpoint and any known performance/size limits in the runbook.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"runbook.md contains a section on Product CSV export limits\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0189",
+   "kind": "feature",
+   "difficulty": "hard",
+   "family": "mixed_obs",
+   "passed": false,
+   "score": 0.0,
+   "gates_ok": false,
+   "fenced": false,
+   "unparsed": false,
+   "components": {},
+   "errors": [
+    "step 5: files_to_touch must be a non-empty list of strings"
+   ],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/donation/DonationController.java\", \"services/api/src/test/java/com/acme/donation/DonationControllerTest.java\"], \"goal\": \"Implement Micrometer metrics for request count and latency on donation endpoints.\", \"depends_on\": [], \"acceptance_check\": \"JUnit test verifies Micrometer Counter and Timer are incremented/recorded during controller calls.\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/donation_worker/handler.py\", \"workers/donation_worker/tests/test_handler.py\"], \"goal\": \"Add Prometheus counters for processed and failed donation events in the worker.\", \"depends_on\": [], \"acceptance_check\": \"pytest verifies that the processed/failed counters increment upon successful/failed message handling.\"}, {\"id\": \"s3\", \"specialist\": \"devops\", \"files_to_touch\": [\"deploy/k8s/api.yaml\", \"deploy/k8s/worker.yaml\"], \"goal\": \"Add Prometheus scrape annotations to the API and Worker deployments.\", \"depends_on\": [\"s1\", \"s2\"], \"acceptance_check\": \"kubectl get deployment api -o yaml contains prometheus.io/scrape: 'true'\"}, {\"id\": \"s4\", \"specialist\": \"data\", \"files_to_touch\": [\"ops/alerts/donation.yaml\"], \"goal\": \"Define Alertmanager rules for high API error rates and worker processing failures.\", \"depends_on\": [\"s1\", \"s2\"], \"acceptance_check\": \"Prometheus rule validation passes for new alert expressions.\"}, {\"id\": \"s5\", \"specialist\": \"ui\", \"files_to_touch\": [\"ops/dashboards/dona",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.0,
+     "gates_ok": false,
+     "fenced": false,
+     "unparsed": false,
+     "components": {},
+     "errors": [
+      "step 5: files_to_touch must be a non-empty list of strings"
+     ],
+     "flags": [],
+     "secs": 120.1,
+     "tokens": 567,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"java\", \"files_to_touch\": [\"services/api/src/main/java/com/acme/donation/DonationController.java\", \"services/api/src/test/java/com/acme/donation/DonationControllerTest.java\"], \"goal\": \"Implement Micrometer metrics for request count and latency on donation endpoints.\", \"depends_on\": [], \"acceptance_check\": \"JUnit test verifies Micrometer Counter and Timer are incremented/recorded during controller calls.\"}, {\"id\": \"s2\", \"specialist\": \"python\", \"files_to_touch\": [\"workers/donation_worker/handler.py\", \"workers/donation_worker/tests/test_handler.py\"], \"goal\": \"Add Prometheus counters for processed and failed donation events in the worker.\", \"depends_on\": [], \"acceptance_check\": \"pytest verifies that the processed/failed counters increment upon successful/failed message handling.\"}, {\"id\": \"s3\", \"specialist\": \"devops\", \"files_to_touch\": [\"deploy/k8s/api.yaml\", \"deploy/k8s/worker.yaml\"], \"goal\": \"Add Prometheus scrape annotations to the API and Worker deployments.\", \"depends_on\": [\"s1\", \"s2\"], \"acceptance_check\": \"kubectl get deployment api -o yaml contains prometheus.io/scrape: 'true'\"}, {\"id\": \"s4\", \"specialist\": \"data\", \"files_to_touch\": [\"ops/alerts/donation.yaml\"], \"goal\": \"Define Alertmanager rules for high API error rates and worker processing failures.\", \"depends_on\": [\"s1\", \"s2\"], \"acceptance_check\": \"Prometheus rule validation passes for new alert expressions.\"}, {\"id\": \"s5\", \"specialist\": \"ui\", \"files_to_touch\": [\"ops/dashboards/dona"
+    }
+   ]
+  },
+  {
+   "id": "planner-0193",
+   "kind": "bug",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.8,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 0.5,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"debugger\", \"files_to_touch\": [\"app/services/member_service.py\"], \"goal\": \"Fix the pagination logic in member_service to correctly handle page=0.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_member_api.py\"}, {\"id\": \"s2\", \"specialist\": \"reviewer\", \"files_to_touch\": [\"app/services/member_service.py\"], \"goal\": \"Review the fix for the pagination bug to ensure no regressions.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Pull request approved\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.8,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 0.5,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 35.4,
+     "tokens": 146,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"debugger\", \"files_to_touch\": [\"app/services/member_service.py\"], \"goal\": \"Fix the pagination logic in member_service to correctly handle page=0.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_member_api.py\"}, {\"id\": \"s2\", \"specialist\": \"reviewer\", \"files_to_touch\": [\"app/services/member_service.py\"], \"goal\": \"Review the fix for the pagination bug to ensure no regressions.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Pull request approved\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0194",
+   "kind": "bug",
+   "difficulty": "medium",
+   "family": "mixed_bug",
+   "passed": false,
+   "score": 0.5254,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.6,
+    "precision": 1.0,
+    "specialist": 0.4286,
+    "order": 0.5,
+    "parallel": 0.1667,
+    "count": 1.0,
+    "acceptance": 0.25
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"java\",\n      \"files_to_touch\": [\n        \"services/api/src/main/java/com/acme/booking/BookingDto.java\"\n      ],\n      \"goal\": \"Ensure amount field in DTO has a default value to prevent nulls being sent to the queue.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"mvn test -Dtest=com.acme.booking.BookingServiceTest\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"workers/booking_worker/handler.py\",\n        \"workers/booking_worker/tests/test_handler.py\"\n      ],\n      \"goal\": \"Add null-safety check for 'amount' in the worker handler and add a regression test case for null amount.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"pytest workers/booking_worker/tests/test_handler.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"ops\",\n      \"files_to_touch\": [\n        \"ops/runbooks/booking.md\"\n      ],\n      \"goal\": \"Add specific instructions for replaying messages from the DLQ to the main queue.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"Verify documentation contains DLQ replay steps in ops/runbooks/booking.md\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"reviewer\",\n      \"files_to_touch\": [\n        \"services/api/src/main/java/com/acme/booking/BookingDto.java\",\n        \"workers/booking_worker/handler.py\",\n        \"workers/booking_worker/tests/test_handler.py\",\n        \"ops/runbooks/booking.md\"\n      ],\n      \"goal\": \"Review the fix for null-sa",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.5254,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.6,
+      "precision": 1.0,
+      "specialist": 0.4286,
+      "order": 0.5,
+      "parallel": 0.1667,
+      "count": 1.0,
+      "acceptance": 0.25
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 96.5,
+     "tokens": 537,
+     "answer": "{\n  \"steps\": [\n    {\n      \"id\": \"s1\",\n      \"specialist\": \"java\",\n      \"files_to_touch\": [\n        \"services/api/src/main/java/com/acme/booking/BookingDto.java\"\n      ],\n      \"goal\": \"Ensure amount field in DTO has a default value to prevent nulls being sent to the queue.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"mvn test -Dtest=com.acme.booking.BookingServiceTest\"\n    },\n    {\n      \"id\": \"s2\",\n      \"specialist\": \"python\",\n      \"files_to_touch\": [\n        \"workers/booking_worker/handler.py\",\n        \"workers/booking_worker/tests/test_handler.py\"\n      ],\n      \"goal\": \"Add null-safety check for 'amount' in the worker handler and add a regression test case for null amount.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"pytest workers/booking_worker/tests/test_handler.py\"\n    },\n    {\n      \"id\": \"s3\",\n      \"specialist\": \"ops\",\n      \"files_to_touch\": [\n        \"ops/runbooks/booking.md\"\n      ],\n      \"goal\": \"Add specific instructions for replaying messages from the DLQ to the main queue.\",\n      \"depends_on\": [],\n      \"acceptance_check\": \"Verify documentation contains DLQ replay steps in ops/runbooks/booking.md\"\n    },\n    {\n      \"id\": \"s4\",\n      \"specialist\": \"reviewer\",\n      \"files_to_touch\": [\n        \"services/api/src/main/java/com/acme/booking/BookingDto.java\",\n        \"workers/booking_worker/handler.py\",\n        \"workers/booking_worker/tests/test_handler.py\",\n        \"ops/runbooks/booking.md\"\n      ],\n      \"goal\": \"Review the fix for null-sa"
+    }
+   ]
+  },
+  {
+   "id": "planner-0196",
+   "kind": "bug",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.0,
+   "gates_ok": false,
+   "fenced": false,
+   "unparsed": false,
+   "components": {},
+   "errors": [
+    "top level must be an object with exactly one key 'steps'"
+   ],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"debugger\", \"files_to_touch\": [\"src/main/java/com/acme/app/donation/DonationService.java\"], \"goal\": \"Identify and fix the index out of bounds or null pointer exception in the pagination logic for page 0.\", \"depends_on\": [], \"acceptance_check\": \"mvn test -Dtest=DonationServiceTest\"}], \"s2\": [{\"id\": \"s2\", \"specialist\": \"reviewer\", \"files_to_touch\": [\"src/main/java/com/acme/app/donation/DonationService.java\"], \"goal\": \"Verify the fix for the pagination bug and ensure no regressions in donation retrieval.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Pull request approved with passing CI pipeline\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.0,
+     "gates_ok": false,
+     "fenced": false,
+     "unparsed": false,
+     "components": {},
+     "errors": [
+      "top level must be an object with exactly one key 'steps'"
+     ],
+     "flags": [],
+     "secs": 59.8,
+     "tokens": 186,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"debugger\", \"files_to_touch\": [\"src/main/java/com/acme/app/donation/DonationService.java\"], \"goal\": \"Identify and fix the index out of bounds or null pointer exception in the pagination logic for page 0.\", \"depends_on\": [], \"acceptance_check\": \"mvn test -Dtest=DonationServiceTest\"}], \"s2\": [{\"id\": \"s2\", \"specialist\": \"reviewer\", \"files_to_touch\": [\"src/main/java/com/acme/app/donation/DonationService.java\"], \"goal\": \"Verify the fix for the pagination bug and ensure no regressions in donation retrieval.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Pull request approved with passing CI pipeline\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0197",
+   "kind": "bug",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.875,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 0.5,
+    "acceptance": 0.5
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/PlaylistList.tsx\"], \"goal\": \"Update date parsing logic to treat date strings as local time or handle timezone offsets correctly to prevent one-day-early rendering.\", \"depends_on\": [], \"acceptance_check\": \"Verify that dates in the PlaylistList table match the expected calendar date regardless of user timezone in the browser.\"}, {\"id\": \"s2\", \"specialist\": \"qa\", \"files_to_touch\": [\"web/src/pages/PlaylistList.tsx\"], \"goal\": \"Add a regression test case that simulates a non-UTC timezone to ensure date rendering is correct.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"vitest passes for PlaylistList component with mocked timezone.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.875,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 0.5,
+      "acceptance": 0.5
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 55.5,
+     "tokens": 182,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/PlaylistList.tsx\"], \"goal\": \"Update date parsing logic to treat date strings as local time or handle timezone offsets correctly to prevent one-day-early rendering.\", \"depends_on\": [], \"acceptance_check\": \"Verify that dates in the PlaylistList table match the expected calendar date regardless of user timezone in the browser.\"}, {\"id\": \"s2\", \"specialist\": \"qa\", \"files_to_touch\": [\"web/src/pages/PlaylistList.tsx\"], \"goal\": \"Add a regression test case that simulates a non-UTC timezone to ensure date rendering is correct.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"vitest passes for PlaylistList component with mocked timezone.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0198",
+   "kind": "feature",
+   "difficulty": "medium",
+   "family": "export",
+   "passed": false,
+   "score": 0.617,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 0.6667,
+    "precision": 1.0,
+    "specialist": 0.7692,
+    "order": 0.4,
+    "parallel": 0.4286,
+    "count": 0.5,
+    "acceptance": 0.75
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"python\", \"files_to_touch\": [\"app/api/review_routes.py\", \"app/services/export.py\"], \"goal\": \"Implement GET /reviews/export.csv endpoint using existing export helpers.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_review_api.py passes and /reviews/export.csv returns CSV content.\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/ReviewList.tsx\", \"web/src/api/review.ts\"], \"goal\": \"Add an Export button to the ReviewList page that triggers the CSV download.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Clicking Export button in browser triggers a file download of CSV content.\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"tests/test_review_api.py\"], \"goal\": \"Add integration tests for the new CSV export endpoint.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest tests/test_review_api.py passes with new export test cases.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a note to the runbook regarding potential timeouts for large CSV exports.\", \"depends_on\": [], \"acceptance_check\": \"docs/runbook.md contains documentation on export timeout troubleshooting.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.617,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 0.6667,
+      "precision": 1.0,
+      "specialist": 0.7692,
+      "order": 0.4,
+      "parallel": 0.4286,
+      "count": 0.5,
+      "acceptance": 0.75
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 98.1,
+     "tokens": 341,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"python\", \"files_to_touch\": [\"app/api/review_routes.py\", \"app/services/export.py\"], \"goal\": \"Implement GET /reviews/export.csv endpoint using existing export helpers.\", \"depends_on\": [], \"acceptance_check\": \"pytest tests/test_review_api.py passes and /reviews/export.csv returns CSV content.\"}, {\"id\": \"s2\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/ReviewList.tsx\", \"web/src/api/review.ts\"], \"goal\": \"Add an Export button to the ReviewList page that triggers the CSV download.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"Clicking Export button in browser triggers a file download of CSV content.\"}, {\"id\": \"s3\", \"specialist\": \"qa\", \"files_to_touch\": [\"tests/test_review_api.py\"], \"goal\": \"Add integration tests for the new CSV export endpoint.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"pytest tests/test_review_api.py passes with new export test cases.\"}, {\"id\": \"s4\", \"specialist\": \"ops\", \"files_to_touch\": [\"docs/runbook.md\"], \"goal\": \"Add a note to the runbook regarding potential timeouts for large CSV exports.\", \"depends_on\": [], \"acceptance_check\": \"docs/runbook.md contains documentation on export timeout troubleshooting.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0199",
+   "kind": "bug",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.0,
+   "gates_ok": false,
+   "fenced": false,
+   "unparsed": false,
+   "components": {},
+   "errors": [
+    "step 1: keys must be exactly ['acceptance_check', 'depends_on', 'files_to_touch', 'goal', 'id', 'specialist']"
+   ],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/TaskList.tsx\"], \"goal\": \"Update task date rendering to handle timezone offsets correctly instead of treating strings as UTC.\", \"depends_on\": [], \"acceptance_check\": \"Verify that task dates in the table match the expected local date for users in non-UTC timezones.\"}, {\"id\": \"s2\", \"special/specialist\": \"qa\", \"files_to_touch\": [\"web/src/pages/TaskList.tsx\"], \"goal\": \"Add a regression test case for date rendering in different timezones.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"vitest passes with a test case simulating a West-of-UTC timezone.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.0,
+     "gates_ok": false,
+     "fenced": false,
+     "unparsed": false,
+     "components": {},
+     "errors": [
+      "step 1: keys must be exactly ['acceptance_check', 'depends_on', 'files_to_touch', 'goal', 'id', 'specialist']"
+     ],
+     "flags": [],
+     "secs": 56.9,
+     "tokens": 172,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/TaskList.tsx\"], \"goal\": \"Update task date rendering to handle timezone offsets correctly instead of treating strings as UTC.\", \"depends_on\": [], \"acceptance_check\": \"Verify that task dates in the table match the expected local date for users in non-UTC timezones.\"}, {\"id\": \"s2\", \"special/specialist\": \"qa\", \"files_to_touch\": [\"web/src/pages/TaskList.tsx\"], \"goal\": \"Add a regression test case for date rendering in different timezones.\", \"depends_on\": [\"s1\"], \"acceptance_check\": \"vitest passes with a test case simulating a West-of-UTC timezone.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0200",
+   "kind": "bug",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.85,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/AppointmentForm.tsx\"], \"goal\": \"Disable the submit button during the API request lifecycle to prevent duplicate submissions.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the Save button becomes disabled immediately after clicking and remains disabled until the request completes.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.85,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 23.2,
+     "tokens": 86,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/AppointmentForm.tsx\"], \"goal\": \"Disable the submit button during the API request lifecycle to prevent duplicate submissions.\", \"depends_on\": [], \"acceptance_check\": \"Verify that the Save button becomes disabled immediately after clicking and remains disabled until the request completes.\"}]}"
+    }
+   ]
+  },
+  {
+   "id": "planner-0202",
+   "kind": "bug",
+   "difficulty": "easy",
+   "family": "single_web",
+   "passed": false,
+   "score": 0.85,
+   "gates_ok": true,
+   "fenced": false,
+   "unparsed": false,
+   "components": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "specialist": 1.0,
+    "order": 1.0,
+    "parallel": 1.0,
+    "count": 1.0,
+    "acceptance": 0.0
+   },
+   "errors": [],
+   "answer": null,
+   "first_try_text": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/PlaylistForm.tsx\"], \"goal\": \"Disable the submit button in PlaylistForm while the submission request is in flight.\", \"depends_on\": [], \"acceptance_check\": \"Verify via browser DevTools that the Save button is disabled during the network request duration.\"}]}",
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "score": 0.85,
+     "gates_ok": true,
+     "fenced": false,
+     "unparsed": false,
+     "components": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "specialist": 1.0,
+      "order": 1.0,
+      "parallel": 1.0,
+      "count": 1.0,
+      "acceptance": 0.0
+     },
+     "errors": [],
+     "flags": [],
+     "secs": 38.1,
+     "tokens": 86,
+     "answer": "{\"steps\": [{\"id\": \"s1\", \"specialist\": \"ui\", \"files_to_touch\": [\"web/src/pages/PlaylistForm.tsx\"], \"goal\": \"Disable the submit button in PlaylistForm while the submission request is in flight.\", \"depends_on\": [], \"acceptance_check\": \"Verify via browser DevTools that the Save button is disabled during the network request duration.\"}]}"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1102 @@
+{
+ "summary": {
+  "model": "gemma-4-26b-a4b-base",
+  "specialist": "qa",
+  "k": 1,
+  "limit": 60,
+  "n": 60,
+  "first_try": 33,
+  "pass_at_k": 33,
+  "first_try_unparsed": 0,
+  "kind:improve": "7/21 first try, 7/21 pass@1, 0 unparsed",
+  "kind:regression": "21/21 first try, 21/21 pass@1, 0 unparsed",
+  "kind:tests": "5/18 first try, 5/18 pass@1, 0 unparsed",
+  "difficulty:easy": "12/20 first try, 12/20 pass@1, 0 unparsed",
+  "difficulty:hard": "10/20 first try, 10/20 pass@1, 0 unparsed",
+  "difficulty:medium": "11/20 first try, 11/20 pass@1, 0 unparsed"
+ },
+ "task_ids": [
+  "qa_group_by_improve",
+  "qa_memoize_improve",
+  "qa_email_check_improve",
+  "qa_paginate_regress1",
+  "qa_mf_inventory_regress1",
+  "qa_ring_buffer_regress1",
+  "qa_hex_color",
+  "qa_circuit_breaker",
+  "qa_mutable_default",
+  "qa_primes_improve",
+  "qa_amortize_improve",
+  "qa_deep_merge_improve",
+  "qa_luhn_regress1",
+  "qa_sliding_window_regress1",
+  "qa_roman_regress1",
+  "qa_stats",
+  "qa_kv_tokenizer",
+  "qa_unit_convert",
+  "qa_rle_improve",
+  "qa_parse_duration_improve",
+  "qa_brackets_improve",
+  "qa_moving_avg_regress1",
+  "qa_lru_cache_regress1",
+  "qa_mutable_default_regress1",
+  "qa_chunk_list",
+  "qa_business_days",
+  "qa_mf_rbac",
+  "qa_paginate_improve",
+  "qa_csv_line_improve",
+  "qa_flatten_dict_improve",
+  "qa_chunk_list_regress1",
+  "qa_token_bucket_regress1",
+  "qa_priority_queue_regress1",
+  "qa_format_duration",
+  "qa_token_bucket",
+  "qa_order_fsm",
+  "qa_luhn_improve",
+  "qa_sliding_window_improve",
+  "qa_env_parser_improve",
+  "qa_hex_color_regress1",
+  "qa_add_months_regress1",
+  "qa_min_stack_regress1",
+  "qa_paginate",
+  "qa_amortize",
+  "qa_query_string",
+  "qa_percent_change_improve",
+  "qa_job_queue_improve",
+  "qa_trie_improve",
+  "qa_slugify_regress1",
+  "qa_mf_cart_regress1",
+  "qa_ttl_cache_regress1",
+  "qa_turnstile",
+  "qa_lru_cache",
+  "qa_brackets",
+  "qa_string_utils_improve",
+  "qa_ini_parser_improve",
+  "qa_mutable_default_improve",
+  "qa_retry_backoff_regress1",
+  "qa_csv_line_regress1",
+  "qa_brackets_regress1"
+ ],
+ "results": [
+  {
+   "id": "qa_group_by_improve",
+   "kind": "improve",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 115.5,
+     "tokens": 600,
+     "answer": "```python\n# file: test_solution.py\nfrom grouping import group_by, partition\n\n# Tests for group_by\nassert group_by([], len) == {}\nassert group_by([\"a\", \"bb\", \"c\", \"dd\", \"eee\"], len) == {1: [\"a\", \"c\"], 2: [\"bb\", \"dd\"], 3: [\"eee\"]}\n# Check preservation of key order (first-seen order)\nassert list(group_by([\"bb\", \"a\", \"cc\"], len)) == [2, 1]\n# Check preservation of item order within lists\nassert group_by([3, 1, 2, 1, 3], lambda x: x % 2) == {1: [3, 1, 1, 3], 0: [2]}\n# Check boolean keys\nassert group_by(range(6), lambda x: x % 3 == 0) == {True: [0, 3], False: [1, 2, 4, 5]}\n# Check constant key\nassert group_by([1, 2, 3], lambda x: \"all\") == {\"all\": [1, 2, 3]}\n# Check that it doesn't just return a list of keys\nassert isinstance(group_by([1], lambda x: x), dict)\n\n# Tests for partition\n# Basic functionality\nassert partition([1, 2, 3, 4], lambda x: x % 2 == 0) == ([2, 4], [1, 3])\n# Empty input\nassert partition([], lambda x: True) == ([], [])\n# All matching\nassert partition([2, 4, 6], lambda x: x % 2 == 0) == ([2, 4, 6], [])\n# None matching\nassert partition([1, 3, 5], lambda x: x % 2 == 0) == ([], [1, 3, 5])\n# Preservation of order in both lists\nassert partition([1, 2, 3, 4, 5, 6], lambda x: x > 3) == ([4, 5, 6], [1, 2, 3])\n# Test with generator (ensures single pass)\ngen = (x for x in [1, 2, 3, 4])\nassert partition(gen, lambda x: x % 2 == 0) == ([2, 4], [1, 3])\n# Test with complex predicate\nassert partition([\"apple\", \"banana\", \"cherry\"], lambda x: \"a\" in x) == ([\"apple\", \"banana\"], [\"cherry\"])\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_memoize_improve",
+   "kind": "improve",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: == 11 # This is a different call signature\n           ^^^^^^^^^^^^^^\n  File \"/w/memo.py\", line 12, in wrapper\n    result = fn(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^\nTypeError: test_memoize.<locals>.f() got multiple values for argument 'a'\n",
+     "secs": 50.2,
+     "tokens": 828,
+     "answer": "```python\n# file: test_solution.py\nfrom memo import memoize\n\ndef test_memoize():\n    calls = []\n\n    @memoize\n    def f(a, b=0):\n        calls.append((a, b))\n        return a * 10 + b\n\n    # Test basic functionality and caching\n    assert f(1) == 10\n    assert f(1) == 10\n    assert calls == [(1, 0)]\n    assert f.hits == 1\n    assert f.misses == 1\n\n    # Test positional vs keyword argument distinction\n    # f(1, 2) and f(1, b=2) should be different keys per docstring\n    assert f(1, 2) == 12\n    assert calls == [(1, 0), (1, 2)]\n    assert f.misses == 2\n    \n    assert f(1, b=2) == 12\n    assert calls == [(1, 0), (1, 2), (1, 2)]\n    assert f.misses == 3\n\n    # Test that keyword order does not matter\n    assert f(1, b=2, a=1) == 11 # This is a different call signature\n    # To test order independence, we use the same keys but different order\n    @memoize\n    def g(a, b, c):\n        calls.append((a, b, c))\n        return a + b + c\n    \n    calls.clear()\n    assert g(1, b=2, c=3) == 6\n    assert g(1, c=3, b=2) == 6\n    assert calls == [(1, 2, 3)] # Should only call once\n    assert g.hits == 1\n    assert g.misses == 1\n\n    # Test clear functionality\n    f.clear()\n    assert f.hits == 0\n    assert f.misses == 0\n    # Cache should be empty, so next call is a miss\n    assert f(1) == 10\n    assert f.misses == 1\n    assert calls == [(1, 0), (1, 2), (1, 2), (1, 0)]\n\n    # Test that exceptions are NOT cached\n    @memoize\n    def error_func(x):\n        if x == 0:\n            raise ValueErr"
+    }
+   ]
+  },
+  {
+   "id": "qa_email_check_improve",
+   "kind": "improve",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 169.2,
+     "tokens": 613,
+     "answer": "```python\n# file: test_solution.py\nfrom emailcheck import is_valid_email\n\n# --- Existing Valid Cases ---\nfor ok in (\"a@b.co\", \"john.doe@example.com\", \"user+tag@mail.example.org\", \"a_b%c-d@x.io\", \"x@sub.domain.example.com\",\n           \"a\" * 64 + \"@example.com\", \"1@2.ab\", \"a@b-c.com\"):\n    assert is_valid_email(ok) is True, f\"Should be valid: {ok}\"\n\n# --- Invalid: Local Part Issues ---\nassert is_valid_email(\"@example.com\") is False, \"Empty local part\"\nassert is_valid_email(\"a\" * 65 + \"@example.com\") is False, \"Local part too long\"\nassert is_valid_email(\".user@example.com\") is False, \"Local part starts with dot\"\nassert is_valid_email(\"user.@example.com\") is False, \"Local part ends with dot\"\nassert is_valid_email(\"us..er@example.com\") is False, \"Local part contains double dot\"\nassert is_valid_email(\"user!@example.com\") is False, \"Local part contains invalid char\"\n\n# --- Invalid: Domain Part Issues ---\nassert is_valid_email(\"user@example\") is False, \"Domain must have at least two labels\"\nassert is_valid_email(\"user@.example.com\") is False, \"Domain label cannot be empty\"\nassert is_valid_email(\"user@example..com\") is False, \"Domain label cannot be empty (double dot)\"\nassert is_valid_email(\"user@-example.com\") is False, \"Domain label cannot start with hyphen\"\nassert is_valid_email(\"user@example-.com\") is False, \"Domain label cannot end with hyphen\"\nassert is_valid_email(\"user@ex_ample.com\") is False, \"Domain label cannot contain underscore\"\nassert is_valid_email(\"user@example.c\") is False, \"TLD must be at least 2 chars\"\nassert is_valid_email(\"user@example.12\") is False, \"TLD must be alphabetic\"\nassert is_valid_email(\"user@example.c1\") is False, \"TLD must be alphabetic\"\n\n# --- Invalid: Structure Issues ---\nassert is_valid_email(\"user@@example.com\") is False, \"Too many @ symbols\"\nassert is_valid_email(\"userexample.com\") is False, \"No @ symbol\"\nassert is_valid_email(\"user@example@com\") is False, \"Too many @ symbols\"\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_paginate_regress1",
+   "kind": "regression",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 21.2,
+     "tokens": 138,
+     "answer": "```python\n# file: test_solution.py\nfrom paging import paginate\n\ndef test_last_page_allowed():\n    # 10 items, 3 per page -> 4 pages. Page 4 should be valid.\n    # The bug report specifically mentions page 3 of 3, \n    # but the logic error is the upper bound check.\n    try:\n        paginate(list(range(10)), 4, 3)\n    except ValueError:\n        raise AssertionError(\"Last page should be allowed\")\n\nif __name__ == \"__main__\":\n    test_last_page_allowed()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_mf_inventory_regress1",
+   "kind": "regression",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 21.0,
+     "tokens": 104,
+     "answer": "```python\n# file: test_solution.py\nfrom items import Item\nfrom stock import Inventory\n\ndef test_remove_exact_quantity():\n    inv = Inventory()\n    inv.add_item(Item(\"apple\", 100), 10)\n    inv.remove(\"apple\", 10)\n    assert inv.quantity(\"apple\") == 0\n\nif __name__ == \"__main__\":\n    test_remove_exact_quantity()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_ring_buffer_regress1",
+   "kind": "regression",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 24.0,
+     "tokens": 94,
+     "answer": "```python\n# file: test_solution.py\nfrom ring import RingBuffer\n\ndef test_bug():\n    rb = RingBuffer(3)\n    for x in [1, 2, 3, 4]:\n        rb.append(x)\n    assert rb.to_list() == [2, 3, 4]\n\nif __name__ == \"__main__\":\n    test_bug()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_hex_color",
+   "kind": "tests",
+   "difficulty": "easy",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module:   File \"/w/test_solution.py\", line 4\n    assert parse_hex_color(\"#ff8800\") == (25ss, 136, 0) # Wait, typo in my thought, fixing:\n                                           ^\nSyntaxError: invalid decimal literal\n",
+     "secs": 41.7,
+     "tokens": 875,
+     "answer": "```python\n# file: test_solution.py\nfrom color import parse_hex_color, to_hex\n\ndef test_parse_hex_color_happy_path():\n    assert parse_hex_color(\"#ff8800\") == (25ss, 136, 0) # Wait, typo in my thought, fixing:\n    assert parse_hex_color(\"#ff8800\") == (255, 136, 0)\n    assert parse_hex_color(\"#000000\") == (0, 0, 0)\n    assert parse_hex_color(\"#ffffff\") == (255, 255, 255)\n    assert parse_hex_color(\"#F80\") == (255, 136, 0)\n    assert parse_hex_color(\"#000\") == (0, 0, 0)\n    assert parse_hex_color(\"#abc\") == (170, 187, 204)\n\ndef test_parse_hex_color_errors():\n    # Missing #\n    try:\n        parse_hex_color(\"ff8800\")\n        assert False, \"Should raise ValueError for missing #\"\n    except ValueError as e:\n        assert str(e) == \"missing #\"\n\n    # Bad length (not 3 or 6)\n    for bad_len in [\"#ff\", \"#ffff\", \"#fffffff\"]:\n        try:\n            parse_hex_color(bad_len)\n            assert False, f\"Should raise ValueError for length {len(bad_len)}\"\n        except ValueError as e:\n            assert str(e) == \"bad length\"\n\n    # Bad digits\n    for bad_digits in [\"#gg0000\", \"#ffzz00\", \"#f!8800\"]:\n        try:\n            parse_hex_color(bad_digits)\n            assert False, f\"Should raise ValueError for non-hex digits: {bad_digits}\"\n        except ValueError as e:\n            assert str(e) == \"bad digits\"\n\ndef test_to_hex_happy_path():\n    assert to_hex((255, 136, 0)) == \"#ff8800\"\n    assert to_hex((0, 0, 0)) == \"#000000\"\n    assert to_hex((255, 255, 255)) == \"#ffffff\"\n    assert to_"
+    }
+   ]
+  },
+  {
+   "id": "qa_circuit_breaker",
+   "kind": "tests",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: ne 100, in <module>\n    test_initialization()\n  File \"/w/test_solution.py\", line 11, in test_initialization\n    CircuitBreker(threshold=0, cooldown=10)\n    ^^^^^^^^^^^^^\nNameError: name 'CircuitBreker' is not defined. Did you mean: 'CircuitBreaker'?\n",
+     "secs": 50.3,
+     "tokens": 1059,
+     "answer": "```python\n# file: test_solution.py\nfrom breaker import CircuitBreaker\n\ndef test_initialization():\n    # Happy path\n    cb = CircuitBreaker(threshold=3, cooldown=10)\n    assert cb.state(0) == \"closed\"\n    assert cb.allow(0) is True\n\n    # Error cases\n    try:\n        CircuitBreker(threshold=0, cooldown=10)\n        assert False, \"Should raise ValueError for threshold < 1\"\n    except ValueError:\n        pass\n\n    try:\n        CircuitBreaker(threshold=3, cooldown=0)\n        assert False, \"Should raise ValueError for cooldown <= 0\"\n    except ValueError:\n        pass\n\ndef test_closed_to_open_transition():\n    cb = CircuitBreaker(threshold=2, cooldown=10)\n    \n    # First failure\n    cb.record_failure(100)\n    assert cb.state(100) == \"closed\"\n    assert cb.allow(100) is True\n    \n    # Second failure reaches threshold\n    cb.record_failure(105)\n    assert cb.state(105) == \"open\"\n    assert cb.allow(105) is False\n\ndef test_cooldown_and_half_open():\n    cb = CircuitBreaker(threshold=1, cooldown=10)\n    cb.record_failure(100)\n    assert cb.state(100) == \"open\"\n    \n    # Still open during cooldown\n    assert cb.state(105) == \"open\"\n    assert cb.allow(105) is False\n    \n    # Transition to half_open exactly at cooldown boundary\n    assert cb.state(110) == \"half_open\"\n    assert cb.allow(110) is True\n    \n    # Transition to half_open after cooldown\n    assert cb.state(115) == \"half_open\"\n\ndef test_half_open_to_closed():\n    cb = CircuitBreaker(threshold=1, cooldown=10)\n    cb.record_f"
+    }
+   ]
+  },
+  {
+   "id": "qa_mutable_default",
+   "kind": "tests",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "mutant h7 survives",
+     "secs": 95.4,
+     "tokens": 736,
+     "answer": "```python\n# file: test_solution.py\nfrom tags import add_tag, Counter2, make_report\n\ndef test_add_tag():\n    # Happy path\n    assert add_tag(\"a\") == [\"a\"]\n    assert add_tag(\"b\", [\"a\"]) == [\"a\", \"b\"]\n    \n    # State leakage check: modifying the result should not affect the original list\n    original = [\"a\"]\n    result = add_tag(\"b\", original)\n    result.append(\"c\")\n    assert original == [\"a\"]\n    assert result == [\"a\", \"b\", \"c\"]\n    \n    # State leakage check: multiple calls should not share state\n    list1 = add_tag(\"x\")\n    list2 = add_tag(\"y\")\n    assert list1 == [\"x\"]\n    assert list2 == [\"y\"]\n    assert list1 is not list2\n\ndef test_counter2():\n    # Happy path: initialization\n    c = Counter2({\"a\": 1})\n    assert c.snapshot() == {\"a\": 1}\n    \n    # State leakage check: initial dict should be copied\n    initial = {\"a\": 1}\n    c2 = Counter2(initial)\n    initial[\"a\"] = 99\n    assert c2.snapshot() == {\"a\": 1}\n    \n    # Happy path: hit\n    c2.hit(\"a\")\n    c2.hit(\"b\", 5)\n    assert c2.snapshot() == {\"a\": 2, \"b\": 5}\n    \n    # Happy path: reset\n    c2.reset()\n    assert c2.snapshot() == {}\n    \n    # State leakage check: snapshot should be a copy\n    c2.hit(\"a\", 1)\n    snap = c2.snapshot()\n    snap[\"a\"] = 100\n    assert c2.snapshot() == {\"a\": 1}\n\ndef test_make_report():\n    # Happy path\n    report = make_report(\"Title\", [\"row1\"], \"Footer\")\n    assert report == {\"title\": \"Title\", \"rows\": [\"row1\"], \"footer\": \"Footer\"}\n    \n    # Default footer\n    report_default = make_report(\""
+    }
+   ]
+  },
+  {
+   "id": "qa_primes_improve",
+   "kind": "improve",
+   "difficulty": "easy",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "mutant h3 survives",
+     "secs": 33.9,
+     "tokens": 336,
+     "answer": "```python\n# file: test_solution.py\nfrom nt import gcd, lcm, is_prime\n\n# Tests for gcd\nassert gcd(12, 18) == 6\nassert gcd(18, 12) == 6\nassert gcd(7, 13) == 1\nassert gcd(0, 5) == 5\nassert gcd(5, 0) == 5\nassert gcd(0, 0) == 0\nassert gcd(1, 1) == 1\n\n# Tests for lcm\nassert lcm(12, 18) == 36\nassert lcm(18, 12) == 36\nassert lcm(7, 13) == 91\nassert lcm(0, 5) == 0\nassert lcm(5, 0) == 0\nassert lcm(1, 1) == 1\nassert lcm(4, 6) == 12\n\n# Tests for is_prime\nassert is_prime(2) is True\nassert is_prime(3) is True\nassert is_prime(5) is True\nassert is_prime(7) is True\nassert is_prime(11) is True\nassert is_prime(13) is True\nassert is_prime(4) is False\nassert is_prime(9) is False\nassert is_prime(1) is False\nassert is_prime(0) is False\nassert is_prime(-5) is False\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_amortize_improve",
+   "kind": "improve",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 142.9,
+     "tokens": 1127,
+     "answer": "```python\n# file: test_solution.py\nfrom loan import monthly_payment, schedule\n\n# --- Tests for monthly_payment ---\n\n# Existing valid cases\nassert monthly_payment(1000, 0.0, 10) == 100.0\nassert monthly_payment(1200, 0.0, 12) == 100.0\nassert monthly_payment(1000, 0.0, 3) == 333.33\nassert monthly_payment(100000, 0.06, 360) == 599.55\nassert monthly_payment(10000, 0.12, 12) == 888.49\nassert monthly_payment(5000, 0.05, 1) == 5020.83\nassert monthly_payment(1, 0.0, 1) == 1.0\n\n# Edge case: Rounding half to even (Python's round() behavior)\n# 100.025 -> 100.02 (even), 100.035 -> 100.04 (even)\n# We test a value that specifically targets the precision of the formula\nassert monthly_payment(100, 0.01, 1) == 100.08\n\n# Error handling\nfor args in ((1000, 0.05, 0), (0, 0.05, 12), (-5, 0.05, 12), (1000, -0.01, 12)):\n    try:\n        monthly_payment(*args)\n    except ValueError:\n        pass\n    else:\n        raise AssertionError(f\"expected ValueError for {args}\")\n\n# --- Tests for schedule ---\n\ndef test_schedule_logic():\n    # Test a simple 3-month loan\n    # Principal 1000, 12% annual (1% monthly)\n    # Monthly payment = 1000 * 0.01 / (1 - (1.01^-3)) = 340.02\n    # Month 1: Int = 10.00, Part = 330.02, Bal = 669.98\n    # Month 2: Int = 6.70, Part = 333.32, Bal = 336.66\n    # Month 3: Final payment = Bal + Int = 336.66 + 3.37 = 340.03\n    \n    p, r, m = 1000, 0.12, 3\n    res = schedule(p, r, m)\n    \n    assert len(res) == 3\n    \n    # Check Month 1\n    pay1, int1, part1, bal1 = res[0]\n    assert pay1 == 340.02\n    assert int1 == 10.00\n    assert part1 == 330.02\n    assert bal1 == 669.98\n    \n    # Check Month 2\n    pay2, int2, part2, bal2 = res[1]\n    assert pay2 == 340.02\n    assert int2 == 6.70\n    assert part2 == 333.32\n    assert bal2 == 336.66\n    \n    # Check Month 3 (Final payment adjustment)\n    pay3, int3, part3, bal3 = res[2]\n    assert int3 == 3.37 # 336.66 * 0.01 = 3.3666 -> 3.37\n    assert pay3 == 340.03 # 336.66 + 3.37\n    assert part3 == 336.66\n    assert bal3 == 0.0\n\n    # Check zero rate schedule\n    res_zero = schedule(100, 0.0, 2)\n    assert res_zero[0] == (50.0, 0.0, 50.0, 50.0)\n    assert res_zero[1] == (50.0, 0.0, 50.0, 0.0)\n\n# Run schedule tests\ntest_schedule_logic()\n\n# Ensure no balance remains at the end of any schedule\nfor args in [(1000, 0.05, 12), (5000, 0.1, 6), (100, 0.0, 1)]:\n    rows = schedule(*args)\n    assert rows[-1][3] == 0.0\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_deep_merge_improve",
+   "kind": "improve",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "mutant h3 survives",
+     "secs": 56.0,
+     "tokens": 754,
+     "answer": "```python\n# file: test_solution.py\nfrom dicts import deep_merge, get_path\n\n# --- Tests for deep_merge ---\n\n# Basic merges\nassert deep_merge({}, {}) == {}\nassert deep_merge({\"a\": 1}, {\"b\": 2}) == {\"a\": 1, \"b\": 2}\nassert deep_merge({\"a\": 1}, {\"a\": 2}) == {\"a\": 2}\nassert deep_merge({\"a\": 1}, {\"a\": None}) == {\"a\": None}\n\n# Nested merges\nassert deep_merge({\"a\": {\"x\": 1, \"y\": 2}}, {\"a\": {\"y\": 3, \"z\": 4}}) == {\"a\": {\"x\": 1, \"y\": 3, \"z\": 4}}\nassert deep_merge({\"a\": {\"b\": {\"c\": 1}}}, {\"a\": {\"b\": {\"d\": 2}}}) == {\"a\": {\"b\": {\"c\": 1, \"d\": 2}}}\n\n# Type overrides (dict vs non-dict)\nassert deep_merge({\"a\": {\"x\": 1}}, {\"a\": 5}) == {\"a\": 5}\nassert deep_merge({\"a\": 5}, {\"a\": {\"x\": 1}}) == {\"a\": {\"x\": 1}}\n\n# Immutability and Deep Copying (Crucial for preventing aliasing mutants)\na = {\"n\": {\"x\": 1}, \"k\": 1}\nb = {\"n\": {\"y\": 2}}\nmerged = deep_merge(a, b)\nassert merged == {\"n\": {\"x\": 1, \"y\": 2}, \"k\": 1}\n# Ensure 'a' was not modified\nassert a == {\"n\": {\"x\": 1}, \"k\": 1}\n# Ensure nested dicts in 'merged' are new objects, not references to 'a' or 'b'\nassert merged[\"n\"] is not a[\"n\"]\nassert merged[\"n\"] is not b[\"n\"]\n# Modify merged and ensure 'a' remains unchanged\nmerged[\"n\"][\"x\"] = 99\nassert a[\"n\"][\"x\"] == 1\n\n# --- Tests for get_path ---\n\nd = {\"a\": {\"b\": {\"c\": 1}}, \"d\": 5, \"e\": None}\n\n# Successful lookups\nassert get_path(d, \"a.b.c\") == 1\nassert get_path(d, \"d\") == 5\nassert get_path(d, \"e\") is None\nassert get_path(d, \"\") == d  # Empty path returns d\n\n# Missing keys\nassert get_path(d, \"a.b.z\") is None\nas"
+    }
+   ]
+  },
+  {
+   "id": "qa_luhn_regress1",
+   "kind": "regression",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 11.4,
+     "tokens": 70,
+     "answer": "```python\n# file: test_solution.py\nfrom luhn import luhn_valid\n\ndef test_reported_bug():\n    assert luhn_valid('79927398713') is True\n\nif __name__ == \"__main__\":\n    test_reported_bug()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_sliding_window_regress1",
+   "kind": "regression",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 17.6,
+     "tokens": 126,
+     "answer": "```python\n# file: test_solution.py\nfrom window import SlidingWindowLimiter\n\ndef test_bug():\n    # Window is (now - 5, now]. At t=5, window is (0, 5].\n    # An event at t=0 should be expired.\n    limiter = SlidingWindowLimiter(1, 5)\n    assert limiter.allow(0) is True\n    assert limiter.allow(5) is True  # This fails on buggy code\n\nif __name__ == \"__main__\":\n    test_bug()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_roman_regress1",
+   "kind": "regression",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 16.0,
+     "tokens": 59,
+     "answer": "```python\n# file: test_solution.py\nfrom roman import from_roman\n\ndef test_bug_report():\n    assert from_roman('XX') == 20\n\nif __name__ == \"__main__\":\n    test_bug_report()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_stats",
+   "kind": "tests",
+   "difficulty": "easy",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "mutant h3 survives",
+     "secs": 66.2,
+     "tokens": 736,
+     "answer": "```python\n# file: test_solution.py\nfrom descstats import mean, median, mode, variance\n\ndef test_mean():\n    # Happy path\n    assert mean([1, 2, 3, 4, 5]) == 3.0\n    assert mean([1, 2]) == 1.5\n    # Single element\n    assert mean([10]) == 10.0\n    # Floats\n    assert mean([1.5, 2.5, 3.5]) == 2.5\n    # Error case\n    try:\n        mean([])\n        assert False, \"Should raise ValueError for empty list\"\n    except ValueError as e:\n        assert str(e) == \"empty\"\n\ndef test_median():\n    # Odd length\n    assert median([1, 3, 2]) == 2\n    # Even length\n    assert median([1, 2, 3, 4]) == 2.5\n    # Single element\n    assert median([5]) == 5\n    # Unsorted input\n    assert median([10, 1, 5]) == 5\n    # Error case\n    try:\n        median([])\n        assert False, \"Should raise ValueError for empty list\"\n    except ValueError as e:\n        assert str(e) == \"empty\"\n\ndef test_mode():\n    # Single mode\n    assert mode([1, 2, 2, 3]) == 2\n    # Tie - should return smallest\n    assert mode([1, 1, 2, 2]) == 1\n    assert mode([3, 3, 1, 1, 2, 2]) == 1\n    # All unique\n    assert mode([1, 2, 3]) == 1\n    # Error case\n    try:\n        mode([])\n        assert False, \"Should raise ValueError for empty list\"\n    except ValueError as e:\n        assert str(e) == \"empty\"\n\ndef test_variance():\n    data = [1, 2, 3, 4, 5]\n    # Population variance: sum((x-3)^2)/5 = (4+1+0+1+4)/5 = 2.0\n    assert variance(data, sample=False) == 2.0\n    # Sample variance: sum((x-3)^2)/4 = 10/4 = 2.5\n    assert variance(data, "
+    }
+   ]
+  },
+  {
+   "id": "qa_kv_tokenizer",
+   "kind": "tests",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: in <module>\n    test_tokenize()\n  File \"/w/test_solution.py\", line 25, in test_tokenize\n    assert tokenize(r\"a\\tb\") == [\"a\\tb\"] # Note: \\t is a tab char, but here we test literal backslash + t\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "secs": 38.2,
+     "tokens": 631,
+     "answer": "```python\n# file: test_solution.py\nfrom tokens import tokenize\n\ndef test_tokenize():\n    # Happy path: simple space separation\n    assert tokenize(\"ls -la /home/user\") == [\"ls\", \"-la\", \"/home/user\"]\n    assert tokenize(\"   multiple   spaces   \") == [\"multiple\", \"spaces\"]\n    assert tokenize(\"\\ttabs\\twork\\t\") == [\"tabs\", \"work\"]\n\n    # Single quotes: literal content\n    assert tokenize(\"'single quoted'\") == [\"single quoted\"]\n    assert tokenize(\"a'b'c\") == [\"abc\"]\n    assert tokenize(\"'a b'c'd e'\") == [\"a bcd e\"]\n    assert tokenize(\"''\") == [\"\"]\n    assert tokenize(\"' '\") == [\" \"]\n\n    # Double quotes: allow escapes and spaces\n    assert tokenize('\"double quoted\"') == [\"double quoted\"]\n    assert tokenize('a\"b\"c') == [\"abc\"]\n    assert tokenize('\"escaped \\\\\" quote\"') == ['escaped \" quote']\n    assert tokenize('\"escaped \\\\\\\\ backslash\"') == ['escaped \\\\ backslash']\n    assert tokenize('\"\"') == [\"\"]\n\n    # Backslash escapes outside quotes\n    assert tokenize(r\"a\\ b c\") == [\"a b\", \"c\"]\n    assert tokenize(r\"a\\tb\") == [\"a\\tb\"] # Note: \\t is a tab char, but here we test literal backslash + t\n    # The implementation treats \\ followed by any char as that char.\n    assert tokenize(r\"hello\\ world\") == [\"hello world\"]\n\n    # Complex combinations\n    assert tokenize('cmd --arg=\"value with spaces\" --flag') == [\"cmd\", \"--arg=value with spaces\", \"--flag\"]\n    assert tokenize('mix\\'ed\"quotes\"') == [\"mixedquotes\"]\n    assert tokenize(r'\\\"quoted\\\"') == ['\"quoted\"']\n\n    # Error cases: Unterm"
+    }
+   ]
+  },
+  {
+   "id": "qa_unit_convert",
+   "kind": "tests",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: Traceback (most recent call last):\n  File \"/w/test_solution.py\", line 70, in <module>\n    test_c_to_f()\n  File \"/w/test_solution.py\", line 44, in test_c_to_f\n    assert c_to_f(-273.15) == -459.67\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "secs": 47.9,
+     "tokens": 838,
+     "answer": "```python\n# file: test_solution.py\nfrom units import convert, c_to_f, f_to_c\n\ndef test_convert_happy_path():\n    # Metric to Metric\n    assert convert(1000, \"mm\", \"m\") == 1.0\n    assert convert(1, \"km\", \"m\") == 1000.0\n    # Imperial to Metric\n    assert convert(1, \"in\", \"cm\") == 2.54\n    assert convert(1, \"ft\", \"m\") == 0.3048\n    # Metric to Imperial\n    assert convert(10, \"cm\", \"in\") == 3.937008\n    # Rounding check (6 decimals)\n    # 1/3 is 0.33333333... should be 0.333333\n    # Using mm to m: 0.333333333... mm -> 0.000000333333 m\n    # Let's use a known value: 1 inch to mm is 25.4\n    assert convert(1, \"in\", \"mm\") == 25.4\n\ndef test_convert_identity():\n    assert convert(5.5, \"m\", \"m\") == 5.5\n    assert convert(10, \"km\", \"km\") == 10.0\n    assert isinstance(convert(1, \"m\", \"m\"), float)\n\ndef test_convert_errors():\n    # Unknown unit from\n    try:\n        convert(1, \"lightyear\", \"m\")\n        assert False, \"Should have raised KeyError for unknown from_unit\"\n    except KeyError:\n        pass\n\n    # Unknown unit to\n    try:\n        convert(1, \"m\", \"parsec\")\n        assert False, \"Should have raised KeyError for unknown to_unit\"\n    except KeyError:\n        pass\n\ndef test_c_to_f():\n    # Standard values\n    assert c_to_f(0) == 32.0\n    assert c_to_f(100) == 212.0\n    assert c_to_f(-40) == -40.0\n    # Absolute zero boundary\n    assert c_to_f(-273.15) == -459.67\n    # Below absolute zero\n    try:\n        c_to_to_f = c_to_f(-274)\n        assert False, \"Should have raised ValueError f"
+    }
+   ]
+  },
+  {
+   "id": "qa_rle_improve",
+   "kind": "improve",
+   "difficulty": "easy",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: Traceback (most recent call last):\n  File \"/w/test_solution.py\", line 23, in <module>\n    assert rle_decode(\"10a1b\") == \"aaaaaaaaaabb\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "secs": 35.6,
+     "tokens": 461,
+     "answer": "```python\n# file: test_solution.py\nfrom rle import rle_encode, rle_decode\n\n# Tests for rle_encode\nassert rle_encode(\"aaabcc\") == \"3a1b2c\"\nassert rle_encode(\"\") == \"\"\nassert rle_encode(\"a\") == \"1a\"\nassert rle_encode(\"abc\") == \"1a1b1c\"\nassert rle_encode(\"aaaaa\") == \"5a\"\n\n# Test for ValueError in rle_encode (digits in input)\ntry:\n    rle_encode(\"a1b\")\n    assert False, \"Should have raised ValueError for digits in input\"\nexcept ValueError as e:\n    assert str(e) == \"digits not supported\"\n\n# Tests for rle_decode\nassert rle_decode(\"3a1b2c\") == \"aaabcc\"\nassert rle_decode(\"\") == \"\"\nassert rle_decode(\"1a\") == \"a\"\nassert rle_decode(\"1a1b1c\") == \"abc\"\nassert rle_decode(\"12a\") == \"aaaaaaaaaaaa\"  # Multi-digit counts\nassert rle_decode(\"10a1b\") == \"aaaaaaaaaabb\"\n\n# Test for ValueError in rle_decode (missing count)\ntry:\n    rle_decode(\"a\")\n    assert False, \"Should have raised ValueError for missing count\"\nexcept ValueError as e:\n    assert str(e) == \"missing count\"\n\n# Test for ValueError in rle_decode (dangling count)\ntry:\n    rle_decode(\"10a1\")\n    assert False, \"Should have raised ValueError for dangling count\"\nexcept ValueError as e:\n    assert str(e) == \"dangling count\"\n\n# Round trip property\ntest_cases = [\"aaabcc\", \"abc\", \"aaaaa\", \"aabbcc\", \"a\", \"\"]\nfor tc in test_cases:\n    assert rle_decode(rle_encode(tc)) == tc\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_parse_duration_improve",
+   "kind": "improve",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: e_duration(\"10s 5m\") == 310 # This should fail if order is wrong, but 5m 10s is correct\n           ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/w/duration.py\", line 24, in parse_duration\n    raise ValueError(\"units out of order\")\nValueError: units out of order\n",
+     "secs": 31.4,
+     "tokens": 589,
+     "answer": "```python\n# file: test_solution.py\nfrom duration import parse_duration\n\n# Existing tests\nassert parse_duration(\"90s\") == 90\nassert parse_duration(\"1m\") == 60\nassert parse_duration(\"1h\") == 3600\nassert parse_duration(\"2d\") == 172800\n\n# Complex valid combinations\nassert parse_duration(\"1d 2h 3m 4s\") == 86400 + 7200 + 180 + 4\nassert parse_duration(\"1h30m\") == 3600 + 1800\nassert parse_duration(\"10s 5m\") == 310 # This should fail if order is wrong, but 5m 10s is correct\nassert parse_duration(\"5m 10s\") == 310\nassert parse_duration(\"1d10s\") == 86400 + 10\n\n# Test for empty string\ntry:\n    parse_duration(\"\")\n    assert False, \"Should raise ValueError for empty string\"\nexcept ValueError as e:\n    assert str(e) == \"empty\"\n\n# Test for malformed strings (non-numeric or unknown units)\ntry:\n    parse_duration(\"1x\")\n    assert False, \"Should raise ValueError for unknown unit\"\nexcept ValueError:\n    pass\n\ntry:\n    parse_duration(\"abc\")\n    assert False, \"Should raise ValueError for non-numeric\"\nexcept ValueError:\n    pass\n\ntry:\n    parse_duration(\"1h 30\")\n    assert False, \"Should raise ValueError for missing unit\"\nexcept ValueError:\n    pass\n\n# Test for out of order units\ntry:\n    parse_duration(\"1s 1m\")\n    assert False, \"Should raise ValueError for out of order units\"\nexcept ValueError as e:\n    assert str(e) == \"units out of order\"\n\n# Test for repeated units\ntry:\n    parse_duration(\"1h 1h\")\n    assert False, \"Should raise ValueError for repeated units\"\nexcept ValueError as e:\n    assert s"
+    }
+   ]
+  },
+  {
+   "id": "qa_brackets_improve",
+   "kind": "improve",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 98.3,
+     "tokens": 593,
+     "answer": "```python\n# file: test_solution.py\nfrom brackets import is_balanced, first_mismatch\n\n# --- Tests for is_balanced ---\nassert is_balanced(\"\") is True\nassert is_balanced(\"()\") is True\nassert is_balanced(\"([]{})\") is True\nassert is_balanced(\"a(b)c[d]{e}\") is True\nassert is_balanced(\"(\") is False\nassert is_balanced(\")\") is False\nassert is_balanced(\"(]\") is False\nassert is_balanced(\"([)]\") is False\nassert is_balanced(\"((()))\") is True\nassert is_balanced(\"((()\") is False\nassert is_balanced(\")))\") is False\n\n# --- Tests for first_mismatch ---\n\n# Case: Balanced strings return -1\nassert first_mismatch(\"\") == -1\nassert first_mismatch(\"()\") == -1\nassert first_mismatch(\"([]{})\") == -1\nassert first_mismatch(\"a(b)c[d]{e}\") == -1\n\n# Case: Closing bracket with no opener (reports index of closer)\nassert first_mismatch(\")\") == 0\nassert first_mismatch(\"]\") == 0\nassert first_mismatch(\"}\") == 0\nassert first_mismatch(\"abc)\") == 3\nassert first_mismatch(\"())\") == 2\n\n# Case: Closing bracket with wrong opener (reports index of closer)\nassert first_mismatch(\"(]\") == 1\nassert first_mismatch(\"[}\") == 1\nassert first_mismatch(\"{)\") == 1\nassert first_mismatch(\"([)]\") == 2\n\n# Case: Unclosed openers (reports index of OLDEST/outermost opener)\nassert first_mismatch(\"(\") == 0\nassert first_mismatch(\"[\") == 0\nassert first_mismatch(\"{\") == 0\nassert first_mismatch(\"(((\") == 0\nassert first_mismatch(\"([\") == 0\nassert first_mismatch(\"a(b[c\") == 1\nassert first_mismatch(\"(([]\") == 0\n\n# Case: Complex mixed failures\n# 1. Wrong closer at index 2\nassert first_mismatch(\"([)\") == 2 \n# 2. Unclosed opener at index 0, but closer at index 3 is correct for index 1\n# String: \"( [ ] )\" -> balanced. \n# String: \"( [ )\" -> index 2 is mismatch.\nassert first_mismatch(\"([)\") == 2\n# 3. Unclosed opener at index 0, index 1 is closed, index 2 is unclosed\nassert first_mismatch(\"([]\") == 0\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_moving_avg_regress1",
+   "kind": "regression",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 15.3,
+     "tokens": 147,
+     "answer": "```python\n# file: test_solution.py\nfrom smooth import moving_average\n\ndef test_bug():\n    # The bug causes the last window to be skipped.\n    # Expected: [1.5, 2.5, 3.5, 4.5]\n    # Buggy returns: [1.5, 2.5, 3.5]\n    assert moving_average([1, 2, 3, 4, 5], 2) == [1.5, 2.5, 3.5, 4.5]\n\nif __name__ == \"__main__\":\n    test_bug()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_lru_cache_regress1",
+   "kind": "regression",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 13.9,
+     "tokens": 154,
+     "answer": "```python\n# file: test_solution.py\nfrom lru import LRUCache\n\ndef test_get_updates_recency():\n    cache = LRUCache(2)\n    cache.put('a', 1)\n    cache.put('b', 2)\n    cache.get('a')  # 'a' should now be most recent, 'b' is least recent\n    cache.put('c', 3)  # 'b' should be evicted\n    assert 'a' in cache\n    assert 'c' in cache\n    assert 'b' not in cache\n\nif __name__ == \"__main__\":\n    test_get_updates_recency()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_mutable_default_regress1",
+   "kind": "regression",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 13.8,
+     "tokens": 87,
+     "answer": "```python\n# file: test_solution.py\nfrom tags import add_tag\n\ndef test_add_tag_isolation():\n    add_tag('a')\n    result = add_tag('b')\n    assert result == ['b'], f\"Expected ['b'], but got {result}\"\n\nif __name__ == \"__main__\":\n    test_add_tag_isolation()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_chunk_list",
+   "kind": "tests",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 159.1,
+     "tokens": 558,
+     "answer": "```python\n# file: test_solution.py\nfrom listutil import chunk, flatten\n\ndef test_chunk():\n    # Happy path: standard chunking\n    assert chunk([1, 2, 3, 4, 5, 6], 2) == [[1, 2], [3, 4], [5, 6]]\n    assert chunk([1, 2, 3, 4, 5], 2) == [[1, 2], [3, 4], [5]]\n    \n    # Edge case: size 1\n    assert chunk([1, 2, 3], 1) == [[1], [2], [3]]\n    \n    # Edge case: empty list\n    assert chunk([], 3) == []\n    \n    # Edge case: size larger than list length\n    assert chunk([1, 2], 10) == [[1, 2]]\n    \n    # Error case: size < 1\n    try:\n        chunk([1, 2, 3], 0)\n        assert False, \"Should have raised ValueError for size=0\"\n    except ValueError:\n        pass\n\n    try:\n        chunk([1, 2, 3], -1)\n        assert False, \"Should have raised ValueError for size < 0\"\n    except ValueError:\n        pass\n\ndef test_flatten():\n    # Happy path: standard flattening\n    assert flatten([[1, 2], [3, 4]]) == [1, 2, 3, 4]\n    assert flatten([[1, 2], [3]]) == [1, 2, 3]\n    \n    # Happy path: mixed list and non-list elements\n    assert flatten([[1, 2], 3, [4]]) == [1, 2, 3, 4]\n    assert flatten([1, 2, 3]) == [1, 2, 3]\n    \n    # Edge case: empty list\n    assert flatten([]) == []\n    \n    # Edge case: nested empty lists\n    assert flatten([[], [1], []]) == [1]\n    \n    # Edge case: deeply nested (should only flatten one level)\n    assert flatten([[1, [2, 3]], [4]]) == [1, [2, 3], 4]\n\nif __name__ == \"__main__\":\n    test_chunk()\n    test_flatten()\n    print(\"All tests passed!\")\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_business_days",
+   "kind": "tests",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 373.6,
+     "tokens": 980,
+     "answer": "```python\n# file: test_solution.py\nfrom datetime import date\nfrom bizdays import is_business_day, add_business_days, business_days_between\n\ndef test_is_business_day():\n    # Monday to Friday\n    assert is_business_day(date(2023, 10, 2)) is True   # Monday\n    assert is_business_day(date(2023, 10, 6)) is True   # Friday\n    # Saturday and Sunday\n    assert is_business_day(date(2023, 10, 7)) is False  # Saturday\n    assert is_business_day(date(2023, 10, 8)) is False  # Sunday\n    # Holidays\n    holidays = {date(2023, 12, 25)}\n    assert is_business_day(date(2023, 12, 25), holidays=holidays) is False\n    assert is_business_day(date(2023, 12, 26), holidays=holidays) is True\n\ndef test_add_business_days():\n    start = date(2023, 10, 6)  # Friday\n    holidays = {date(2023, 10, 9)} # Monday is holiday\n    \n    # n = 0 returns d unchanged even if d is not a business day\n    assert add_business_days(date(2023, 10, 7), 0) == date(2023, 10, 7)\n    \n    # Forward movement\n    # 1 business day from Friday (Oct 6) should be Tuesday (Oct 10) because Mon is holiday\n    assert add_business_days(start, 1, holidays=holidays) == date(2023, 10, 10)\n    # 2 business days from Friday (Oct 6) should be Wednesday (Oct 11)\n    assert add_business_days(start, 2, holidays=holidays) == date(2023, 10, 11)\n    \n    # Backward movement\n    # 1 business day back from Monday (Oct 9) should be Friday (Oct 6)\n    assert add_business_days(date(2023, 10, 9), -1, holidays=holidays) == date(2023, 10, 6)\n    # 2 business days back from Monday (Oct 9) should be Thursday (Oct 5)\n    assert add_business_days(date(2023, 10, 9), -2, holidays=holidays) == date(2023, 10, 5)\n\ndef test_business_days_between():\n    # Range [a, b)\n    d1 = date(2023, 10, 2) # Mon\n    d2 = date(2023, 10, 6) # Fri\n    # Mon, Tue, Wed, Thu are in range [Mon, Fri)\n    assert business_days_between(d1, d2) == 4\n    \n    # Range with weekend\n    d3 = date(2023, 10, 6) # Fri\n    d4 = date(2023, 10, 9) # Mon\n    # Only Fri is in range [Fri, Mon)\n    assert business_days_between(d3, d4) == 1\n    \n    # Range with holiday\n    holidays = {date(2023, 10, 3)} # Tue\n    assert business_days_between(d1, d2, holidays=holidays) == 3 # Mon, Wed, Thu\n    \n    # b < a returns negative\n    assert business_days_between(d2, d1) == -4\n    \n    # a == b\n    assert business_days_between(d1, d1) == 0\n\nif __name__ == \"__main__\":\n    test_is_business_day()\n    test_add_business_days()\n    test_business_days_between()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_mf_rbac",
+   "kind": "tests",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "mutant h8 survives",
+     "secs": 352.0,
+     "tokens": 1053,
+     "answer": "```python\n# file: test_solution.py\nfrom roles import effective_permissions, HIERARCHY, PERMISSIONS\nfrom policy import Policy\n\ndef test_roles_logic():\n    # Test direct permissions\n    assert effective_permissions(\"viewer\") == {\"read\"}\n    assert effective_permissions(\"editor\") == {\"write\", \"read\"}\n    assert effective_permissions(\"admin\") == {\"delete\", \"grant\", \"write\", \"read\"}\n    \n    # Test KeyError for unknown roles\n    try:\n        effective_permissions(\"non_existent\")\n        assert False, \"Should have raised KeyError for unknown role\"\n    except KeyError:\n        pass\n\ndef test_policy_basic_access():\n    p = Policy()\n    p.assign(\"alice\", \"viewer\")\n    p.assign(\"bob\", \"editor\")\n    p\n    # Viewer can read\n    assert p.can(\"alice\", \"read\", \"doc1\") is True\n    # Viewer cannot write\n    assert p.can(\"alice\", \"write\", \"doc1\") is False\n    # Editor can write and read (inherited)\n    assert p.can(\"bob\", \"write\", \"doc1\") is True\n    assert p.can(\"bob\", \"read\", \"doc1\") is True\n    # Editor cannot delete\n    assert p.can(\"bob\", \"delete\", \"doc1\") is False\n\ndef test_policy_ownership():\n    p = Policy()\n    p.assign(\"alice\", \"viewer\")\n    p.owns(\"alice\", \"secret_doc\")\n    \n    # Owner can read/write even if role is just viewer\n    assert p.can(\"alice\", \"read\", \"secret_doc\") is True\n    assert p.can(\"alice\", \"write\", \"secret_doc\") is True\n    # Owner still cannot delete if role doesn't allow it\n    assert p.can(\"alice\", \"delete\", \"secret_doc\") is False\n    \n    # Non-owner with sam"
+    }
+   ]
+  },
+  {
+   "id": "qa_paginate_improve",
+   "kind": "improve",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 354.4,
+     "tokens": 739,
+     "answer": "```python\n# file: test_solution.py\nfrom paging import paginate, page_count\n\n# Tests for page_count\nassert page_count(0, 10) == 1\nassert page_count(1, 10) == 1\nassert page_count(10, 10) == 1\nassert page_count(11, 10) == 2\nassert page_count(20, 10) == 2\nassert page_count(21, 10) == 3\nassert page_count(5, 1) == 5\n\n# Test page_count error handling\ntry:\n    page_count(5, 0)\nexcept ValueError:\n    pass\nelse:\n    raise AssertionError(\"expected ValueError for per_page < 1 in page_count\")\n\ntry:\n    page_count(5, -1)\nexcept ValueError:\n    pass\nelse:\n    raise AssertionError(\"expected ValueError for per_page < 1 in page_count\")\n\n# Tests for paginate\nitems = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\n\n# Page 1 of 2 (per_page=5)\nres1 = paginate(items, 1, 5)\nassert res1[\"items\"] == [0, 1, 2, 3, 4]\nassert res1[\"page\"] == 1\nassert res1[\"pages\"] == 2\nassert res1[\"has_prev\"] is False\nassert res1[\"has_next\"] is True\n\n# Page 2 of 2 (per_page=5)\nres2 = paginate(items, 2, 5)\nassert res2[\"items\"] == [5, 6, 7, 8, 9]\nassert res2[\"page\"] == 2\nassert res2[\"pages\"] == 2\nassert res2[\"has_prev\"] is True\nassert res2[\"has_next\"] is False\n\n# Single page case\nres3 = paginate([1], 1, 10)\nassert res3[\"items\"] == [1]\nassert res3[\"pages\"] == 1\nassert res3[\"has_prev\"] is False\nassert res3[\"has_next\"] is False\n\n# Empty items case (should still return 1 page per requirements)\nres4 = paginate([], 1, 10)\nassert res4[\"items\"] == []\nassert res4[\"pages\"] == 1\nassert res4[\"has_prev\"] is False\nassert res4[\"has_next\"] is False\n\n# Test paginate error handling\n# Page out of range (too low)\ntry:\n    paginate(items, 0, 5)\nexcept ValueError:\n    pass\nelse:\n    raise AssertionError(\"expected ValueError for page < 1\")\n\n# Page out of range (too high)\ntry:\n    paginate(items, 3, 5)\nexcept ValueError:\n    pass\nelse:\n    raise AssertionError(\"expected ValueError for page > pages\")\n\n# per_page < 1\ntry:\n    paginate(items, 1, 0)\nexcept ValueError:\n    pass\nelse:\n    raise AssertionError(\"expected ValueError for per_page < 1\")\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_csv_line_improve",
+   "kind": "improve",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: line('\"',) == [\"\"] # This is actually an error case in logic, but testing the quote behavior\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"/w/csvline.py\", line 29, in parse_csv_line\n    raise ValueError(\"unterminated quote\")\nValueError: unterminated quote\n",
+     "secs": 112.1,
+     "tokens": 420,
+     "answer": "```python\n# file: test_solution.py\nfrom csvline import parse_csv_line\n\n# Existing tests\nassert parse_csv_line(\"a,b,c\") == [\"a\", \"b\", \"c\"]\nassert parse_csv_line(\"\") == [\"\"]\nassert parse_csv_line(\"a,,c\") == [\"a\", \"\", \"c\"]\nassert parse_csv_line(\",\") == [\"\", \"\"]\nassert parse_csv_line(\"a,\") == [\"a\", \"\"]\n\n# Quoted fields\nassert parse_csv_line('\"a,b\",c') == [\"a,b\", \"c\"]\nassert parse_csv_line('\"a\"\"b\",c') == ['a\"b', \"c\"]\nassert parse_csv_line('a,\"b\"') == [\"a\", \"b\"]\nassert parse_csv_line('\"\"') == [\"\"]\nassert parse_csv_line('\"',) == [\"\"] # This is actually an error case in logic, but testing the quote behavior\nassert parse_csv_line('\"\" , \"\"') == [\"\", \" \"]\n\n# Edge cases for quotes and commas\nassert parse_csv_line('a,\"b,c\",d') == [\"a\", \"b,c\", \"d\"]\nassert parse_csv_line('a,\"b\"\"c\",d') == [\"a\", 'b\"c', \"d\"]\nassert parse_csv_line(',\"\",') == [\"\", \"\", \"\"]\n\n# Error handling\ntry:\n    parse_csv_line('\"unterminated')\n    assert False, \"Should have raised ValueError for unterminated quote\"\nexcept ValueError as e:\n    assert str(e) == \"unterminated quote\"\n\n# Testing unquoted field preservation (no stripping)\nassert parse_csv_line(\" a , b \") == [\" a \", \" b \"]\nassert parse_csv_line(\"  \") == [\"  \"]\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_flatten_dict_improve",
+   "kind": "improve",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 345.4,
+     "tokens": 823,
+     "answer": "```python\n# file: test_solution.py\nfrom flat import flatten, unflatten\n\n# --- Tests for flatten ---\n\n# Basic functionality\nassert flatten({}) == {}\nassert flatten({\"a\": 1}) == {\"a\": 1}\nassert flatten({\"a\": {\"b\": 1}, \"c\": 2}) == {\"a.b\": 1, \"c\": 2}\nassert flatten({\"a\": {\"b\": {\"c\": {\"d\": 4}}}}) == {\"a.b.c.d\": 4}\n\n# Empty nested dicts (should be kept as {})\nassert flatten({\"a\": {}}) == {\"a\": {}}\nassert flatten({\"a\": {\"b\": {}}}) == {\"a.b\": {}}\n\n# Custom separator\nassert flatten({\"a\": {\"b\": 1}}, sep=\"/\") == {\"a/b\": 1}\n\n# Non-dict containers (should be treated as leaves)\nassert flatten({\"a\": [1, 2], \"b\": {\"c\": [3]}}) == {\"a\": [1, 2], \"b.c\": [3]}\n\n# Order preservation (depth-first insertion order)\nassert list(flatten({\"z\": {\"y\": 1, \"x\": 2}, \"a\": 3})) == [\"z.y\", \"z.x\", \"a\"]\n\n# Error handling: Non-string keys\ntry:\n    flatten({1: \"a\"})\n    assert False, \"Should raise TypeError for non-string keys\"\nexcept TypeError as e:\n    assert str(e) == \"keys must be strings\"\n\n# --- Tests for unflatten ---\n\n# Basic functionality (Inverse of flatten)\nassert unflatten({\"a.b\": 1, \"c\": 2}) == {\"a\": {\"b\": 1}, \"c\": 2}\nassert unflatten({\"a.b.c.d\": 4}) == {\"a\": {\"b\": {\"c\": {\"d\": 4}}}}\nassert unflatten({\"a\": [1, 2], \"b.c\": [3]}) == {\"a\": [1, 2], \"b\": {\"c\": [3]}}\n\n# Custom separator\nassert unflatten({\"a/b\": 1}, sep=\"/\") == {\"a\": {\"b\": 1}}\n\n# Round trip property\noriginal = {\"a\": {\"b\": 1}, \"c\": {\"d\": {\"e\": 2}}, \"f\": 3}\nassert unflatten(flatten(original)) == original\n\n# Error handling: Conflict (Leaf is prefix of another key)\ntry:\n    unflatten({\"a\": 1, \"a.b\": 2})\n    assert False, \"Should raise ValueError for prefix conflict\"\nexcept ValueError as e:\n    assert \"conflict\" in str(e)\n\n# Error handling: Conflict (Prefix is leaf of another key)\ntry:\n    unflatten({\"a.b\": 2, \"a\": 1})\n    assert False, \"Should raise ValueError for prefix conflict\"\nexcept ValueError as e:\n    assert \"conflict\" in str(e)\n\n# Error handling: Conflict (Empty dict vs value)\ntry:\n    unflatten({\"a.b\": 2, \"a\": {}})\n    assert False, \"Should raise ValueError for conflict with empty dict\"\nexcept ValueError as e:\n    assert \"conflict\" in str(e)\n\n# Error handling: Non-string keys in unflatten (split behavior)\n# Note: unflatten uses split(), so keys must be strings to avoid AttributeError\ntry:\n    unflatten({123: \"a\"})\n    assert False, \"Should raise AttributeError/TypeError if key is not string\"\nexcept (AttributeError, TypeError):\n    pass\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_chunk_list_regress1",
+   "kind": "regression",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 44.2,
+     "tokens": 87,
+     "answer": "```python\n# file: test_solution.py\nfrom listutil import chunk\n\ndef test_chunk_trailing_elements():\n    assert chunk([1, 2, 3, 4, 5], 2) == [[1, 2], [3, 4], [5]]\n\nif __name__ == \"__main__\":\n    test_chunk_trailing_elements()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_token_bucket_regress1",
+   "kind": "regression",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 70.1,
+     "tokens": 178,
+     "answer": "```python\n# file: test_solution.py\nfrom bucket import TokenBucket\n\ndef test_capacity_overflow():\n    # A bucket with capacity 2, rate 1, idle for 100s should still only have 2 tokens.\n    # The bug allows tokens to accumulate up to 102.\n    bucket = TokenBucket(2, 1)\n    bucket.allow(100) # Advance time to 100\n    # If bug exists, tokens = 2 + (100 * 1) = 102. \n    # We check if we can take 3 tokens. 3 tokens should be impossible if capacity is 2.\n    assert not bucket.allow(100, cost=3)\n\ntest_capacity_overflow()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_priority_queue_regress1",
+   "kind": "regression",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 48.0,
+     "tokens": 125,
+     "answer": "```python\n# file: test_solution.py\nfrom pq import PriorityQueue\n\ndef test_fifo_tie_breaking():\n    pq = PriorityQueue()\n    pq.push(\"first\", 10)\n    pq.push(\"second\", 10)\n    pq.push(\"third\", 10)\n    assert pq.pop() == \"first\"\n    assert pq.pop() == \"second\"\n    assert pq.pop() == \"third\"\n\nif __name__ == \"__main__\":\n    test_fifo_tie_breaking()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_format_duration",
+   "kind": "tests",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 303.2,
+     "tokens": 685,
+     "answer": "```python\n# file: test_solution.py\nfrom fmttime import format_seconds, humanize\n\ndef test_format_seconds():\n    # Happy path\n    assert format_seconds(0) == \"0:00:00\"\n    assert format_seconds(59) == \"0:00:59\"\n    assert format_seconds(60) == \"0:01:00\"\n    assert format_seconds(3599) == \"0:59:59\"\n    assert format_seconds(3600) == \"1:00:00\"\n    assert format_seconds(3661) == \"1:01:01\"\n    assert format_seconds(86400) == \"24:00:00\"\n    assert format_seconds(90061) == \"25:01:01\"\n    \n    # Fractions (truncation)\n    assert format_seconds(60.9) == \"0:01:00\"\n    assert format_seconds(3600.999) == \"1:00:00\"\n    \n    # Error case\n    try:\n        format_seconds(-1)\n        assert False, \"Should have raised ValueError for negative input\"\n    except ValueError as e:\n        assert str(e) == \"negative\"\n\ndef test_humanize():\n    # Seconds\n    assert humanize(0) == \"0 seconds\"\n    assert humanize(1) == \"1 second\"\n    assert humanize(59) == \"59 seconds\"\n    \n    # Minutes\n    assert humanize(60) == \"1 minute\"\n    assert humanize(61) == \"1 minute\"\n    assert humanize(119) == \"1 minute\"\n    assert humanize(120) == \"2 minutes\"\n    assert humanize(3599) == \"59 minutes\"\n    \n    # Hours\n    assert humanize(3600) == \"1 hour\"\n    assert humanize(3660) == \"1 hour\"\n    assert humanize(7199) == \"1 hour\"\n    assert humanize(7200) == \"2 hours\"\n    assert humanize(86399) == \"23 hours\"\n    \n    # Days\n    assert humanize(86400) == \"1 day\"\n    assert humanize(172800) == \"2 days\"\n    assert humanize(1000000) == \"11 days\"\n    \n    # Error case\n    try:\n        humanize(-1)\n        assert False, \"Should have raised ValueError for negative input\"\n    except ValueError as e:\n        assert str(e) == \"negative\"\n\nif __name__ == \"__main__\":\n    test_format_seconds()\n    test_humanize()\n    print(\"All tests passed!\")\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_token_bucket",
+   "kind": "tests",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "mutant h3 survives",
+     "secs": 254.3,
+     "tokens": 1005,
+     "answer": "```python\n# file: test_solution.py\nfrom bucket import TokenBucket\n\ndef test_initialization():\n    # Happy path\n    b = TokenBucket(10, 1)\n    assert b.capacity == 10\n    assert b.rate == 1\n    assert b.tokens == 10.0\n\n    # Error cases\n    try:\n        TokenBucket(0, 1)\n        assert False, \"Should raise ValueError for capacity < 1\"\n    except ValueError:\n        pass\n\n    try:\n        TokenBucket(10, 0)\n        assert False, \"Should raise ValueError for rate <= 0\"\n    except ValueError:\n        pass\n\n    try:\n        TokenBucket(10, -1)\n        assert False, \"Should raise ValueError for rate < 0\"\n    except ValueError:\n        pass\n\ndef test_basic_allow():\n    b = TokenBucket(5, 1)\n    # Initial state is full\n    assert b.allow(100, cost=1) is True\n    assert b.allow(100, cost=1) is True\n    assert b.allow(100, cost=1) is True\n    assert b.allow(100, cost=1) is True\n    assert b.allow(100, cost=1) is True\n    # Now empty\n    assert b.allow(100, cost=1) is False\n\ndef test_refill_logic():\n    b = TokenBucket(10, 2) # 2 tokens per second\n    # Use all tokens\n    b.allow(100, cost=10)\n    assert b.tokens == 0\n    \n    # Wait 2 seconds -> should gain 4 tokens\n    # 100 + 2 = 102\n    assert b.allow(102, cost=4) is True\n    assert b.tokens == 0\n    \n    # Wait 0.5 seconds -> should gain 1 token\n    assert b.allow(102.5, cost=1) is True\n    assert b.tokens == 0\n\ndef test_capacity_cap():\n    b = TokenBucket(5, 10)\n    # Wait a long time, should not exceed capacity\n    assert b.allow"
+    }
+   ]
+  },
+  {
+   "id": "qa_order_fsm",
+   "kind": "tests",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 338.6,
+     "tokens": 788,
+     "answer": "```python\n# file: test_solution.py\nfrom order import Order, InvalidTransition\n\ndef test_happy_path():\n    order = Order()\n    assert order.state == \"new\"\n    assert order.history == [\"new\"]\n    assert order.refunded is False\n\n    order.pay()\n    assert order.state == \"paid\"\n    assert order.history == [\"new\", \"paid\"]\n\n    order.ship()\n    assert order.state == \"shipped\"\n    assert order.history == [\"new\", \"paid\", \"shipped\"]\n\n    order.deliver()\n    assert order.state == \"delivered\"\n    assert order.history == [\"new\", \"paid\", \"shipped\", \"delivered\"]\n\ndef test_cancel_from_new():\n    order = Order()\n    order.cancel()\n    assert order.state == \"cancelled\"\n    assert order.history == [\"new\", \"cancelled\"]\n    assert order.refunded is False\n\ndef test_cancel_from_paid_with_refund():\n    order = Order()\n    order.pay()\n    order.cancel()\n    assert order.state == \"cancelled\"\n    assert order.history == [\"new\", \"paid\", \"cancelled\"]\n    assert order.refunded is True\n\ndef test_invalid_transitions():\n    # Test: cannot ship before paying\n    order = Order()\n    try:\n        order.ship()\n        assert False, \"Should have raised InvalidTransition\"\n    except InvalidTransition as e:\n        assert \"new -> shipped\" in str(e)\n    assert order.state == \"new\"\n\n    # Test: cannot deliver before shipping\n    order.pay()\n    try:\n        order.deliver()\n        assert False, \"Should have raised InvalidTransition\"\n    except InvalidTransition as e:\n        assert \"paid -> delivered\" in str(e)\n    assert order.state == \"paid\"\n\n    # Test: cannot cancel once shipped\n    order.ship()\n    try:\n        order.cancel()\n        assert False, \"Should have raised InvalidTransition\"\n    except InvalidTransition as e:\n        assert \"shipped -> cancelled\" in str(e)\n    assert order.state == \"shipped\"\n\n    # Test: cannot cancel once delivered\n    order.deliver()\n    try:\n        order.cancel()\n        assert False, \"Should have raised InvalidTransition\"\n    except InvalidTransition as e:\n        assert \"delivered -> cancelled\" in str(e)\n    assert order.state == \"delivered\"\n\ndef test_history_integrity():\n    order = Order()\n    order.pay()\n    order.ship()\n    order.deliver()\n    assert order.history == [\"new\", \"paid\", \"shipped\", \"delivered\"]\n\ndef test_refund_logic_edge_case():\n    # Ensure refund is False if cancelled from 'new'\n    order = Order()\n    order.cancel()\n    assert order.refunded is False\n    \n    # Ensure refund is True if cancelled from 'paid'\n    order2 = Order()\n    order2.pay()\n    order2.cancel()\n    assert order2.refunded is True\n\nif __name__ == \"__main__\":\n    test_happy_path()\n    test_cancel_from_new()\n    test_cancel_from_paid_with_refund()\n    test_invalid_transitions()\n    test_history_integrity()\n    test_refund_logic_edge_case()\n    print(\"All tests passed!\")\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_luhn_improve",
+   "kind": "improve",
+   "difficulty": "easy",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: Traceback (most recent call last):\n  File \"/w/test_solution.py\", line 14, in <module>\n    assert luhn_valid(\"12\") is True   # Minimum valid length\n           ^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "secs": 160.8,
+     "tokens": 824,
+     "answer": "```python\n# file: test_solution.py\nfrom luhn import luhn_valid, luhn_check_digit\n\n# Existing tests for luhn_valid\nassert luhn_valid(\"4539 1488 0343 6467\") is True\nassert luhn_valid(\"4539148803436467\") is True\nassert luhn_valid(\"4539-1488-0343-6467\") is True\nassert luhn_valid(\"4539148803436468\") is False\nassert luhn_valid(\"79927398713\") is True\nassert luhn_valid(\"79927398710\") is False\n\n# Additional tests for luhn_valid to catch edge cases and mutants\nassert luhn_valid(\"0\") is False  # Too short\nassert luhn_valid(\"1\") is False  # Too short\nassert luhn_valid(\"12\") is True   # Minimum valid length\nassert luhn_valid(\"13\") is False  # Minimum invalid length\nassert luhn_valid(\"a123\") is False # Non-digit character\nassert luhn_valid(\"123a\") is False # Non-digit character\nassert luhn_valid(\"12 34\") is True # Spaces handled\nassert luhn_valid(\"12-34\") is True # Dashes handled\nassert luhn_valid(\"12--34\") is True # Multiple dashes handled\nassert luhn_valid(\"12  34\") is True # Multiple spaces handled\n\n# Tests for luhn_check_digit\nassert luhn_check_digit(\"453914880343646\") == 7\nassert luhn_check_digit(\"7992739871\") == 3\nassert luhn_check_digit(\"0\") == 0 # Note: partial \"0\" + \"0\" = \"00\" which is valid\nassert luhn_check_digit(\"1\") == 2 # \"12\" is valid\n\n# Test for ValueError in luhn_check_digit\ntry:\n    luhn_check_digit(\"abc\")\n    assert False, \"Should have raised ValueError for non-digit partial\"\nexcept ValueError:\n    pass\n\n# Test for specific digit calculation (ensuring the doubling logic "
+    }
+   ]
+  },
+  {
+   "id": "qa_sliding_window_improve",
+   "kind": "improve",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 339.9,
+     "tokens": 854,
+     "answer": "```python\n# file: test_solution.py\nfrom window import SlidingWindowLimiter\n\ndef test_limiter():\n    # Test initialization and basic functionality\n    s = SlidingWindowLimiter(3, 10)\n    assert s.remaining(0) == 3\n    assert s.allow(0) is True\n    assert s.allow(1) is True\n    assert s.remaining(1) == 1\n    \n    # Test reaching the limit\n    assert s.allow(2) is True\n    assert s.remaining(2) == 0\n    assert s.allow(3) is False  # Limit reached\n    assert s.remaining(3) == 0\n\n    # Test expiration (window is 10, so events at 0, 1, 2 expire when now > 2 + 10 = 12)\n    # At now=11, events [0, 1, 2] are still in (11-10, 11] -> (1, 11]\n    # Wait, the logic is: self._events[0] <= now - self.window\n    # If now=11, window=10: 0 <= 11-10 (0 <= 1) is True. So 0 is popped.\n    # Let's trace carefully:\n    # Events: [0, 1, 2]. now = 11. \n    # 0 <= 11 - 10 (0 <= 1) -> True. Pop 0.\n    # 1 <= 11 - 10 (1 <= 1) -> True. Pop 1.\n    # 2 <= 11 - 10 (2 <= 1) -> False.\n    # Remaining events: [2].\n    \n    s2 = SlidingWindowLimiter(2, 5)\n    assert s2.allow(10) is True  # [10]\n    assert s2.allow(11) is True  # [10, 11]\n    assert s2.allow(12) is False # [10, 11]\n    \n    # At now=15, window=5. 15-5 = 10.\n    # 10 <= 10 is True. Pop 10.\n    # 11 <= 10 is False.\n    # Remaining: [11].\n    assert s2.remaining(15) == 1 \n    assert s2.allow(15) is True # [11, 15]\n    assert s2.allow(15) is False # [11, 15] full\n\n    # Test boundary: exactly at window edge\n    s3 = SlidingWindowLimiter(1, 10)\n    assert s3.allow(0) is True\n    # now = 10. 10 - 10 = 0. 0 <= 0 is True. 0 is popped.\n    assert s3.remaining(10) == 1\n    assert s3.allow(10) is True\n\n    # Test ValueError\n    try:\n        SlidingWindowLimiter(0, 10)\n        assert False, \"Should raise ValueError for limit < 1\"\n    except ValueError:\n        pass\n\n    try:\n        SlidingWindowLimiter(5, 0)\n        assert False, \"Should raise ValueError for window <= 0\"\n    except ValueError:\n        pass\n\n    try:\n        SlidingWindowLimiter(5, -1)\n        assert False, \"Should raise ValueError for window < 0\"\n    except ValueError:\n        pass\n\nif __name__ == \"__main__\":\n    test_limiter()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_env_parser_improve",
+   "kind": "improve",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module:  recent call last):\n  File \"/w/test_solution.py\", line 51, in <module>\n    assert parse_env('A=\"mismatched\\'') == {\"A\": \"mismatched'\"} # Only matching quotes are stripped\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "secs": 221.2,
+     "tokens": 677,
+     "answer": "```python\n# file: test_solution.py\nfrom envfile import parse_env\n\n# Basic functionality\nassert parse_env(\"\") == {}\nassert parse_env(\"A=1\") == {\"A\": \"1\"}\nassert parse_env(\"A=1\\nB=2\") == {\"A\": \"1\", \"B\": \"2\"}\nassert parse_env(\"A=1\\nA=2\") == {\"A\": \"2\"}  # Later assignments override earlier ones\n\n# Comments and whitespace\nassert parse_env(\"# comment\\n\\nA=1\\n   # indented comment\") == {\"A\": \"1\"}\nassert parse_env(\"A=1 # inline comment\") == {\"A\": \"1\"}\nassert parse_env(\"A=1#no space comment\") == {\"A\": \"1#no space comment\"} # Only ' #' triggers comment removal\nassert parse_env(\"  A=1  \") == {\"A\": \"1\"}\n\n# Export stripping\nassert parse_env(\"export A=1\") == {\"A\": \"1\"}\nassert parse_env(\"export   A=1\") == {\"A\": \"1\"}\nassert parse_env(\"exportA=1\") == {\"exportA\": \"1\"} # Should not strip if 'export ' is not present\n\n# Key validation\ntry:\n    parse_env(\"1A=1\")\n    assert False, \"Should raise ValueError for key starting with digit\"\nexcept ValueError:\n    pass\n\ntry:\n    parse_env(\"-A=1\")\n    assert False, \"Should raise ValueError for invalid key character\"\nexcept ValueError:\n    pass\n\ntry:\n    parse_env(\"=1\")\n    assert False, \"Should raise ValueError for empty key\"\nexcept ValueError:\n    pass\n\ntry:\n    parse_env(\"A\")\n    assert False, \"Should raise ValueError for missing =\"\nexcept ValueError:\n    pass\n\n# Value quoting and stripping\nassert parse_env(\"A=\") == {\"A\": \"\"}\nassert parse_env('A=\"hello world\"') == {\"A\": \"hello world\"}\nassert parse_env(\"A='hello world'\") == {\"A\": \"hello world\"}\nassert pars"
+    }
+   ]
+  },
+  {
+   "id": "qa_hex_color_regress1",
+   "kind": "regression",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 52.6,
+     "tokens": 75,
+     "answer": "```python\n# file: test_solution.py\nfrom color import parse_hex_color\n\ndef test_short_hex():\n    assert parse_hex_color('#f80') == (255, 136, 0)\n\nif __name__ == \"__main__\":\n    test_short_hex()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_add_months_regress1",
+   "kind": "regression",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 46.3,
+     "tokens": 113,
+     "answer": "```python\n# file: test_solution.py\nfrom datetime import date\nfrom months import add_months\n\ndef test_bug():\n    # Jan 31 + 1 month should be Feb 29 in 2024 (leap year)\n    assert add_months(date(2024, 1, 31), 1) == date(2024, 2, 29)\n\nif __name__ == \"__main__\":\n    test_bug()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_min_stack_regress1",
+   "kind": "regression",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 28.3,
+     "tokens": 81,
+     "answer": "```python\n# file: test_solution.py\nfrom minstack import MinStack\n\ndef test_bug():\n    s = MinStack()\n    s.push(2)\n    s.push(2)\n    s.pop()\n    assert s.min() == 2\n\nif __name__ == \"__main__\":\n    test_bug()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_paginate",
+   "kind": "tests",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 240.2,
+     "tokens": 835,
+     "answer": "```python\n# file: test_solution.py\nfrom paging import page_count, paginate\n\ndef test_page_count():\n    # Happy path\n    assert page_count(0, 10) == 1\n    assert page_count(1, 10) == 1\n    assert page_count(10, 10) == 1\n    assert page_count(11, 10) == 2\n    assert page_count(20, 10) == 2\n    assert page_count(21, 10) == 3\n    \n    # Edge cases\n    assert page_count(100, 1) == 100\n    \n    # Error cases\n    try:\n        page_count(10, 0)\n        assert False, \"Should raise ValueError for per_page < 1\"\n    except ValueError:\n        pass\n    \n    try:\n        page_count(10, -5)\n        assert False, \"Should raise ValueError for per_page < 1\"\n    except ValueError:\n        pass\n\ndef test_paginate():\n    items = list(range(25))  # 0 to 24\n    \n    # Page 1\n    res1 = paginate(items, 1, 10)\n    assert res1[\"items\"] == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\n    assert res1[\"page\"] == 1\n    assert res1[\"pages\"] == 3\n    assert res1[\"has_prev\"] is False\n    assert res1[\"has_next\"] is True\n    \n    # Middle Page\n    res2 = paginate(items, 2, 10)\n    assert res2[\"items\"] == [10, 11, 12, 13, 14, 15, 16, 17, 18, 19]\n    assert res2[\"page\"] == 2\n    assert res2[\"pages\"] == 3\n    assert res2[\"has_prev\"] is True\n    assert res2[\"has_next\"] is True\n    \n    # Last Page (partial)\n    res3 = paginate(items, 3, 10)\n    assert res3[\"items\"] == [20, 21, 22, 23, 24]\n    assert res3[\"page\"] == 3\n    assert res3[\"pages\"] == 3\n    assert res3[\"has_prev\"] is True\n    assert res3[\"has_next\"] is False\n\n    # Empty items\n    res_empty = paginate([], 1, 10)\n    assert res_empty[\"items\"] == []\n    assert res_empty[\"pages\"] == 1\n    assert res_empty[\"has_next\"] is False\n\n    # Error cases: page out of range\n    try:\n        paginate(items, 0, 10)\n        assert False, \"Should raise ValueError for page < 1\"\n    except ValueError:\n        pass\n\n    try:\n        paginate(items, 4, 10)\n        assert False, \"Should raise ValueError for page > pages\"\n    except ValueError:\n        pass\n\n    # Error cases: per_page < 1\n    try:\n        paginate(items, 1, 0)\n        assert False, \"Should raise ValueError for per_page < 1\"\n    except ValueError:\n        pass\n\nif __name__ == \"__main__\":\n    test_page_count()\n    test_paginate()\n    print(\"All tests passed!\")\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_amortize",
+   "kind": "tests",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: e>\n    test_schedule_logic_and_final_balance()\n  File \"/w/test_solution.py\", line 62, in test_schedule_logic_and_final_balance\n    assert rows[0] == (346.75, 10.00, 336.75, 663.25)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "secs": 49.9,
+     "tokens": 1290,
+     "answer": "```python\n# file: test_solution.py\nfrom loan import monthly_payment, schedule\n\ndef test_monthly_payment_happy_path():\n    # Standard case: 10000 at 5% for 12 months\n    # Formula: 10000 * (0.05/12) / (1 - (1 + 0.05/12)**-12) approx 856.07\n    assert monthly_payment(10000, 0.05, 12) == 856.07\n\ndef test_monthly_payment_zero_rate():\n    # Zero interest rate: principal / months\n    assert monthly_payment(1200, 0, 12) == 100.00\n\ndef test_monthly_payment_rounding():\n    # Test rounding behavior (round half to even)\n    # 100 / 3 = 33.3333... -> 33.33\n    assert monthly_payment(100, 0, 3) == 33.33\n\ndef test_monthly_payment_errors():\n    # Negative rate\n    try:\n        monthly_payment(1000, -0.01, 12)\n        assert False, \"Should have raised ValueError for negative rate\"\n    except ValueError:\n        pass\n\n    # Zero or negative months\n    try:\n        monthly_payment(1000, 0.05, 0)\n        assert False, \"Should have raised ValueError for 0 months\"\n    except ValueError:\n        pass\n\n    # Negative principal\n    try:\n        monthly_payment(-100, 0.05, 12)\n        assert False, \"Should have raised ValueError for negative principal\"\n    except ValueError:\n        pass\n\ndef test_schedule_structure():\n    principal = 1000\n    rate = 0.12\n    months = 3\n    rows = schedule(principal, rate, months)\n    \n    assert len(rows) == 3\n    # Check types in tuple: (payment, interest, principal_part, balance)\n    for row in rows:\n        assert len(row) == 4\n        assert all(isinstance(x, (i"
+    }
+   ]
+  },
+  {
+   "id": "qa_query_string",
+   "kind": "tests",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: y\", line 63, in <module>\n    test_build_qs()\n  File \"/w/test_solution.py\", line 44, in test_build_qs\n    assert build_qs({'a b': ['c/d']}) == \"a%20b=c/d\" # quote default safe is '/'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "secs": 31.9,
+     "tokens": 823,
+     "answer": "```python\n# file: test_solution.py\nfrom qs import parse_qs, build_qs\n\ndef test_parse_qs():\n    # Happy path\n    assert parse_qs(\"a=1&b=2&a=3\") == {'a': ['1', 'arg3' if False else '3'], 'b': ['2']}\n    assert parse_qs(\"a=1&b=2&a=3\") == {'a': ['1', '3'], 'b': ['2']}\n    \n    # Leading question mark\n    assert parse_qs(\"?a=1&b=2\") == {'a': ['1'], 'b': ['2']}\n    \n    # Decoding (plus for space, %XX)\n    assert parse_qs(\"name=John+Doe&city=New%20York\") == {'name': ['John Doe'], 'city': ['New York']}\n    \n    # No '=' sign (value should be empty string)\n    assert parse_qs(\"a&b=2\") == {'a': [''], 'b': ['2']}\n    \n    # Empty pairs and trailing/leading ampersands\n    assert parse_qs(\"&&a=1&&b=2&&\") == {'a': ['1'], 'b': ['2']}\n    \n    # Empty input\n    assert parse_qs(\"\") == {}\n    assert parse_qs(\"?\") == {}\n    \n    # Keys and values with special characters\n    assert parse_qs(\"a%20b=c%20d\") == {'a b': ['c d']}\n    \n    # Duplicate keys\n    assert parse_qs(\"a=1&a=2&a=3\") == {'a': ['1', '2', '3']}\n\ndef test_build_qs():\n    # Happy path\n    assert build_qs({'a': ['1'], 'b': ['2']}) == \"a=1&b=2\"\n    \n    # Sorting keys\n    assert build_qs({'b': ['2'], 'a': ['1']}) == \"a=1&b=2\"\n    \n    # Multiple values for same key\n    assert build_qs({'a': ['1', '3'], 'b': ['2']}) == \"a=1&a=3&b=2\"\n    \n    # Spaces become %20 (not +)\n    assert build_qs({'name': ['John Doe']}) == \"name=John%20Doe\"\n    \n    # Encoding special characters\n    assert build_qs({'a b': ['c/d']}) == \"a%20b=c/d\" # quote de"
+    }
+   ]
+  },
+  {
+   "id": "qa_percent_change_improve",
+   "kind": "improve",
+   "difficulty": "easy",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "mutant h6 survives",
+     "secs": 58.1,
+     "tokens": 701,
+     "answer": "```python\n# file: test_solution.py\nfrom growth import round_half_up, pct_change, cagr\n\n# Tests for round_half_up\nassert round_half_up(0.5) == 1\nassert round_half_up(1.5) == 2\nassert round_half_up(2.5) == 3\nassert round_half_up(2.4) == 2\nassert round_half_up(2.6) == 3\nassert round_half_up(-0.5) == -1\nassert round_half_up(-2.5) == -3\nassert round_half_up(-2.4) == -2\nassert round_half_up(0) == 0\nassert round_half_up(1.234, digits=2) == 1.23\nassert round_half_up(1.235, digits=2) == 1.24\nassert round_half_up(-1.235, digits=2) == -1.24\n\n# Tests for pct_change\nassert pct_change(100, 110) == 10.0\nassert pct_change(100, 90) == -10.0\nassert pct_change(100, 100) == 0.0\nassert pct_change(0, 10) == float('inf')\nassert pct_change(0, -10) == float('-inf')\nassert pct_change(0, 0) == 0.0\nassert pct_change(-100, -110) == -10.0  # (new-old)/abs(old) -> (-110 - -100)/100 = -10/100 = -0.1 * 100\nassert pct_change(-100, -90) == 10.0\n\n# Tests for cagr\nassert round(cagr(100, 144, 2), 4) == 0.2  # (144/100)^(1/2) - 1 = 1.2 - 1 = 0.2\nassert round(cagr(100, 125, 1), 4) == 0.25\ntry:\n    cagr(0, 100, 1)\n    assert False, \"Should raise ValueError for start <= 0\"\nexcept ValueError:\n    pass\n\ntry:\n    cagr(100, -10, 1)\n    assert False, \"Should raise ValueError for end < 0\"\nexcept ValueError:\n    pass\n\ntry:\n    cagr(100, 110, 0)\n    assert False, \"Should raise ValueError for years <= 0\"\nexcept ValueError:\n    pass\n\ntry:\n    cagr(-10, 10, 1)\n    assert False, \"Should raise ValueError for start <= 0\"\nexcept Va"
+    }
+   ]
+  },
+  {
+   "id": "qa_job_queue_improve",
+   "kind": "improve",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: Traceback (most recent call last):\n  File \"/w/test_solution.py\", line 96, in <module>\n    test_job_queue()\n  File \"/w/test_solution.py\", line 68, in test_job_queue\n    assert q.next_job() is None\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "secs": 36.5,
+     "tokens": 841,
+     "answer": "```python\n# file: test_solution.py\nfrom jobs import JobQueue\n\ndef test_job_queue():\n    q = JobQueue()\n    \n    # Test empty queue\n    assert q.next_job() is None\n\n    # Test submission and validation\n    q.submit(\"a\", max_attempts=3)\n    q.submit(\"b\", max_attempts=1)\n    try:\n        q.submit(\"a\")\n        assert False, \"Should raise ValueError on duplicate ID\"\n    except ValueError as e:\n        assert str(e) == \"duplicate\"\n\n    try:\n        q.submit(\"c\", max_attempts=0)\n        assert False, \"Should raise ValueError on max_attempts < 1\"\n    except ValueError as e:\n        assert str(e) == \"max_attempts\"\n\n    # Test initial state\n    assert q.status(\"a\") == \"pending\"\n    assert q.attempts(\"a\") == 0\n    assert q.status(\"b\") == \"pending\"\n    assert q.attempts(\"b\") == 0\n\n    # Test processing 'a'\n    assert q.next_job() == \"a\"\n    assert q.status(\"a\") == \"running\"\n    assert q.attempts(\"a\") == 1\n    \n    # Test completion\n    q.complete(\"a\")\n    assert q.status(\"a\") == \"done\"\n    \n    # Test error on completing non-running job\n    try:\n        q.complete(\"b\")\n        assert False, \"Should raise ValueError when completing non-running job\"\n    except ValueError as e:\n        assert str(e) == \"not running\"\n\n    # Test failure and retry logic for 'b' (max_attempts=1)\n    assert q.next_job() == \"b\"\n    assert q.attempts(\"b\") == 1\n    q.fail(\"b\")\n    assert q.status(\"b\") == \"dead\"\n\n    # Test retry logic for 'a' (re-submitting a new job to test queue order)\n    q.submit(\"c\", max_atte"
+    }
+   ]
+  },
+  {
+   "id": "qa_trie_improve",
+   "kind": "improve",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: TIMEOUT",
+     "secs": 71.1,
+     "tokens": 683,
+     "answer": "```python\n# file: test_solution.py\nfrom trie import Trie\n\ndef test_trie():\n    t = Trie()\n    \n    # Test empty trie behavior\n    assert not t.contains(\"\")\n    assert not t.starts_with(\"\")\n    assert t.words_with_prefix(\"\") == []\n    assert t.words_with_prefix(\"a\") == []\n\n    # Test insertion and basic containment\n    words = [\"car\", \"card\", \"care\", \"cat\", \"dog\", \"\"]\n    for w in words:\n        t.insert(w)\n    \n    # Test contains\n    for w in words:\n        assert t.contains(w), f\"Failed to contain inserted word: {w}\"\n    assert not t.contains(\"ca\")\n    assert not t.contains(\"cars\")\n    assert not t.contains(\"d\")\n\n    # Test starts_with\n    assert t.starts_with(\"\")  # Empty prefix matches if trie is non-empty\n    assert t.starts_with(\"ca\")\n    assert t.starts_with(\"car\")\n    assert t.starts_with(\"d\")\n    assert t.starts_with(\"cat\")\n    assert not t.starts_with(\"x\")\n    assert not t.starts_with(\"cars\")\n\n    # Test words_with_prefix\n    assert t.words_with_prefix(\"\") == [\"\", \"car\", \"card\", \"care\", \"cat\", \"dog\"]\n    assert t.words_with_prefix(\"ca\") == [\"car\", \"card\", \"care\", \"cat\"]\n    assert t.words_with_prefix(\"car\") == [\"car\", \"card\", \"care\"]\n    assert t.words_with_prefix(\"card\") == [\"card\"]\n    assert t.words_with_prefix(\"z\") == []\n\n    # Test remove\n    # Remove a word that is a prefix of another\n    assert t.remove(\"car\") is True\n    assert not t.contains(\"car\")\n    assert t.contains(\"card\")  # \"card\" must remain\n    assert t.contains(\"care\")  # \"care\" must remain\n    as"
+    }
+   ]
+  },
+  {
+   "id": "qa_slugify_regress1",
+   "kind": "regression",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 35.0,
+     "tokens": 95,
+     "answer": "```python\n# file: test_solution.py\nfrom slug import slugify\n\ndef test_bug():\n    # The bug causes 'hello world' with max_len=6 to return 'hello-'\n    # A correct implementation must strip the trailing dash after truncation.\n    assert slugify('hello world', max_len=6) == 'hello'\n\nif __name__ == \"__main__\":\n    test_bug()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_mf_cart_regress1",
+   "kind": "regression",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 30.2,
+     "tokens": 147,
+     "answer": "```python\n# file: test_solution.py\nfrom pricing import bulk_discount\n\ndef test_bulk_discount_boundary():\n    # The bug report states qty >= 10 should get 10% discount.\n    # Current buggy code uses qty > 10, so 10 items only get 5%.\n    # 10 * 100 = 1000. 10% of 1000 is 100.\n    assert bulk_discount(10, 100) == 100\n\nif __name__ == \"__main__\":\n    test_bulk_discount_boundary()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_ttl_cache_regress1",
+   "kind": "regression",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 24.7,
+     "tokens": 116,
+     "answer": "```python\n# file: test_solution.py\nfrom ttl import TTLCache\n\ndef test_bug():\n    cache = TTLCache(default_ttl=10)\n    cache.set(\"key\", \"val\", now=0, ttl=10)\n    # At t=10, the entry should be expired (now >= set_time + ttl)\n    assert cache.get(\"key\", now=10) is None\n\nif __name__ == \"__main__\":\n    test_bug()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_turnstile",
+   "kind": "tests",
+   "difficulty": "easy",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: Traceback (most recent call last):\n  File \"/w/test_solution.py\", line 75, in <module>\n    test_sequence_of_events()\n  File \"/w/test_solution.py\", line 64, in test_sequence_of_events\n    assert ts.wasted == 1\n           ^^^^^^^^^^^^^^\nAssertionError\n",
+     "secs": 43.3,
+     "tokens": 571,
+     "answer": "```python\n# file: test_solution.py\nfrom turnstile import Turnstile\n\ndef test_initial_state():\n    ts = Turnstile()\n    assert ts.locked is True\n    assert ts.passed == 0\n    assert ts.wasted == 0\n\ndef test_push_while_locked():\n    ts = Turnstile()\n    result = ts.push()\n    assert result is False\n    assert ts.passed == 0\n    assert ts.locked is True\n\ndef test_happy_path():\n    ts = Turnstile()\n    ts.coin()\n    assert ts.locked is False\n    result = ts.push()\n    assert result is True\n    assert ts.passed == 1\n    assert ts.locked is True\n\ndef test_wasted_coin():\n    ts = Turnstile()\n    ts.coin()\n    assert ts.locked is False\n    ts.coin()  # Second coin while unlocked\n    assert ts.wasted == 1\n    assert ts.locked is False\n\ndef test_multiple_passes():\n    ts = Turnstile()\n    # Pass 1\n    ts.coin()\n    assert ts.push() is True\n    # Pass 2\n    ts.coin()\n    assert ts.push() is True\n    assert ts.passed == 2\n    assert ts.locked is True\n\ndef test_push_without_coin_fails_repeatedly():\n    ts = Turnstile()\n    assert ts.push() is False\n    assert ts.push() is False\n    assert ts.passed == 0\n\ndef test_sequence_of_events():\n    ts = Turnstile()\n    # Locked -> Coin -> Push -> Locked\n    ts.coin()\n    ts.push()\n    assert ts.locked is True\n    \n    # Locked -> Push (Fail) -> Coin -> Push (Success)\n    assert ts.push() is False\n    ts.coin()\n    assert ts.push() is True\n    \n    # Unlocked -> Coin (Waste) -> Push (Success)\n    ts.coin()\n    assert ts.wasted == 1\n    assert ts.pus"
+    }
+   ]
+  },
+  {
+   "id": "qa_lru_cache",
+   "kind": "tests",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "mutant h1 survives",
+     "secs": 93.0,
+     "tokens": 1093,
+     "answer": "```python\n# file: test_solution.py\nfrom lru import LRUCache\n\ndef test_initialization():\n    # Happy path\n    cache = LRUCache(5)\n    assert cache.capacity == 5\n    assert len(cache) == 0\n    \n    # Error case: capacity < 1\n    try:\n        LRUCache(0)\n        assert False, \"Should have raised ValueError for capacity 0\"\n    except ValueError:\n        pass\n\n    try:\n        LRUCache(-1)\n        assert False, \"Should have raised ValueError for negative capacity\"\n    except ValueError:\n        pass\n\ndef test_put_and_get_basic():\n    cache = LRUCache(2)\n    cache.put(\"a\", 1)\n    cache.put(\"b\", 2)\n    \n    assert cache.get(\"a\") == 1\n    assert cache.get(\"b\") == 2\n    assert cache.get(\"c\", \"missing\") == \"missing\"\n    assert len(cache) == 2\n\ndef test_eviction_policy():\n    cache = LRUCache(2)\n    cache.put(1, \"one\")\n    cache.put(2, \"two\")\n    cache.put(3, \"three\")  # Should evict 1\n    \n    assert 1 not in cache\n    assert 2 in cache\n    assert 3 in cache\n    assert len(cache) == 2\n    # Order should be [2, 3] (least to most recent)\n    assert cache.keys() == [2, 3]\n\ndef test_get_updates_recency():\n    cache = LRUCache(2)\n    cache.put(1, \"one\")\n    cache.put(2, \"two\")\n    \n    # Access 1, making 2 the least recently used\n    val = cache.get(1)\n    assert val == \"one\"\n    assert cache.keys() == [2, 1]\n    \n    # Put 3, should evict 2\n    cache.put(3, \"three\")\n    assert 2 not in cache\n    assert 1 in cache\n    assert 3 in cache\n    assert cache.keys() == [1, 3]\n\ndef test_put_updates"
+    }
+   ]
+  },
+  {
+   "id": "qa_brackets",
+   "kind": "tests",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: t call last):\n  File \"/w/test_solution.py\", line 55, in <module>\n    test_first_mismatch()\n  File \"/w/test_solution.py\", line 35, in test_first_mismatch\n    assert first_mismatch(\"((((])\") == 5\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "secs": 41.0,
+     "tokens": 608,
+     "answer": "```python\n# file: test_solution.py\nfrom brackets import is_balanced, first_mismatch\n\ndef test_is_balanced():\n    # Happy paths\n    assert is_balanced(\"\") is True\n    assert is_balanced(\"()\") is True\n    assert is_balanced(\"([])\") is True\n    assert is_balanced(\"{[()]}\") is True\n    assert is_balanced(\"a(b[c]d)e\") is True\n    assert is_balanced(\"1 + [2 * (3 / 4)]\") is True\n\n    # Unhappy paths\n    assert is_balanced(\"(\") is False\n    assert is_balanced(\")\") is False\n    assert is_balanced(\"([)\") is False\n    assert is_balanced(\"((())\") is False\n    assert is_balanced(\"]}\") is False\n    assert is_balanced(\"([)]\") is False\n\ndef test_first_mismatch():\n    # Balanced cases\n    assert first_mismatch(\"\") == -1\n    assert first_mismatch(\"()\") == -1\n    assert first_mismatch(\"abc\") == -1\n    assert first_mismatch(\"{[()]}\") == -1\n\n    # Case 1: Closer with no opener (reports its own index)\n    assert first_mismatch(\")\") == 0\n    assert first_mismatch(\"abc]\") == 3\n    assert first_mismatch(\"())\") == 2\n\n    # Case 2: Closer with wrong opener (reports its own index)\n    assert first_mismatch(\"(]\") == 1\n    assert first_mismatch(\"{[)]}\") == 2\n    assert first_mismatch(\"((((])\") == 5\n\n    # Case 3: Unclosed openers left at end (reports index of OLDEST/outermost)\n    assert first_mismatch(\"(\") == 0\n    assert first_mismatch(\"([\") == 0\n    assert first_mismatch(\"((()\") == 0\n    assert first_mismatch(\"abc[def{\") == 3\n    assert first_mismatch(\"((()))[\") == 6\n    \n    # Mixed complex cases\n    "
+    }
+   ]
+  },
+  {
+   "id": "qa_string_utils_improve",
+   "kind": "improve",
+   "difficulty": "easy",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "fails on the correct module: Traceback (most recent call last):\n  File \"/w/test_solution.py\", line 41, in <module>\n    assert center(\"abc\", 6) == \" abc*\"  # Extra padding on the RIGHT\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+     "secs": 55.4,
+     "tokens": 796,
+     "answer": "```python\n# file: test_solution.py\nfrom strutil import truncate, is_palindrome, center, count_vowels\n\n# --- Tests for truncate ---\nassert truncate(\"hello\", 10) == \"hello\"\nassert truncate(\"hello\", 5) == \"hello\"\nassert truncate(\"hello world\", 8) == \"hello...\"\nassert truncate(\"hello world\", 6) == \"hel...\"\nassert truncate(\"hello\", 4) == \"h...\"\nassert truncate(\"hello\", 3) == \"...\"\nassert truncate(\"hello\", 2) == \"..\"\nassert truncate(\"hello\", 1) == \".\"\nassert truncate(\"hello\", 0) == \"\"\nassert truncate(\"\", 0) == \"\"\nassert truncate(\"hello world\", 8, \"~\") == \"hello w~\"\n# Note: The original test had truncate(\"abcdef\", 5, \"\") == \"abcde\" \n# which is actually incorrect based on the docstring logic (n < len(ellipsis) returns ellipsis[:n]).\n# If ellipsis is \"\", len is 0. n=5. 5 is not < 0. Returns s[:5-0] + \"\" -> \"abcde\".\nassert truncate(\"abcdef\", 5, \"\") == \"abcde\"\n\ntry:\n    truncate(\"a\", -1)\nexcept ValueError:\n    pass\nelse:\n    raise AssertionError(\"expected ValueError for n < 0\")\n\n# --- Tests for is_palindrome ---\nassert is_palindrome(\"\") == True\nassert is_palindrome(\"a\") == True\nassert is_palindrome(\"racecar\") == True\nassert is_palindrome(\"RaceCar\") == True\nassert is_palindrome(\"A man, a plan, a canal: Panama\") == True\nassert is_palindrome(\"12321\") == True\nassert is_palindrome(\"12345\") == False\nassert is_palindrome(\"abcde\") == False\nassert is_palindrome(\"!@#$%^&*()\") == True  # Becomes empty string, which is a palindrome\n\n# --- Tests for center ---\nassert center(\"abc\", 5) == \" abc \"\nasse"
+    }
+   ]
+  },
+  {
+   "id": "qa_ini_parser_improve",
+   "kind": "improve",
+   "difficulty": "hard",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "mutant h6 survives",
+     "secs": 109.0,
+     "tokens": 545,
+     "answer": "```python\n# file: test_solution.py\nfrom ini import parse_ini\n\n# Existing tests\nassert parse_ini(\"\") == {}\nassert parse_ini(\"[a]\\nx=1\\ny = 2\") == {\"a\": {\"x\": \"1\", \"y\": \"2\"}}\nassert parse_ini(\"top=1\\n[s]\\nk=v\") == {\"\": {\"top\": \"1\"}, \"s\": {\"k\": \"v\"}}\nassert parse_ini(\"# c\\n; c2\\n\\n[s]\\n  # indented\\nk=v\") == {\"s\": {\"k\": \"v\"}}\n\n# Test: Section header must end with ']'\ntry:\n    parse_ini(\"[unclosed\")\n    raise AssertionError(\"Should have raised ValueError for unclosed section\")\nexcept ValueError as e:\n    assert \"bad section\" in str(e)\n\n# Test: Line without '=' must raise ValueError\ntry:\n    parse_ini(\"[s]\\nkey_without_equals\")\n    raise AssertionError(\"Should have raised ValueError for missing '='\")\nexcept ValueError as e:\n    assert \"missing '='\" in str(e)\n\n# Test: Repeated keys in same section - last value wins\nassert parse_ini(\"[s]\\nk=v1\\nk=v2\") == {\"s\": {\"k\": \"v2\"}}\n\n# Test: Repeated sections - keys merge\nassert parse_ini(\"[s]\\na=1\\n[s]\\nb=2\") == {\"s\": {\"a\": \"1\", \"b\": \"2\"}}\n\n# Test: Whitespace stripping for keys and values\nassert parse_ini(\"[s]\\n  key  =   value  \") == {\"s\": {\"key\": \"value\"}}\n\n# Test: Section name stripping\nassert parse_ini(\"[  section_name  ]\\nk=v\") == {\"section_name\": {\"k\": \"v\"}}\n\n# Test: Empty values are allowed\nassert parse_ini(\"[s]\\nkey=\") == {\"s\": {\"key\": \"\"}}\n\n# Test: Keys before any section go into section ''\nassert parse_ini(\"k1=v1\\n[s]\\nk2=v2\") == {\"\": {\"k1\": \"v1\"}, \"s\": {\"k2\": \"v2\"}}\n\n# Test: Lines starting with # or ; are ignored even if they have"
+    }
+   ]
+  },
+  {
+   "id": "qa_mutable_default_improve",
+   "kind": "improve",
+   "difficulty": "medium",
+   "solved_at": null,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": false,
+     "parsed": true,
+     "detail": "mutant h7 survives",
+     "secs": 128.1,
+     "tokens": 654,
+     "answer": "```python\n# file: test_solution.py\nfrom tags import add_tag, Counter2, make_report\n\n# --- Tests for add_tag ---\nassert add_tag(\"a\") == [\"a\"]\nassert add_tag(\"b\") == [\"b\"]\nassert add_tag(\"c\") == [\"c\"]\nbase = [\"x\"]\nassert add_tag(\"y\", base) == [\"x\", \"y\"]\nassert base == [\"x\"], \"add_tag mutated the original list\"\nassert add_tag(\"z\", []) == [\"z\"]\n# Check for shared state via default argument mutation\nassert add_tag(\"first\") == [\"first\"]\nassert add_tag(\"second\") == [\"second\"], \"add_tag shares state between calls\"\n\n# --- Tests for Counter2 ---\n# Test initialization and copying\ninitial = {\"a\": 1}\nc1 = Counter2(initial)\nassert c1.snapshot() == {\"a\": 1}\ninitial[\"a\"] = 2\nassert c1.snapshot() == {\"a\": 1}, \"Counter2 aliased the initial dictionary\"\n\n# Test hit and accumulation\nc2 = Counter2()\nc2.hit(\"a\")\nc2.hit(\"a\", 5)\nc2.hit(\"b\")\nassert c2.snapshot() == {\"a\": 6, \"b\": 1}\n\n# Test reset\nc2.reset()\nassert c2.snapshot() == {}\n\n# Test snapshot independence\nc3 = Counter2({\"a\": 1})\nsnap = c3.snapshot()\nc3.hit(\"a\", 1)\nassert snap == {\"a\": 1}, \"snapshot is not a copy\"\nassert c3.snapshot() == {\"a\": 2}\n\n# --- Tests for make_report ---\n# Test basic structure\nreport = make_report(\"Title\", [\"row1\"], \"Footer\")\nassert report == {\"title\": \"Title\", \"rows\": [\"row1\"], \"footer\": \"Footer\"}\n\n# Test default footer\nreport_default = make_report(\"No Footer\")\nassert report_default[\"footer\"] == \"end\"\n\n# Test rows list copying (preventing mutation of input)\nrows_input = [\"a\", \"b\"]\nreport_rows = make_report(\"Report\", row"
+    }
+   ]
+  },
+  {
+   "id": "qa_retry_backoff_regress1",
+   "kind": "regression",
+   "difficulty": "easy",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 22.3,
+     "tokens": 108,
+     "answer": "```python\n# file: test_solution.py\nfrom retry import backoff_delays\n\ndef test_backoff_delays_count():\n    # For 3 attempts, there should be 2 delays (between 1st-2nd and 2nd-3rd)\n    assert backoff_delays(3) == [1.0, 2.0]\n\nif __name__ == \"__main__\":\n    test_backoff_delays_count()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_csv_line_regress1",
+   "kind": "regression",
+   "difficulty": "hard",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 19.2,
+     "tokens": 80,
+     "answer": "```python\n# file: test_solution.py\nfrom csvline import parse_csv_line\n\ndef test_unterminated_quote():\n    try:\n        parse_csv_line('\"abc')\n    except ValueError:\n        return\n    raise AssertionError(\"Did not raise ValueError for unterminated quote\")\n\ntest_unterminated_quote()\n```"
+    }
+   ]
+  },
+  {
+   "id": "qa_brackets_regress1",
+   "kind": "regression",
+   "difficulty": "medium",
+   "solved_at": 1,
+   "candidates": [
+    {
+     "i": 1,
+     "passed": true,
+     "parsed": true,
+     "detail": "all mutants killed",
+     "secs": 31.1,
+     "tokens": 91,
+     "answer": "```python\n# file: test_solution.py\nfrom brackets import first_mismatch\n\ndef test_bug_report():\n    # The bug reports the NEWEST unclosed opener (index 3) instead of the OLDEST (index 1)\n    assert first_mismatch('a(b(c') == 1\n\nif __name__ == \"__main__\":\n    test_bug_report()\n```"
+    }
+   ]
+  }
+ ]
+}
