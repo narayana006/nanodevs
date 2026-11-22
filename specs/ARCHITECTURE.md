@@ -1,4 +1,4 @@
-# tinycoder architecture
+# nanodevs architecture
 
 Goal: an open, private, test-verified coding system built from small customized models, small enough to run in one CPU-only container. It does not try to beat the largest cloud agents on the hardest tasks. It competes on cost, privacy and reliability.
 

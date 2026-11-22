@@ -52,7 +52,7 @@ def run_task(task, model, config=Config()):
         result.update(status="context_rejected", reason=str(error), seconds=time.monotonic() - started)
         return result
     result["context_source_lines"] = context.source_lines
-    with tempfile.TemporaryDirectory(prefix="tinycoder-task-") as tmp:
+    with tempfile.TemporaryDirectory(prefix="nanodevs-task-") as tmp:
         directory = Path(tmp)
         baseline = run_checks(task.source, task.function_name, task.development_cases, directory, min(config.check_timeout, config.task_timeout))
         result["baseline"] = baseline

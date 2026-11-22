@@ -7,7 +7,7 @@ from .resources import verify_limits
 
 
 def main():
-    parser = argparse.ArgumentParser(description="tinycoder step 1: fake-model pipeline proof only")
+    parser = argparse.ArgumentParser(description="nanodevs step 1: fake-model pipeline proof only")
     parser.add_argument("command", choices=["run-fake"])
     parser.add_argument("--scenario", required=True, choices=SCENARIOS)
     parser.add_argument("--tier", required=True, choices=["lite", "standard"])

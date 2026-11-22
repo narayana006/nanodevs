@@ -1,4 +1,4 @@
-# tinycoder: fake-model Docker proof
+# nanodevs: fake-model Docker proof
 
 This is a pipeline milestone, not a model capability benchmark. No model weights, benchmark source files, new images or dependencies were downloaded. All project files and the uv virtualenv are inside `the project directory`.
 

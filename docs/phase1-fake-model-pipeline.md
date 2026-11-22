@@ -1,4 +1,4 @@
-# tinycoder — step 1
+# nanodevs — step 1
 
 A local experiment in verified Python coding with tiny existing models and a fixed Python recipe. No training, external model APIs or publishing.
 

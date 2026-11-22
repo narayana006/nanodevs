@@ -5,12 +5,12 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from tinycoder.checks import run_checks
-from tinycoder.context import EditRejected, apply_function_edit, select_context
-from tinycoder.fixtures import CORRECT, SCENARIOS, SOURCE, fixture
-from tinycoder.harness import Config, run_task
-from tinycoder.models import FakeModel, OUTPUT_SCHEMA, OutputRejected, Reply, code_reply, parse_reply
-from tinycoder.resources import verify_limits
+from nanodevs.checks import run_checks
+from nanodevs.context import EditRejected, apply_function_edit, select_context
+from nanodevs.fixtures import CORRECT, SCENARIOS, SOURCE, fixture
+from nanodevs.harness import Config, run_task
+from nanodevs.models import FakeModel, OUTPUT_SCHEMA, OutputRejected, Reply, code_reply, parse_reply
+from nanodevs.resources import verify_limits
 
 
 class TestOutputContract(unittest.TestCase):

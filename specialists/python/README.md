@@ -1,4 +1,4 @@
-# tinycoder / python specialist: training-task factory
+# nanodevs / python specialist: training-task factory
 
 Deterministic, original, sandbox-validated Python coding tasks for fine-tuning the `python` specialist.
 No model calls, no network. Every task ships a starting code base, hidden tests and a reference solution, and

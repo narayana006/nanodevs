@@ -1,8 +1,8 @@
-# tinycoder
+# nanodevs
 
 Open, private, test-verified coding models small enough to run in one CPU-only Docker container.
 
-Instead of one giant model, tinycoder uses **ten small customized models**, one per task, all built on a single shared open base model (Gemma 4 26B A4B, Apache 2.0). A plain-code router picks the right specialist, and every answer is checked by running real tests in a locked-down sandbox before it is kept.
+Instead of one giant model, nanodevs uses **ten small customized models**, one per task, all built on a single shared open base model (Gemma 4 26B A4B, Apache 2.0). A plain-code router picks the right specialist, and every answer is checked by running real tests in a locked-down sandbox before it is kept.
 
 | Model | Task |
 |---|---|

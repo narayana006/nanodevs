@@ -10,8 +10,8 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from tinycoder.fixtures import SCENARIOS
-from tinycoder.resources import TIERS
+from nanodevs.fixtures import SCENARIOS
+from nanodevs.resources import TIERS
 
 
 def docker(*args, timeout=60, check=True):
@@ -83,7 +83,7 @@ def main():
     args = parser.parse_args()
     output = (ROOT / args.output).resolve()
     if not output.is_relative_to(ROOT):
-        parser.error("Report output must stay inside tinycoder")
+        parser.error("Report output must stay inside nanodevs")
     output.parent.mkdir(parents=True, exist_ok=True)
     image_info = json.loads(docker("image", "inspect", args.image).stdout)[0]
     image = image_info["Id"]
@@ -94,7 +94,7 @@ def main():
     report = {"schema_version": 1, "mode": "fake_pipeline_only", "model_pass_rate": None, "decision_gate": "not_evaluated_no_real_model", "created_at_utc": datetime.now(timezone.utc).isoformat(), "image_id": image, "image_reference": args.image, "docker": version, "records": records, "notice": "These scripted fault-injection fixtures prove pipeline behavior; they are NOT QuixBugs results or model accuracy measurements. Each fixture runs in a fresh container. Cached personal-project image is a temporary interpreter donor for fake validation only; no application code is invoked."}
     for tier, memory in TIERS.items():
         for scenario in SCENARIOS:
-            run = run_container(image, memory, ["-m", "tinycoder", "run-fake", "--scenario", scenario, "--tier", tier])
+            run = run_container(image, memory, ["-m", "nanodevs", "run-fake", "--scenario", scenario, "--tier", tier])
             result = classify(run)
             # Keep raw output separately on failure; successful JSON is already stored.
             raw = run.pop("stdout")
