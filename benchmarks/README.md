@@ -71,3 +71,17 @@ Gemma 26B A4B generates about 9.0 tokens/s and reads prompts at about 27 tokens/
 
 ## Reproduce
 `phase0/validate2.py` checks that every task is sound (starting code fails, reference solution passes). `phase0/run_round2.sh` runs the models. See `phase0/harness2.py` for the sandbox and grading.
+
+## Planner: first trained adapter vs base (held-out families)
+Trained on 146 reference plans (rank 8, attention + dense MLP, 100 iterations), tested on 60 tasks from 7 families never seen in training. Same grader and prompts for both.
+
+| | Base | Adapter |
+|---|---|---|
+| Strict pass (every component perfect) | 12/60 | 5/60 |
+| Mean score | 0.665 | 0.793 |
+| Plans failing the format gate | 7 | 4 |
+| Acceptance criteria | 0.51 | 0.93 |
+| Specialist choice | 0.87 | 0.95 |
+| Step count | 0.73 | 0.58 |
+
+Mixed result: plan quality and format improved, but the wrong number of steps cost strict passes. Not released. Reference plans are template-built, so part of the gain may be learning the template. Training stopped early (a GPU error at iteration 153; the iteration-100 checkpoint was used).
