@@ -85,3 +85,15 @@ Trained on 146 reference plans (rank 8, attention + dense MLP, 100 iterations), 
 | Step count | 0.73 | 0.58 |
 
 Mixed result: plan quality and format improved, but the wrong number of steps cost strict passes. Not released. Reference plans are template-built, so part of the gain may be learning the template. Training stopped early (a GPU error at iteration 153; the iteration-100 checkpoint was used).
+
+## In a CPU-only Docker container (Docker Desktop on an Apple M1 Max, linux/arm64)
+Official llama.cpp server image, base model Gemma 4 26B A4B Q4_K_M (15.6 GB file), 4 CPUs, 22 GB memory limit, no GPU, no adapter.
+
+| | Result |
+|---|---|
+| Fits and runs | yes; model loaded in 43 s from a local file |
+| Memory used | 16.0 GiB |
+| Generation | about 4.0 tokens/s (one cold 128-token request) |
+| Prompt reading | about 5 tokens/s (one 29-token prompt; too short to be representative) |
+
+Limits: one request, so treat the speeds as rough. This is slower than the 9 tokens/s measured directly on the host with 4 threads, probably because of the Docker Desktop virtual machine and a cold start. The 4, 8 and 16 GB tiers cannot hold this 15.6 GB model; small tiers need a smaller base model. Not yet tested: 8 to 16 CPUs, a warm run, long prompts, and adapters loaded.
